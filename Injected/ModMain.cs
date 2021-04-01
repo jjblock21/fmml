@@ -127,6 +127,9 @@ public class ModMain : MonoBehaviour
                 else Mouse.MouseEvent(Mouse.MouseEventFlags.RightDown);
             }
         }
+
+        // Ignite All
+        if (Input.GetKeyDown(KeyCode.K)) IgniteAll();
     }
 
     #endregion
@@ -186,6 +189,8 @@ public class ModMain : MonoBehaviour
             cToggle.SetState(false);
         }
         eActive = eToggle.Toggle(UIHelper.Button("Delete Tool", eActive));
+        UIHelper.Space(20);
+        if (UIHelper.Button("Ignite Everything")) IgniteAll();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -214,6 +219,8 @@ public class ModMain : MonoBehaviour
         UIHelper.Label("Autoclicker Hack:\nR: Click every second Frame.");
         UIHelper.Space(10);
         UIHelper.Label("Delete Tool:\nV: Delete literally anything!");
+        UIHelper.Space(10);
+        UIHelper.Label("Ignite Everything:\nK: Ignite everything.");
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -262,13 +269,20 @@ public class ModMain : MonoBehaviour
 
     #region Features
 
+    private void IgniteAll()
+    {
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.GetComponent<IIgniteable>() != null)
+                obj.GetComponent<IIgniteable>().Ignite(2500);
+        }
+    }
+
     private void SpawnFire(GameObject obj)
     {
         IFlammable flammeable = obj.GetComponent<IFlammable>();
         if (flammeable != null)
-        {
             flammeable.ApplyFireForce(2500f);
-        }
     }
 
     private void Clone(Collider collider, Vector3 hitPoint)

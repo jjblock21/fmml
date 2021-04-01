@@ -8,9 +8,9 @@ namespace Injected
         public static void Init()
         {
             UnityEngine.Application.runInBackground = true;
-            Loader.Load = new GameObject("Mod");
-            Loader.Load.AddComponent<ModMain>();
-            Loader.Load.transform.parent = null;
+            Load = new GameObject("Mod");
+            Load.AddComponent<ModMain>();
+            Load.transform.parent = null;
             Object.DontDestroyOnLoad(Loader.Load);
         }
 
