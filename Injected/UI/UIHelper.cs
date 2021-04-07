@@ -36,6 +36,13 @@ namespace Injected.UI
             return r;
         }
 
+        private static Rect NextControlRect(float height)
+        {
+            Rect r = new Rect(x + margin, nextControlY, width - margin * 2, height);
+            nextControlY += height + controlDist;
+            return r;
+        }
+
         public static void Space() => nextControlY += controlHeight + controlDist;
         public static void Space(int space) => nextControlY += space;
         public static string MakeEnable(string text, bool state) => string.Format("{0} {1}", text, state ? "ON" : "OFF");
@@ -45,6 +52,8 @@ namespace Injected.UI
         public static bool Button(string text, string text2, bool state) => Button(MakeEnable(text, text2, state));
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
         public static void Label(string text) => GUI.Label(NextControlRect(), text);
+        public static void Label(string text, float height) => GUI.Label(NextControlRect(height), text);
+
         public static float Slider(float val, float min, float max) => GUI.HorizontalSlider(NextControlRect(), val, min, max);
 
         private static Rect BottomSpaceRect()

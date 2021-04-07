@@ -46,6 +46,9 @@ public class ModMain : MonoBehaviour
 
         // Init the Pagesystem.
         AddPages();
+
+        // Init the SUPER SONIC AUTOCKLICKER!
+        Mouse.InitSuperSonicAutoClicker();
     }
     #endregion
 
@@ -130,6 +133,17 @@ public class ModMain : MonoBehaviour
 
         // Ignite All
         if (Input.GetKeyDown(KeyCode.K)) IgniteAll();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            Tool.SetSelectedTool(SelectedTool.PhysicsTool);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            Tool.SetSelectedTool(SelectedTool.Torch);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            Tool.SetSelectedTool(SelectedTool.FuseTool);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            Tool.SetSelectedTool(SelectedTool.None);
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            Tool.SetSelectedTool(SelectedTool.DeleteTool);
     }
 
     #endregion
@@ -209,7 +223,7 @@ public class ModMain : MonoBehaviour
     //Page 3
     private void ControllsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 500, 25, 35, 10, 50, 10);
         UIHelper.Label("F1: Show/Hide the Menu.");
         UIHelper.Space(10);
         UIHelper.Label("Flamethrower Tool:\nC: Ingite Flammable Material.");
@@ -221,6 +235,12 @@ public class ModMain : MonoBehaviour
         UIHelper.Label("Delete Tool:\nV: Delete literally anything!");
         UIHelper.Space(10);
         UIHelper.Label("Ignite Everything:\nK: Ignite everything.");
+        UIHelper.Space(10);
+        UIHelper.Label("Fast navigation:\n" +
+            "1: Physics Tool, 2: Lighter,\n" +
+            "3: Fuse Tool, 4: Clear view\n" +
+            "5: Eraser Tool", 50
+        );
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
