@@ -23,8 +23,6 @@ namespace Injected.UI
                 TpX = DialogHelper.Input(TpX);
                 TpY = DialogHelper.Input(TpY);
                 TpZ = DialogHelper.Input(TpZ);
-                if (DialogHelper.Button("Presets")) isSelectionState = true;
-                DialogHelper.Space(30);
                 if (DialogHelper.Button("Teleport"))
                 {
                     if (float.TryParse(TpX, out float x) && float.TryParse(TpY, out float y) && float.TryParse(TpZ, out float z))
@@ -32,6 +30,8 @@ namespace Injected.UI
                     Teleport(tpPos);
                     PageSystem.RemoveActiveDialog();
                 }
+                DialogHelper.Space(20);
+                if (DialogHelper.Button("Presets")) isSelectionState = true;
                 if (DialogHelper.BottomNavigationButton("Cancel")) PageSystem.RemoveActiveDialog();
             }
             else

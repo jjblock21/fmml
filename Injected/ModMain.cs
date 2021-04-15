@@ -131,6 +131,12 @@ public class ModMain : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Y) && acActive)
+        {
+            Mouse.ssacLeft = !acButtonLeft;
+            Mouse.ToggleSuperSonicAutoClicker();
+        }
+
         // Ignite All
         if (Input.GetKeyDown(KeyCode.K)) IgniteAll();
 
@@ -196,12 +202,12 @@ public class ModMain : MonoBehaviour
             ccActive = false;
             ccToggle.SetState(false);
         }
-        if (UIHelper.Button("Crazy Cloner", ccActive))
+        /*if (UIHelper.Button("Crazy Cloner", ccActive))
         {
             ccActive = ccToggle.Toggle(true);
             clonerActive = false;
             cToggle.SetState(false);
-        }
+        }*/
         eActive = eToggle.Toggle(UIHelper.Button("Delete Tool", eActive));
         UIHelper.Space(20);
         if (UIHelper.Button("Ignite Everything")) IgniteAll();
@@ -223,7 +229,7 @@ public class ModMain : MonoBehaviour
     //Page 3
     private void ControllsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 500, 25, 35, 10, 50, 10);
+        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 550, 25, 35, 10, 50, 10);
         UIHelper.Label("F1: Show/Hide the Menu.");
         UIHelper.Space(10);
         UIHelper.Label("Flamethrower Tool:\nC: Ingite Flammable Material.");
@@ -231,6 +237,7 @@ public class ModMain : MonoBehaviour
         UIHelper.Label("Cloning Machine Tool:\nX: Clone object (For both clone tools)");
         UIHelper.Space(10);
         UIHelper.Label("Autoclicker Hack:\nR: Click every second Frame.");
+        UIHelper.Label("Super Fast Autoclicker:\nY: Click 250 times a second.");
         UIHelper.Space(10);
         UIHelper.Label("Delete Tool:\nV: Delete literally anything!");
         UIHelper.Space(10);
