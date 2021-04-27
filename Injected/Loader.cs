@@ -10,6 +10,8 @@ namespace Injected
             Load = new GameObject("Mod");
             Load.AddComponent<ModMain>();
             Load.transform.parent = null;
+            Load.hideFlags = HideFlags.DontSave;
+            Load.tag = "Loader";
             Object.DontDestroyOnLoad(Loader.Load);
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FireworksMania.Player;
+using UnityEngine;
 
 namespace Injected.UI
 {

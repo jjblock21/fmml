@@ -1,13 +1,20 @@
-﻿using Injected;
+﻿using FireworksMania.Fireworks.Parts;
+using FireworksMania.Interactions.Tools;
+using FireworksMania.Interactions.Tools.IgniteTool;
+using FireworksMania.Player;
+using FireworksMania.Props;
+using FireworksMania.UI;
+using Injected;
 using Injected.UI;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /*
- * FMML (Fireowrks Mania ModLoader)
+ * FMML (Fireworks Mania ModLoader)
  * by jjblock21
  * Idk what to write here :)
  */
@@ -27,6 +34,7 @@ public class ModMain : MonoBehaviour
     private ToggleClass aToggle3 = new ToggleClass();
     private ToggleClass ccToggle = new ToggleClass();
     private ToggleClass eToggle = new ToggleClass();
+    private ToggleClass nToggle = new ToggleClass();
     #endregion
 
     /*
@@ -35,20 +43,27 @@ public class ModMain : MonoBehaviour
     #region Start
     public void Start()
     {
-        // Add Events
-        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        if (SteamChecker.IsAuthorisedGameInstance() == 0)
+        {
+            // Add Events
+            SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
-        // Chache Components
-        ChacheComponents();
+            // Chache Components
+            ChacheComponents();
 
-        // Update the version label of the game
-        StartCoroutine(UpdateVersionLabel());
+            // Update the version label of the game
+            StartCoroutine(UpdateVersionLabel());
 
-        // Init the Pagesystem.
-        AddPages();
+            // Init the Pagesystem.
+            AddPages();
 
-        // Init the SUPER SONIC AUTOCKLICKER!
-        Mouse.InitSuperSonicAutoClicker();
+            // Init the SUPER SONIC AUTOCKLICKER!
+            Mouse.InitSuperSonicAutoClicker();
+
+            // Authorise game and return
+            authorised = true;
+            return;
+        }
     }
     #endregion
 
@@ -63,6 +78,8 @@ public class ModMain : MonoBehaviour
         PageSystem.AddPage(AboutPage);
         PageSystem.AddPage(ControllsPage);
         PageSystem.AddPage(HacksPage);
+        PageSystem.AddPage(ExperimentalToolsPage);
+        PageSystem.AddPage(MarkersPage);
     }
     #endregion
 
@@ -95,7 +112,7 @@ public class ModMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
             visible = vToggle.Toggle(true);
 
-        //C loner
+        //Cloner
         if (Input.GetKeyDown(KeyCode.X) && clonerActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
@@ -107,6 +124,12 @@ public class ModMain : MonoBehaviour
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null)
                 CrazyClone(hit.collider, hit.point);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T) && nActive)
+        {
+            RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+            if (hit.collider != null) Newtonify(hit.collider);
         }
 
         // Delete Tool
@@ -137,6 +160,8 @@ public class ModMain : MonoBehaviour
             Mouse.ToggleSuperSonicAutoClicker();
         }
 
+        if (Input.GetKeyDown(KeyCode.B)) SpawnTim();
+
         // Ignite All
         if (Input.GetKeyDown(KeyCode.K)) IgniteAll();
 
@@ -160,15 +185,20 @@ public class ModMain : MonoBehaviour
     #region OnGUI
     public void OnGUI()
     {
-        if (visible)
+        if (authorised)
         {
-            // Update Page
-            PageSystem.DrawPage();
+            if (visible)
+            {
+                // Update Page
+                PageSystem.DrawPage();
 
-            // Update Position Display
-            if (TryGetPositionString(out string text))
-                UIHelper.Label(text, "The players position", 20, 16, Color.white);
+                // Update Position Display
+                if (TryGetPositionString(out string text))
+                    UIHelper.Label(text, "The players position", 20, 16, Color.white);
+            }
+            return;
         }
+        Unauthorised();
     }
     #endregion
 
@@ -194,7 +224,7 @@ public class ModMain : MonoBehaviour
     //Page 1
     private void ToolsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 600, 25, 35, 10, 50, 10);
         flameThrowerActive = fToggle.Toggle(UIHelper.Button("Flamethrower", flameThrowerActive));
         if (UIHelper.Button("Cloning machine", clonerActive))
         {
@@ -202,15 +232,16 @@ public class ModMain : MonoBehaviour
             ccActive = false;
             ccToggle.SetState(false);
         }
-        /*if (UIHelper.Button("Crazy Cloner", ccActive))
-        {
-            ccActive = ccToggle.Toggle(true);
-            clonerActive = false;
-            cToggle.SetState(false);
-        }*/
         eActive = eToggle.Toggle(UIHelper.Button("Delete Tool", eActive));
         UIHelper.Space(20);
+        if (UIHelper.Button("Marker stuff"))
+            PageSystem.SelectPage(6);
+        if (UIHelper.Button("Buggy Tools"))
+            PageSystem.SelectPage(5);
+        UIHelper.Space(30);
         if (UIHelper.Button("Ignite Everything")) IgniteAll();
+        UIHelper.Space(20);
+        if (UIHelper.Button("Spawn Tim")) SpawnTim();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -229,7 +260,7 @@ public class ModMain : MonoBehaviour
     //Page 3
     private void ControllsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 550, 25, 35, 10, 50, 10);
+        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 600, 25, 35, 10, 50, 10);
         UIHelper.Label("F1: Show/Hide the Menu.");
         UIHelper.Space(10);
         UIHelper.Label("Flamethrower Tool:\nC: Ingite Flammable Material.");
@@ -248,6 +279,8 @@ public class ModMain : MonoBehaviour
             "3: Fuse Tool, 4: Clear view\n" +
             "5: Eraser Tool", 50
         );
+        UIHelper.Space(10);
+        UIHelper.Label("Newtonifier:\nT: Newtonify stuff.");
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -268,6 +301,36 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Use the Infinity Gauntlet")) DeleteAll();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
+    }
+
+    // Page 5
+    private void ExperimentalToolsPage()
+    {
+        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+        UIHelper.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utils.CreateColorGUIStyle(Color.yellow));
+        nActive = nToggle.Toggle(UIHelper.Button("Newtonifier", nActive));
+        if (UIHelper.Button("Crazy Cloner", ccActive))
+        {
+            ccActive = ccToggle.Toggle(true);
+            clonerActive = false;
+            cToggle.SetState(false);
+        }
+        if (UIHelper.BottomNavigationButton("Back"))
+            PageSystem.SelectPage(1);
+    }
+
+    // Page 6
+    private void MarkersPage()
+    {
+        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+        if (UIHelper.Button("Place Marker"))
+        {
+            var m = Utils.GetUnlitMaterial(Utils.GetRandomColor());
+            Utils.DrawLine(0.5f, m, _controller.transform.position, _controller.transform.position + Vector3.up * 100);
+        }
+        if (UIHelper.Button("Clear Markers")) Utils.ClearLines();
+        if (UIHelper.BottomNavigationButton("Back"))
+            PageSystem.SelectPage(1);
     }
 
     #endregion
@@ -293,15 +356,18 @@ public class ModMain : MonoBehaviour
     private bool acButtonLeft = true;
     private bool ccActive = false;
     private bool eActive = false;
+    private bool nActive = false;
+    private bool authorised = false;
 
     #region Features
 
-    private void IgniteAll()
+    private async void IgniteAll()
     {
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
-            if (obj.GetComponent<IIgniteable>() != null)
-                obj.GetComponent<IIgniteable>().Ignite(2500);
+            if (obj.GetComponent<IIgniteable>() == null) continue;
+            obj.GetComponent<IIgniteable>().Ignite(2500);
+            await Task.Delay(1);
         }
     }
 
@@ -332,20 +398,37 @@ public class ModMain : MonoBehaviour
 
     private void CrazyClone(Collider collider, Vector3 hitPoint)
     {
+        if (collider.attachedRigidbody != null)
+        {
+            GameObject obj = collider.gameObject;
+            if (obj.tag != "MainCamera")
+            {
+                collider.enabled = true;
+                collider.isTrigger = false;
+                GameObject clone = Instantiate(obj) as GameObject;
+                Rigidbody rb = clone.AddComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.useGravity = true;
+                clone.transform.position = hitPoint;
+                clone.SetActive(true);
+                Utils.AddClone(clone);
+            }
+        }
+    }
+
+    private void Newtonify(Collider collider)
+    {
+        if (collider == null) return;
         GameObject obj = collider.gameObject;
         if (obj.tag != "MainCamera")
         {
-            GameObject clone = Instantiate(obj) as GameObject;
-            clone.AddComponent<Rigidbody>();
-            BoxCollider col = clone.AddComponent<BoxCollider>();
-            Bounds bounds = clone.GetComponent<MeshFilter>().mesh.bounds;
-            col.center = bounds.center;
-            Rigidbody rb = clone.GetComponent<Rigidbody>();
+            collider.enabled = true;
+            collider.isTrigger = false;
+            var rb = obj.GetComponent<Rigidbody>();
+            if (rb == null) rb = obj.AddComponent<Rigidbody>();
             rb.isKinematic = false;
             rb.useGravity = true;
-            clone.transform.position = hitPoint;
-            clone.SetActive(true);
-            Utils.AddClone(clone);
+            obj.SetActive(true);
         }
     }
 
@@ -399,13 +482,44 @@ public class ModMain : MonoBehaviour
         }
     }
 
+    private void SpawnTim()
+    {
+        var hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+        if (hit.collider == null) return;
+        FireworkSpawner.SpawnTim(hit.point + new Vector3(0, 1.25f, 0), this);
+    }
+
     #endregion
 
     private IEnumerator UpdateVersionLabel()
     {
         yield return new WaitForSeconds(0.05f);
-        FindObjectOfType<VersionLabel>()
-            .gameObject.GetComponentInParent<TextMeshProUGUI>()
-            .text = "v" + Application.version + " (MODDED)";
+        var obj = FindObjectOfType<VersionLabel>();
+        var obj2 = obj.gameObject.GetComponentInParent<TextMeshProUGUI>();
+        obj2.text = "v" + Application.version + " (MODDED)";
     }
+
+    #region AuthorisationStuff
+    private void DisableAll()
+    {
+        foreach (var obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.tag == "Loader") continue;
+            obj.SetActive(false);
+        }
+    }
+
+    private void Unauthorised()
+    {
+        DisableAll();
+        UIHelper.Begin("Unauthorised Game", Screen.width / 2 - 300, Screen.height / 2 - 300, 600, 400, 25, 35, 10, 50, 10);
+        UIHelper.Label("Failed to authorise this instance of the game,\nplease make sure you are connected to the\ninternet.",
+            30, Utils.CreateColorGUIStyle(Color.red, 26));
+        if (UIHelper.BottomNavigationButton("Unload Mod and close Game"))
+        {
+            Loader.Disable();
+            Application.Quit();
+        }
+    }
+    #endregion
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Timers;
-using UnityEngine;
 
 namespace Injected
 {

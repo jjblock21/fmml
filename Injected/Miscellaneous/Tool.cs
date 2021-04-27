@@ -1,4 +1,5 @@
-﻿using Injected.Reflection;
+﻿using FireworksMania.Common;
+using FireworksMania.UI.ToolsMenu;
 using System;
 using System.Reflection;
 using UnityEngine;
@@ -63,7 +64,7 @@ namespace Injected
         [Obsolete]
         private static void BroadcasatToolEvent(ToolMenuItemSelectedMessengerEvent.ToolMenuItemType type)
         {
-            var reflector = new FMAssemblyReflector();
+            //var reflector = new FMAssemblyReflector();
             /*
             var types = new[] { typeof(string), typeof(object) };
             var assemblyType = reflector.GetAssemblyType("Messenger");
@@ -82,7 +83,7 @@ namespace Injected
                 typeof(ToolMenuItemSelectedMessengerEvent)
             );
             */
-            var assembly = reflector.GetAssembly();
+            /*var assembly = reflector.GetAssembly();
             var t = assembly.CreateInstance("Messenger").GetType();
             var method = reflector.GetMethod(t, "Broadcast", new[] { typeof(string), typeof(ToolMenuItemSelectedMessengerEvent) }, BindingFlags.Static | BindingFlags.Public);
             if (method == null) Debug.LogError("METHOD was null");
@@ -94,7 +95,7 @@ namespace Injected
                     new ToolMenuItemSelectedMessengerEvent(type)
                 },
                 typeof(ToolMenuItemSelectedMessengerEvent)
-            );
+            );*/
         }
     }
 

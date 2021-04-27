@@ -57,9 +57,9 @@
     <ApplicationIcon>FMML2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DarkUI, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="JControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DarkUI.dll</HintPath>
+      <HintPath>..\..\..\..\Workspace [madatory]\JLib\JCodeLibrary\JControls\JControls\bin\Debug\JControls.dll</HintPath>
     </Reference>
     <Reference Include="SharpMonoInjector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FailHandler.cs" />
+    <Compile Include="Feedback.cs" />
     <Compile Include="InjectionUtil.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>

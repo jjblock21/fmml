@@ -1,5 +1,4 @@
-﻿using FireworksGame.Input;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Injected.UI
@@ -24,7 +23,7 @@ namespace Injected.UI
             margin = _margin;
             controlHeight = _controlHeight;
             controlDist = _controlDist;
-            nextControlY = contolStartY;
+            nextControlY = contolStartY + y;
             bottomOffset = bottomWidgetOffset;
             GUI.Box(new Rect(x, y, width, height), text);
         }
@@ -53,12 +52,17 @@ namespace Injected.UI
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
         public static void Label(string text) => GUI.Label(NextControlRect(), text);
         public static void Label(string text, float height) => GUI.Label(NextControlRect(height), text);
+        public static void Label(string text, float height, GUIStyle style, string toolTip = "")
+        {
+            var content = new GUIContent(text, toolTip);
+            GUI.Label(NextControlRect(height), content, style);
+        }
 
         public static float Slider(float val, float min, float max) => GUI.HorizontalSlider(NextControlRect(), val, min, max);
 
         private static Rect BottomSpaceRect()
         {
-            Rect r = new Rect(x + margin, height - (bottomOffset + controlHeight), width - margin * 2, controlHeight);
+            Rect r = new Rect(x + margin, (y + height) - (bottomOffset + controlHeight), width - margin * 2, controlHeight);
             return r;
         }
 

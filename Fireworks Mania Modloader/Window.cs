@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using DarkUI.Forms;
 using JumpinFrog.ProcessChecker;
 
 namespace Fireworks_Mania_Modloader
 {
-    public partial class Window : DarkForm
+    public partial class Window : Form
     {
         public static string path = Directory.GetCurrentDirectory() + @"\Injected.dll";
         private static Process process;
@@ -39,14 +39,15 @@ namespace Fireworks_Mania_Modloader
 
             if (process != null)
             {
-                if (InjectionUtil.Inject(process, path, out IntPtr value))
+                var fb = InjectionUtil.Inject(process, path, out IntPtr value);
+                if (fb.WasSuccessful)
                 {
                     injected = value;
                     WindowState = FormWindowState.Minimized;
                 }
                 else
                 {
-                    FailHandler.HandleException("Failed to inject the assembly.");
+                    FailHandler.HandleException("Failed to inject the assembly.\n" + fb.ErrorDescription);
                     LoadProcesses();
                 }
             }
@@ -83,12 +84,48 @@ namespace Fireworks_Mania_Modloader
         {
             if (process != null && injected != IntPtr.Zero && injected != new IntPtr())
             {
-                if (!InjectionUtil.Eject(process, injected))
+                var fb = InjectionUtil.Eject(process, injected);
+                if (!fb.WasSuccessful)
                 {
-                    FailHandler.HandleException("Failed to eject the assembly.");
+                    FailHandler.HandleException("Failed to eject the assembly.\n" + fb.ErrorDescription);
                     LoadProcesses();
                 }
             }
+        }
+
+        private void status_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void simpleGradientPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void discordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://discord.gg/WDWJ4RW5Qz");
+        }
+
+        private void refreshButton_MouseEnter(object sender, EventArgs e)
+        {
+            refreshButton.FlatAppearance.BorderColor = Color.Silver;
+        }
+
+        private void refreshButton_MouseLeave(object sender, EventArgs e)
+        {
+            refreshButton.FlatAppearance.BorderColor = Color.White;
+        }
+
+        private void discordLink_MouseEnter(object sender, EventArgs e)
+        {
+            discordLink.LinkColor = Color.Gainsboro;
+        }
+
+        private void discordLink_MouseLeave(object sender, EventArgs e)
+        {
+            discordLink.LinkColor = Color.White;
         }
     }
 }
