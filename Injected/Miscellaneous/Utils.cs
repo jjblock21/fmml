@@ -59,6 +59,11 @@ namespace Injected
             return lines.Count - 1;
         }
 
+        public static void RemoveLine(int index)
+        {
+            Object.Destroy(lines[index]);
+        }
+
         public static void ClearLines()
         {
             foreach (GameObject obj in lines)
@@ -83,5 +88,18 @@ namespace Injected
         public static void DestroyLine(int index) => Object.Destroy(lines[index]);
 
         public static Color GetRandomColor() => Random.ColorHSV(0, 1, 0.5f, 1, 1, 1);
+
+        public static int TryDrawDebugLine(Vector3 origin, Vector3 direction, Color color, int prev, Vector3 rayOrigin)
+        {
+            if (prev == -1) goto drawLine;
+            RemoveLine(prev);
+        drawLine:
+            if (Physics.Raycast(new Ray(rayOrigin, direction), out RaycastHit hitinfo))
+            {
+                Vector3 endPoint = hitinfo.point;
+                return DrawLine(0.0025f, GetUnlitMaterial(color), origin, endPoint);
+            }
+            else return -1;
+        }
     }
 }

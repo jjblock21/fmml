@@ -94,6 +94,9 @@ public class ModMain : MonoBehaviour
     }
     #endregion
 
+    private int prevDebugLine = -1;
+    private bool drawDebugLine = false;
+
     /*
      * The Update function, this is where most of the stuff is happening.
      */
@@ -163,7 +166,7 @@ public class ModMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B)) SpawnTim();
 
         // Ignite All
-        if (Input.GetKeyDown(KeyCode.K)) IgniteAll();
+        if (Input.GetKeyDown(KeyCode.K)) IgniteAll(false);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Tool.SetSelectedTool(SelectedTool.PhysicsTool);
@@ -175,6 +178,16 @@ public class ModMain : MonoBehaviour
             Tool.SetSelectedTool(SelectedTool.None);
         if (Input.GetKeyDown(KeyCode.Alpha5))
             Tool.SetSelectedTool(SelectedTool.DeleteTool);
+
+        // Draw Debug Line
+        if (flameThrowerActive || clonerActive || eActive) drawDebugLine = true;
+        else
+        {
+            drawDebugLine = false;
+            Utils.RemoveLine(prevDebugLine);
+            prevDebugLine = -1;
+        }
+        if (drawDebugLine) prevDebugLine = Utils.TryDrawDebugLine(_cam.transform.position - new Vector3(0, 0.25f, 0), _cam.transform.forward, Color.red, prevDebugLine, _cam.transform.position);
     }
 
     #endregion
@@ -239,7 +252,8 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Buggy Tools"))
             PageSystem.SelectPage(5);
         UIHelper.Space(30);
-        if (UIHelper.Button("Ignite Everything")) IgniteAll();
+        if (UIHelper.Button("Ignite Everything")) IgniteAll(true);
+        if (UIHelper.Button("Instantly Ignite Everything")) IgniteAll(false);
         UIHelper.Space(20);
         if (UIHelper.Button("Spawn Tim")) SpawnTim();
         if (UIHelper.BottomNavigationButton("Back"))
@@ -361,13 +375,13 @@ public class ModMain : MonoBehaviour
 
     #region Features
 
-    private async void IgniteAll()
+    private async void IgniteAll(bool delayed)
     {
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
             if (obj.GetComponent<IIgniteable>() == null) continue;
             obj.GetComponent<IIgniteable>().Ignite(2500);
-            await Task.Delay(1);
+            if (delayed) await Task.Delay(1);
         }
     }
 

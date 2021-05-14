@@ -46,7 +46,7 @@ namespace Injected.UI
                 }
                 if (DialogHelper.Button("Tim - Ranch"))
                 {
-                    Teleport(new Vector3(-44f, -6.5f, -17.5f));
+                    Teleport(new Vector3(-44f, 0.5f, -17.5f));
                     PageSystem.RemoveActiveDialog();
                 }
                 if (DialogHelper.Button("Flamingo - Town"))
@@ -56,7 +56,7 @@ namespace Injected.UI
                 }
                 if (DialogHelper.Button("Wind Turbine - Ranch"))
                 {
-                    Teleport(new Vector3(-70.6f, 40.5f, -242.5f));
+                    Teleport(new Vector3(-69.6f, 47.5f, -240.0f));
                     PageSystem.RemoveActiveDialog();
                 }
                 if (DialogHelper.BottomNavigationButton("Back")) isSelectionState = false;
