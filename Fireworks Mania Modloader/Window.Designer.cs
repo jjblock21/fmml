@@ -36,12 +36,12 @@ namespace Fireworks_Mania_Modloader
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.discordLink = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
-            this.refreshButton = new System.Windows.Forms.Button();
             this.injectButton = new System.Windows.Forms.Button();
             this.ejectButton = new System.Windows.Forms.Button();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
+            this.refreshButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -80,31 +80,51 @@ namespace Fireworks_Mania_Modloader
             this.discordLink.MouseEnter += new System.EventHandler(this.discordLink_MouseEnter);
             this.discordLink.MouseLeave += new System.EventHandler(this.discordLink_MouseLeave);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Fireworks_Mania_Modloader.Properties.Resources.img;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
-            // 
             // simpleGradientPanel1
             // 
+            resources.ApplyResources(this.simpleGradientPanel1, "simpleGradientPanel1");
             this.simpleGradientPanel1.Angle = 90F;
             this.simpleGradientPanel1.DoubleTitled = false;
             this.simpleGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            resources.ApplyResources(this.simpleGradientPanel1, "simpleGradientPanel1");
             this.simpleGradientPanel1.Name = "simpleGradientPanel1";
             this.simpleGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             this.simpleGradientPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.simpleGradientPanel1_Paint);
             // 
+            // injectButton
+            // 
+            resources.ApplyResources(this.injectButton, "injectButton");
+            this.injectButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.injectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.injectButton.Name = "injectButton";
+            this.injectButton.UseVisualStyleBackColor = false;
+            this.injectButton.Click += new System.EventHandler(this.injectButton_Click);
+            // 
+            // ejectButton
+            // 
+            resources.ApplyResources(this.ejectButton, "ejectButton");
+            this.ejectButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.ejectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.ejectButton.Name = "ejectButton";
+            this.ejectButton.UseVisualStyleBackColor = false;
+            this.ejectButton.Click += new System.EventHandler(this.ejectButton_Click);
+            // 
+            // simpleTransparentGradientPanel1
+            // 
+            resources.ApplyResources(this.simpleTransparentGradientPanel1, "simpleTransparentGradientPanel1");
+            this.simpleTransparentGradientPanel1.Angle = 90F;
+            this.simpleTransparentGradientPanel1.DoubleTitled = false;
+            this.simpleTransparentGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.simpleTransparentGradientPanel1.Name = "simpleTransparentGradientPanel1";
+            this.simpleTransparentGradientPanel1.StartColor = System.Drawing.Color.Transparent;
+            // 
             // refreshButton
             // 
+            resources.ApplyResources(this.refreshButton, "refreshButton");
             this.refreshButton.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.refreshButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.refreshButton.FlatAppearance.BorderSize = 2;
             this.refreshButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.refreshButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.refreshButton, "refreshButton");
             this.refreshButton.ForeColor = System.Drawing.Color.White;
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.UseCompatibleTextRendering = true;
@@ -113,32 +133,12 @@ namespace Fireworks_Mania_Modloader
             this.refreshButton.MouseEnter += new System.EventHandler(this.refreshButton_MouseEnter);
             this.refreshButton.MouseLeave += new System.EventHandler(this.refreshButton_MouseLeave);
             // 
-            // injectButton
+            // pictureBox1
             // 
-            this.injectButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.injectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            resources.ApplyResources(this.injectButton, "injectButton");
-            this.injectButton.Name = "injectButton";
-            this.injectButton.UseVisualStyleBackColor = false;
-            this.injectButton.Click += new System.EventHandler(this.injectButton_Click);
-            // 
-            // ejectButton
-            // 
-            this.ejectButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.ejectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            resources.ApplyResources(this.ejectButton, "ejectButton");
-            this.ejectButton.Name = "ejectButton";
-            this.ejectButton.UseVisualStyleBackColor = false;
-            this.ejectButton.Click += new System.EventHandler(this.ejectButton_Click);
-            // 
-            // simpleTransparentGradientPanel1
-            // 
-            this.simpleTransparentGradientPanel1.Angle = 90F;
-            this.simpleTransparentGradientPanel1.DoubleTitled = false;
-            this.simpleTransparentGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            resources.ApplyResources(this.simpleTransparentGradientPanel1, "simpleTransparentGradientPanel1");
-            this.simpleTransparentGradientPanel1.Name = "simpleTransparentGradientPanel1";
-            this.simpleTransparentGradientPanel1.StartColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::Fireworks_Mania_Modloader.Properties.Resources.img;
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
             // 
             // Window
             // 
@@ -153,7 +153,7 @@ namespace Fireworks_Mania_Modloader
             this.Controls.Add(this.simpleGradientPanel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Window";

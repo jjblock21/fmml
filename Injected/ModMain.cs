@@ -8,10 +8,12 @@ using Injected;
 using Injected.UI;
 using System;
 using System.Collections;
+using System.Reflection;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 
 /*
  * FMML (Fireworks Mania ModLoader)
@@ -47,6 +49,8 @@ public class ModMain : MonoBehaviour
         {
             // Add Events
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+            ssToggle.StateChanged += SsToggle_StateChanged;
+            sjToggle.StateChanged += SjToggle_StateChanged;
 
             // Chache Components
             ChacheComponents();
@@ -65,6 +69,34 @@ public class ModMain : MonoBehaviour
             return;
         }
     }
+
+    private void UpdateSuperJump(bool e)
+    {
+        FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
+        if (firstPerson == null) return;
+        FieldInfo field = firstPerson.GetType().GetField("m_JumpSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (e) field.SetValue(firstPerson, jumpHeight);
+        else field.SetValue(firstPerson, 10);
+    }
+
+    private void UpdateSuperSpeed(bool e)
+    {
+        FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
+        if (firstPerson == null) return;
+        FieldInfo field = firstPerson.GetType().GetField("m_RunSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (e) field.SetValue(firstPerson, 50);
+        else field.SetValue(firstPerson, 10);
+    }
+
+    private void SjToggle_StateChanged(object sender, bool e)
+    {
+        UpdateSuperJump(e);
+    }
+
+    private void SsToggle_StateChanged(object sender, bool e)
+    {
+        UpdateSuperSpeed(e);
+    }
     #endregion
 
     /*
@@ -80,6 +112,7 @@ public class ModMain : MonoBehaviour
         PageSystem.AddPage(HacksPage);
         PageSystem.AddPage(ExperimentalToolsPage);
         PageSystem.AddPage(MarkersPage);
+        PageSystem.AddPage(SettingsPage);
     }
     #endregion
 
@@ -91,15 +124,19 @@ public class ModMain : MonoBehaviour
     {
         ChacheComponents();
         StartCoroutine(UpdateVersionLabel());
+        UpdateSuperJump(superJumpActive);
+        UpdateSuperSpeed(superSpeedActive);
     }
     #endregion
 
     private int prevDebugLine = -1;
-    private bool drawDebugLine = false;
 
     /*
      * The Update function, this is where most of the stuff is happening.
      */
+
+    private int jumpHeight = 25;
+
     #region Update
     public void Update()
     {
@@ -108,7 +145,7 @@ public class ModMain : MonoBehaviour
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null)
-                SpawnFire(hit.collider.gameObject);
+                Actions.SpawnFire(hit.collider.gameObject);
         }
 
         // Hide/Show
@@ -120,26 +157,26 @@ public class ModMain : MonoBehaviour
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null)
-                Clone(hit.collider, hit.point);
+                Actions.Clone(hit.collider, hit.point);
         }
         else if (Input.GetKeyDown(KeyCode.X) && ccActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null)
-                CrazyClone(hit.collider, hit.point);
+                Actions.CrazyClone(hit.collider, hit.point);
         }
 
         if (Input.GetKeyDown(KeyCode.T) && nActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
-            if (hit.collider != null) Newtonify(hit.collider);
+            if (hit.collider != null) Actions.Newtonify(hit.collider);
         }
 
         // Delete Tool
         if (Input.GetKeyDown(KeyCode.V) && eActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
-            if (hit.collider != null) Delete(hit.collider);
+            if (hit.collider != null) Actions.Delete(hit.collider);
         }
 
         // Auto Clicker
@@ -163,10 +200,10 @@ public class ModMain : MonoBehaviour
             Mouse.ToggleSuperSonicAutoClicker();
         }
 
-        if (Input.GetKeyDown(KeyCode.B)) SpawnTim();
+        if (Input.GetKeyDown(KeyCode.B)) Actions.SpawnTim(_cam, this);
 
         // Ignite All
-        if (Input.GetKeyDown(KeyCode.K)) IgniteAll(false);
+        if (Input.GetKeyDown(KeyCode.K)) Actions.IgniteAll(false);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Tool.SetSelectedTool(SelectedTool.PhysicsTool);
@@ -180,14 +217,17 @@ public class ModMain : MonoBehaviour
             Tool.SetSelectedTool(SelectedTool.DeleteTool);
 
         // Draw Debug Line
-        if (flameThrowerActive || clonerActive || eActive) drawDebugLine = true;
+        if (flameThrowerActive || clonerActive || eActive)
+        {
+            prevDebugLine = Utils.TryDrawDebugLine(_cam.transform.position - new Vector3(0, 0.25f, 0),
+                _cam.transform.forward, Color.red, prevDebugLine, _cam.transform.position);
+        }
         else
         {
-            drawDebugLine = false;
+            if (prevDebugLine == -1) return;
             Utils.RemoveLine(prevDebugLine);
             prevDebugLine = -1;
         }
-        if (drawDebugLine) prevDebugLine = Utils.TryDrawDebugLine(_cam.transform.position - new Vector3(0, 0.25f, 0), _cam.transform.forward, Color.red, prevDebugLine, _cam.transform.position);
     }
 
     #endregion
@@ -206,7 +246,7 @@ public class ModMain : MonoBehaviour
                 PageSystem.DrawPage();
 
                 // Update Position Display
-                if (TryGetPositionString(out string text))
+                if (Actions.TryGetPositionString(out string text, _controller))
                     UIHelper.Label(text, "The players position", 20, 16, Color.white);
             }
             return;
@@ -225,11 +265,14 @@ public class ModMain : MonoBehaviour
             PageSystem.SelectPage(1);
         if (UIHelper.Button("Hacks"))
             PageSystem.SelectPage(4);
-        UIHelper.Space();
+        UIHelper.Space(25);
         if (UIHelper.Button("About"))
             PageSystem.SelectPage(2);
         if (UIHelper.Button("Controls"))
             PageSystem.SelectPage(3);
+        UIHelper.Space(25);
+        if (UIHelper.Button("Settings"))
+            PageSystem.SelectPage(7);
         if (UIHelper.BottomNavigationButton("Hide"))
             visible = false;
     }
@@ -252,10 +295,10 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Buggy Tools"))
             PageSystem.SelectPage(5);
         UIHelper.Space(30);
-        if (UIHelper.Button("Ignite Everything")) IgniteAll(true);
-        if (UIHelper.Button("Instantly Ignite Everything")) IgniteAll(false);
+        if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true);
+        if (UIHelper.Button("Instantly Ignite Everything")) Actions.IgniteAll(false);
         UIHelper.Space(20);
-        if (UIHelper.Button("Spawn Tim")) SpawnTim();
+        if (UIHelper.Button("Spawn Tim")) Actions.SpawnTim(_cam, this);
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -299,6 +342,12 @@ public class ModMain : MonoBehaviour
             PageSystem.SelectPage(0);
     }
 
+    private bool superSpeedActive = false;
+    private ToggleClass ssToggle = new ToggleClass();
+
+    private bool superJumpActive = false;
+    private ToggleClass sjToggle = new ToggleClass();
+
     //Page 4
     private void HacksPage()
     {
@@ -306,13 +355,16 @@ public class ModMain : MonoBehaviour
         acActive = aToggle.Toggle(UIHelper.Button("Inbuilt Auto Clicker", acActive));
         acButtonLeft = aToggle3.Toggle(UIHelper.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !acButtonLeft));
         UIHelper.Space(20);
+        superSpeedActive = ssToggle.Toggle(UIHelper.Button("Super Speed", superSpeedActive));
+        superJumpActive = sjToggle.Toggle(UIHelper.Button("Super Jump", superJumpActive));
+        UIHelper.Space(20);
         if (UIHelper.Button("Teleporter") && _controller != null)
         {
             TpDialog.ResetText();
             TpDialog.ShowDialog();
         }
         UIHelper.Space(20);
-        if (UIHelper.Button("Use the Infinity Gauntlet")) DeleteAll();
+        if (UIHelper.Button("Use the Infinity Gauntlet")) Actions.DeleteAll();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -347,6 +399,20 @@ public class ModMain : MonoBehaviour
             PageSystem.SelectPage(1);
     }
 
+    // Page 7
+    private void SettingsPage()
+    {
+        UIHelper.Begin("Fireworks Mania Modloader - Settings", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+        UIHelper.Label("Super Jump Force", 25);
+        jumpHeight = int.Parse(UIHelper.Input(jumpHeight.ToString(), 2));
+        if (UIHelper.BottomNavigationButton("Back"))
+        {
+            // Update Affected Modules
+            UpdateSuperJump(superJumpActive);
+            PageSystem.SelectPage(0);
+        }
+    }
+
     #endregion
 
     private void ChacheComponents()
@@ -372,138 +438,6 @@ public class ModMain : MonoBehaviour
     private bool eActive = false;
     private bool nActive = false;
     private bool authorised = false;
-
-    #region Features
-
-    private async void IgniteAll(bool delayed)
-    {
-        foreach (GameObject obj in FindObjectsOfType<GameObject>())
-        {
-            if (obj.GetComponent<IIgniteable>() == null) continue;
-            obj.GetComponent<IIgniteable>().Ignite(2500);
-            if (delayed) await Task.Delay(1);
-        }
-    }
-
-    private void SpawnFire(GameObject obj)
-    {
-        IFlammable flammeable = obj.GetComponent<IFlammable>();
-        if (flammeable != null)
-            flammeable.ApplyFireForce(2500f);
-    }
-
-    private void Clone(Collider collider, Vector3 hitPoint)
-    {
-        if (collider.attachedRigidbody != null)
-        {
-            GameObject obj = collider.gameObject;
-            if (obj.tag != "MainCamera")
-            {
-                GameObject clone = Instantiate(obj) as GameObject;
-                Rigidbody rb = clone.GetComponent<Rigidbody>();
-                rb.isKinematic = false;
-                rb.useGravity = true;
-                clone.transform.position = hitPoint;
-                clone.SetActive(true);
-                Utils.AddClone(clone);
-            }
-        }
-    }
-
-    private void CrazyClone(Collider collider, Vector3 hitPoint)
-    {
-        if (collider.attachedRigidbody != null)
-        {
-            GameObject obj = collider.gameObject;
-            if (obj.tag != "MainCamera")
-            {
-                collider.enabled = true;
-                collider.isTrigger = false;
-                GameObject clone = Instantiate(obj) as GameObject;
-                Rigidbody rb = clone.AddComponent<Rigidbody>();
-                rb.isKinematic = false;
-                rb.useGravity = true;
-                clone.transform.position = hitPoint;
-                clone.SetActive(true);
-                Utils.AddClone(clone);
-            }
-        }
-    }
-
-    private void Newtonify(Collider collider)
-    {
-        if (collider == null) return;
-        GameObject obj = collider.gameObject;
-        if (obj.tag != "MainCamera")
-        {
-            collider.enabled = true;
-            collider.isTrigger = false;
-            var rb = obj.GetComponent<Rigidbody>();
-            if (rb == null) rb = obj.AddComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            obj.SetActive(true);
-        }
-    }
-
-    private bool DeleteAll()
-    {
-        foreach (Rigidbody obj in FindObjectsOfType<Rigidbody>())
-        {
-            try
-            {
-                if (obj.tag != "MainCamera")
-                    Destroy(obj.gameObject);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message + " " + e.StackTrace);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private bool Delete(Collider collider)
-    {
-        try
-        {
-            if (collider.gameObject.tag != "MainCamera")
-                Destroy(collider.gameObject);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(e.Message + " " + e.StackTrace);
-            return false;
-        }
-        return true;
-    }
-
-    private bool TryGetPositionString(out string text)
-    {
-        if (_controller != null)
-        {
-            string x = "X: " + Math.Round(_controller.gameObject.transform.position.x, 2).ToString();
-            string y = "Y: " + Math.Round(_controller.gameObject.transform.position.y, 2).ToString();
-            string z = "Z: " + Math.Round(_controller.gameObject.transform.position.z, 2).ToString();
-            text = x + " " + y + " " + z;
-            return true;
-        }
-        else
-        {
-            text = null;
-            return false;
-        }
-    }
-
-    private void SpawnTim()
-    {
-        var hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
-        if (hit.collider == null) return;
-        FireworkSpawner.SpawnTim(hit.point + new Vector3(0, 1.25f, 0), this);
-    }
-
-    #endregion
 
     private IEnumerator UpdateVersionLabel()
     {

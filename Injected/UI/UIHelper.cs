@@ -52,6 +52,9 @@ namespace Injected.UI
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
         public static void Label(string text) => GUI.Label(NextControlRect(), text);
         public static void Label(string text, float height) => GUI.Label(NextControlRect(height), text);
+        public static string Input(string text, int length) => GUI.TextField(NextControlRect(), text, length);
+        public static string Input(string text) => GUI.TextField(NextControlRect(), text);
+        public static string Input() => Input("");
         public static void Label(string text, float height, GUIStyle style, string toolTip = "")
         {
             var content = new GUIContent(text, toolTip);
