@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Timers;
 
 namespace Injected
 {
@@ -45,58 +44,6 @@ namespace Injected
         {
             MousePoint position = GetCursorPosition();
             mouse_event((int)value, position.X, position.Y, 0, 0);
-        }
-
-        private static Timer timer = new Timer(2);
-        private static bool ssacDown = false;
-
-        public static bool ssacLeft = true;
-
-        public static void InitSuperSonicAutoClicker()
-        {
-            timer.Elapsed += Timer_Elapsed;
-        }
-
-        private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if (ssacLeft)
-            {
-                if (ssacDown)
-                {
-                    MouseEvent(MouseEventFlags.LeftUp);
-                    ssacDown = false;
-                }
-                else
-                {
-                    MouseEvent(MouseEventFlags.LeftDown);
-                    ssacDown = true;
-                }
-            }
-            else
-            {
-                if (ssacDown)
-                {
-                    MouseEvent(MouseEventFlags.RightUp);
-                    ssacDown = false;
-                }
-                else
-                {
-                    MouseEvent(MouseEventFlags.RightDown);
-                    ssacDown = true;
-                }
-            }
-        }
-
-        public static bool ToggleSuperSonicAutoClicker()
-        {
-            if (timer.Enabled)
-            {
-                timer.Stop();
-                if (ssacDown) MouseEvent(MouseEventFlags.LeftUp);
-                if (ssacDown) MouseEvent(MouseEventFlags.RightUp);
-            }
-            else timer.Start();
-            return timer.Enabled;
         }
     }
 

@@ -17,6 +17,7 @@ namespace Injected
         private const BindingFlags FIELD_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
         private static readonly Vector3 v = new Vector3(49.6f, 1.3f, 33.77f);
 
+        [Obsolete]
         public static void SpawnTim(Vector3 pos, MonoBehaviour gobj)
         {
             var obj = UnityEngine.Object.FindObjectOfType<FireworkRespawner>();

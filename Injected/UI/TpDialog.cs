@@ -1,4 +1,4 @@
-﻿using FireworksMania.Player;
+﻿using FireworksMania.Common;
 using UnityEngine;
 
 namespace Injected.UI

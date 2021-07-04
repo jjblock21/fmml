@@ -51,27 +51,40 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Autodesk.Fbx, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Autodesk.Fbx.dll</HintPath>
+    </Reference>
     <Reference Include="DDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\DDebug.dll</HintPath>
     </Reference>
-    <Reference Include="DestroyIt">
+    <Reference Include="DestroyIt, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\DestroyIt.dll</HintPath>
     </Reference>
-    <Reference Include="Doozy">
+    <Reference Include="Doozy, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Doozy.dll</HintPath>
     </Reference>
     <Reference Include="DOTween, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween.Modules">
+    <Reference Include="DOTween.Modules, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\DOTween.Modules.dll</HintPath>
     </Reference>
-    <Reference Include="FireworksMania">
+    <Reference Include="FbxBuildTestAssets, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\FbxBuildTestAssets.dll</HintPath>
+    </Reference>
+    <Reference Include="FireworksMania, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\FireworksMania.dll</HintPath>
     </Reference>
-    <Reference Include="MAScripts">
+    <Reference Include="MAScripts, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\MAScripts.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
@@ -86,16 +99,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\OEBIF.dll</HintPath>
     </Reference>
-    <Reference Include="StandardAssets">
+    <Reference Include="RFLib_DotNet_2018, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\RFLib_DotNet_2018.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAssets, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\StandardAssets.dll</HintPath>
     </Reference>
-    <Reference Include="SteamworksNet">
+    <Reference Include="SteamworksNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\SteamworksNet.dll</HintPath>
     </Reference>
-    <Reference Include="SteamworksNetManager">
+    <Reference Include="SteamworksNetManager, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\SteamworksNetManager.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -123,24 +142,28 @@
       <HintPath>..\bin\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XPath.XDocument" />
-    <Reference Include="Tayx.Graphy">
+    <Reference Include="Tayx.Graphy, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Tayx.Graphy.dll</HintPath>
     </Reference>
     <Reference Include="UniTask, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UniTask.dll</HintPath>
     </Reference>
-    <Reference Include="UniTask.Addressables">
+    <Reference Include="UniTask.Addressables, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UniTask.Addressables.dll</HintPath>
     </Reference>
     <Reference Include="UniTask.DOTween, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UniTask.DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="UniTask.Linq">
+    <Reference Include="UniTask.Linq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UniTask.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="UniTask.TextMeshPro">
+    <Reference Include="UniTask.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UniTask.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Addressables, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -159,11 +182,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Formats.Fbx.Runtime, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Unity.Formats.Fbx.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.InputSystem, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Unity.InputSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.013">
+    <Reference Include="Unity.InternalAPIEngineBridge.013, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Unity.InternalAPIEngineBridge.013.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Localization, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">

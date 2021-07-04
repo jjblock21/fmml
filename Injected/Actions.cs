@@ -1,5 +1,5 @@
-﻿using FireworksMania.Fireworks.Parts;
-using FireworksMania.Player;
+﻿using FireworksMania.Common;
+using FireworksMania.Fireworks.Parts;
 using FireworksMania.Props;
 using System.Threading.Tasks;
 using UnityEngine;

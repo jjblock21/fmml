@@ -136,7 +136,7 @@ namespace Fireworks_Mania_Modloader
             // pictureBox1
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Image = global::Fireworks_Mania_Modloader.Properties.Resources.img;
+            this.pictureBox1.Image = global::Fireworks_Mania_Modloader.Properties.Resources.img1;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 

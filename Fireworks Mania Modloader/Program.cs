@@ -16,7 +16,7 @@ namespace Fireworks_Mania_Modloader
         {
             Init();
             MessageBox.Show(
-                "Warning!\nThis version of FMML only supports" + " the version v2021.4.4-exp or newer.",
+                "Warning!\nThis version of FMML only supports" + " the version v2021.6.1 or newer.",
                 "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning
             );
             Run();

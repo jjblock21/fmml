@@ -167,13 +167,13 @@
     <value>3, 7</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 13</value>
+    <value>55, 13</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>v0.1.8</value>
+    <value>v0.1.9-pre</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -9233,6 +9233,9 @@
         lD9e07uzMWf9ZQQYgZYbDcaDEWAEjhKBRYsW8f379z/xqquu4kaPHn3Pt99+O2rbtm16a1qm6f9IC5uy
         CUhOAUjhoVbiDbNvV1RYhIcfebj3hAkTdh2lbrPbMgKMQA4Q+H8Ae9OqUSjkTgAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>349, 352</value>

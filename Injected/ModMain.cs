@@ -1,7 +1,7 @@
-﻿using FireworksMania.Fireworks.Parts;
+﻿using FireworksMania.Common;
+using FireworksMania.Fireworks.Parts;
 using FireworksMania.Interactions.Tools;
 using FireworksMania.Interactions.Tools.IgniteTool;
-using FireworksMania.Player;
 using FireworksMania.Props;
 using FireworksMania.UI;
 using Injected;
@@ -45,29 +45,30 @@ public class ModMain : MonoBehaviour
     #region Start
     public void Start()
     {
-        if (SteamChecker.IsAuthorisedGameInstance() == 0)
-        {
-            // Add Events
-            SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-            ssToggle.StateChanged += SsToggle_StateChanged;
-            sjToggle.StateChanged += SjToggle_StateChanged;
+        // Disabled
+        //if (SteamChecker.IsAuthorisedGameInstance() == 0)
+        //{
+        // Add Events
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        ssToggle.StateChanged += SsToggle_StateChanged;
+        sjToggle.StateChanged += SjToggle_StateChanged;
 
-            // Chache Components
-            ChacheComponents();
+        // Chache Components
+        ChacheComponents();
 
-            // Update the version label of the game
-            StartCoroutine(UpdateVersionLabel());
+        // Update the version label of the game
+        StartCoroutine(UpdateVersionLabel());
 
-            // Init the Pagesystem.
-            AddPages();
+        // Init the Pagesystem.
+        AddPages();
 
-            // Init the SUPER SONIC AUTOCKLICKER!
-            Mouse.InitSuperSonicAutoClicker();
+        // Init the SUPER SONIC AUTOCKLICKER!
+        Mouse.InitSuperSonicAutoClicker();
 
-            // Authorise game and return
-            authorised = true;
-            return;
-        }
+        // Authorise game and return
+        authorised = true;
+        return;
+        //}
     }
 
     private void UpdateSuperJump(bool e)
@@ -194,12 +195,6 @@ public class ModMain : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Y) && acActive)
-        {
-            Mouse.ssacLeft = !acButtonLeft;
-            Mouse.ToggleSuperSonicAutoClicker();
-        }
-
         if (Input.GetKeyDown(KeyCode.B)) Actions.SpawnTim(_cam, this);
 
         // Ignite All
@@ -298,7 +293,7 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true);
         if (UIHelper.Button("Instantly Ignite Everything")) Actions.IgniteAll(false);
         UIHelper.Space(20);
-        if (UIHelper.Button("Spawn Tim")) Actions.SpawnTim(_cam, this);
+        //if (UIHelper.DisabledButton("Spawn Tim")) Actions.SpawnTim(_cam, this);
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -325,7 +320,6 @@ public class ModMain : MonoBehaviour
         UIHelper.Label("Cloning Machine Tool:\nX: Clone object (For both clone tools)");
         UIHelper.Space(10);
         UIHelper.Label("Autoclicker Hack:\nR: Click every second Frame.");
-        UIHelper.Label("Super Fast Autoclicker:\nY: Click 250 times a second.");
         UIHelper.Space(10);
         UIHelper.Label("Delete Tool:\nV: Delete literally anything!");
         UIHelper.Space(10);
