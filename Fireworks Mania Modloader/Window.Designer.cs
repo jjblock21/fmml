@@ -42,6 +42,7 @@ namespace Fireworks_Mania_Modloader
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
             this.refreshButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +57,7 @@ namespace Fireworks_Mania_Modloader
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.statusLabel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.discordLink);
             resources.ApplyResources(this.panel1, "panel1");
@@ -140,6 +142,13 @@ namespace Fireworks_Mania_Modloader
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
+            // statusLabel
+            // 
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.statusLabel, "statusLabel");
+            this.statusLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.statusLabel.Name = "statusLabel";
+            // 
             // Window
             // 
             resources.ApplyResources(this, "$this");
@@ -179,6 +188,7 @@ namespace Fireworks_Mania_Modloader
         private Button ejectButton;
         private JControls.SimpleTransparentGradientPanel simpleTransparentGradientPanel1;
         private Label label1;
+        private Label statusLabel;
     }
 }
 

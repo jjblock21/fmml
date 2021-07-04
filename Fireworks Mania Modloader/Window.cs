@@ -21,6 +21,7 @@ namespace Fireworks_Mania_Modloader
 
         private void Start(object sender, EventArgs e)
         {
+            UpdateLabel();
             LoadProcesses();
         }
 
@@ -32,6 +33,27 @@ namespace Fireworks_Mania_Modloader
         private void Window_Resize(object sender, EventArgs e)
         {
 
+        }
+
+        private void UpdateLabel()
+        {
+            if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 24)
+                statusLabel.Text = "Merry Christmas!";
+            else if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 25)
+                statusLabel.Text = "Merry Christmas!";
+            else if (DateTime.UtcNow.Month == 10 && DateTime.UtcNow.Day == 31)
+            {
+                if (new Random().NextDouble() < 0.5f)
+                    statusLabel.Text = "Boo!";
+                else statusLabel.Text = "OooOo Spooky!";
+            }
+            else if (DateTime.UtcNow.Month == 7 && DateTime.UtcNow.Day == 4)
+            {
+                if (new Random().NextDouble() < 0.75f)
+                    statusLabel.Text = "Independence Day!";
+                else statusLabel.Text = "Have you gotten Fireworks?";
+            }
+            else statusLabel.Text = "";
         }
 
         private void injectButton_Click(object sender, EventArgs e)
