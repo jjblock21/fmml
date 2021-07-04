@@ -165,6 +165,8 @@
   </data>
   <data name="statusLabel.Text" xml:space="preserve">
     <value>Uh, something went wrong
+
+
 </value>
   </data>
   <data name="statusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">

@@ -14,6 +14,11 @@ namespace Fireworks_Mania_Modloader
         private static ProcessChecker checker;
         private IntPtr injected;
 
+        // This is part of an Easteregg 'c' :) :D ^^ idk why so many Smilies
+        // Here, have another one: 'u'
+        // Why am I spening my time on this? OwO
+        private int reloadCounter = 0;
+
         public Window()
         {
             InitializeComponent();
@@ -99,7 +104,13 @@ namespace Fireworks_Mania_Modloader
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
+            reloadCounter++;
             LoadProcesses();
+            if (reloadCounter == 21)
+                statusLabel.Text = "You refreshed 21 times!";
+            else if (reloadCounter == 69)
+                statusLabel.Text = "You refreshed 69 times, nice.";
+            else statusLabel.Text = "";
         }
 
         private void ejectButton_Click(object sender, EventArgs e)
