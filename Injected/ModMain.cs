@@ -37,6 +37,10 @@ public class ModMain : MonoBehaviour
     private ToggleClass ccToggle = new ToggleClass();
     private ToggleClass eToggle = new ToggleClass();
     private ToggleClass nToggle = new ToggleClass();
+
+    private ToggleClass debugLineToggle = new ToggleClass();
+
+    private int ieDelay = 1;
     #endregion
 
     /*
@@ -52,6 +56,8 @@ public class ModMain : MonoBehaviour
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         ssToggle.StateChanged += SsToggle_StateChanged;
         sjToggle.StateChanged += SjToggle_StateChanged;
+        debugLineToggle.SetState(true);
+        debugLineToggle.StateChanged += DebugLineToggle_StateChanged;
 
         // Chache Components
         ChacheComponents();
@@ -62,14 +68,18 @@ public class ModMain : MonoBehaviour
         // Init the Pagesystem.
         AddPages();
 
-        // Init the SUPER SONIC AUTOCKLICKER!
-        Mouse.InitSuperSonicAutoClicker();
-
         // Authorise game and return
         authorised = true;
         return;
         //}
     }
+
+    private void DebugLineToggle_StateChanged(object sender, bool e)
+    {
+        if (e == false) ShapeDrawer.RemovePlane();
+    }
+
+    // TODO Replace with GameReflector
 
     private void UpdateSuperJump(bool e)
     {
@@ -85,7 +95,7 @@ public class ModMain : MonoBehaviour
         FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
         if (firstPerson == null) return;
         FieldInfo field = firstPerson.GetType().GetField("m_RunSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (e) field.SetValue(firstPerson, 50);
+        if (e) field.SetValue(firstPerson, speed);
         else field.SetValue(firstPerson, 10);
     }
 
@@ -130,13 +140,12 @@ public class ModMain : MonoBehaviour
     }
     #endregion
 
-    private int prevDebugLine = -1;
-
     /*
      * The Update function, this is where most of the stuff is happening.
      */
 
     private int jumpHeight = 25;
+    private int speed = 50;
 
     #region Update
     public void Update()
@@ -195,10 +204,9 @@ public class ModMain : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.B)) Actions.SpawnTim(_cam, this);
-
         // Ignite All
-        if (Input.GetKeyDown(KeyCode.K)) Actions.IgniteAll(false);
+        if (Input.GetKeyDown(KeyCode.K)) Actions.IgniteAll(false, 1);
+        if (Input.GetKeyDown(KeyCode.L)) Actions.IgniteAll(true, ieDelay);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Tool.SetSelectedTool(SelectedTool.PhysicsTool);
@@ -214,18 +222,28 @@ public class ModMain : MonoBehaviour
         // Draw Debug Line
         if (flameThrowerActive || clonerActive || eActive)
         {
-            prevDebugLine = Utils.TryDrawDebugLine(_cam.transform.position - new Vector3(0, 0.25f, 0),
-                _cam.transform.forward, Color.red, prevDebugLine, _cam.transform.position);
+            if (showDebugLine)
+            {
+                Ray ray1 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(-0.075f, 0, -0.075f));
+                Ray ray2 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(0.075f, 0, -0.075f));
+                Ray ray3 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(0.075f, 0, 0.075f));
+                Ray ray4 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(-0.075f, 0, 0.075f));
+                Physics.Raycast(ray1, out RaycastHit hit1);
+                Physics.Raycast(ray2, out RaycastHit hit2);
+                Physics.Raycast(ray3, out RaycastHit hit3);
+                Physics.Raycast(ray4, out RaycastHit hit4);
+                ShapeDrawer.DrawPlane(hit1.point, hit2.point, hit3.point, hit4.point, Color.red);
+            }
         }
         else
         {
-            if (prevDebugLine == -1) return;
-            Utils.RemoveLine(prevDebugLine);
-            prevDebugLine = -1;
+            if (showDebugLine) ShapeDrawer.RemovePlane();
         }
     }
 
     #endregion
+
+    private bool showDebugLine = true;
 
     /*
      * Where all the GUI stuff gets Updated.
@@ -290,10 +308,10 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Buggy Tools"))
             PageSystem.SelectPage(5);
         UIHelper.Space(30);
-        if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true);
-        if (UIHelper.Button("Instantly Ignite Everything")) Actions.IgniteAll(false);
+        if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true, ieDelay);
+        if (UIHelper.Button("Instantly Ignite Everything")) Actions.IgniteAll(false, 1);
         UIHelper.Space(20);
-        //if (UIHelper.DisabledButton("Spawn Tim")) Actions.SpawnTim(_cam, this);
+        if (UIHelper.Button("Unlock Tim")) Actions.UnlockTim();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -323,7 +341,7 @@ public class ModMain : MonoBehaviour
         UIHelper.Space(10);
         UIHelper.Label("Delete Tool:\nV: Delete literally anything!");
         UIHelper.Space(10);
-        UIHelper.Label("Ignite Everything:\nK: Ignite everything.");
+        UIHelper.Label("Ignite Everything:\nK: Ignite everything.\nL: Ignite Everything with specified delay.", 50);
         UIHelper.Space(10);
         UIHelper.Label("Fast navigation:\n" +
             "1: Physics Tool, 2: Lighter,\n" +
@@ -352,13 +370,7 @@ public class ModMain : MonoBehaviour
         superSpeedActive = ssToggle.Toggle(UIHelper.Button("Super Speed", superSpeedActive));
         superJumpActive = sjToggle.Toggle(UIHelper.Button("Super Jump", superJumpActive));
         UIHelper.Space(20);
-        if (UIHelper.Button("Teleporter") && _controller != null)
-        {
-            TpDialog.ResetText();
-            TpDialog.ShowDialog();
-        }
-        UIHelper.Space(20);
-        if (UIHelper.Button("Use the Infinity Gauntlet")) Actions.DeleteAll();
+        if (UIHelper.Button("Delete Everything")) Actions.DeleteAll();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -374,6 +386,12 @@ public class ModMain : MonoBehaviour
             ccActive = ccToggle.Toggle(true);
             clonerActive = false;
             cToggle.SetState(false);
+        }
+        UIHelper.Space(20);
+        if (UIHelper.Button("Teleporter") && _controller != null)
+        {
+            TpDialog.ResetText();
+            TpDialog.ShowDialog();
         }
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(1);
@@ -396,14 +414,34 @@ public class ModMain : MonoBehaviour
     // Page 7
     private void SettingsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - Settings", 10, 10, 300, 450, 25, 35, 10, 50, 10);
-        UIHelper.Label("Super Jump Force", 25);
-        jumpHeight = int.Parse(UIHelper.Input(jumpHeight.ToString(), 2));
-        if (UIHelper.BottomNavigationButton("Back"))
+        try
         {
-            // Update Affected Modules
-            UpdateSuperJump(superJumpActive);
-            PageSystem.SelectPage(0);
+            UIHelper.Begin("Fireworks Mania Modloader - Settings", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+
+            UIHelper.Label("Super Jump Force", 25);
+            jumpHeight = int.Parse(UIHelper.Input(jumpHeight.ToString(), 2));
+            UIHelper.Label("Speed", 25);
+            speed = int.Parse(UIHelper.Input(speed.ToString(), 2));
+
+            UIHelper.Space(10);
+            showDebugLine = debugLineToggle.Toggle(UIHelper.Button("Red Laser Thing", showDebugLine));
+
+            UIHelper.Space(10);
+            UIHelper.Label("Ingite All Delay (ms)", 25);
+            ieDelay = int.Parse(UIHelper.Input(ieDelay.ToString(), 5));
+
+            if (UIHelper.BottomNavigationButton("Back"))
+            {
+                // Update Affected Modules
+                UpdateSuperJump(superJumpActive);
+                UpdateSuperSpeed(superSpeedActive);
+
+                PageSystem.SelectPage(0);
+            }
+        }
+        catch
+        {
+
         }
     }
 
@@ -415,7 +453,6 @@ public class ModMain : MonoBehaviour
         _toolAnimation = FindObjectOfType<ToolsBobbing>();
         _controller = FindObjectOfType<Player>();
         _torch = FindObjectOfType<TorchTool>();
-        TpDialog.Init(_controller);
     }
 
     public Camera _cam;

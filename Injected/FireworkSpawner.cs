@@ -14,7 +14,7 @@ namespace Injected
     {
         private const string LOCATION = "_spawnLocation";
         private const BindingFlags FLAGS = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-        private const BindingFlags FIELD_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
+        private const BindingFlags FIELD_FLAGS = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
         private static readonly Vector3 v = new Vector3(49.6f, 1.3f, 33.77f);
 
         [Obsolete]

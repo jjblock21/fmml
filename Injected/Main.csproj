@@ -7,8 +7,8 @@
     <ProjectGuid>{6F4365AD-8320-4493-9911-B77025614366}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Injected</RootNamespace>
-    <AssemblyName>Injected</AssemblyName>
+    <RootNamespace>Main</RootNamespace>
+    <AssemblyName>Main</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actions.cs" />
+    <Compile Include="Console.cs" />
     <Compile Include="FireworkSpawner.cs" />
+    <Compile Include="GameReflector.cs" />
+    <Compile Include="ShapeDrawer.cs" />
     <Compile Include="SteamChecker.cs" />
     <Compile Include="UI\DialogHelper.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />

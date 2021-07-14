@@ -9,7 +9,7 @@ namespace Injected
     {
         private static Dictionary<string, GameObject> clones = new Dictionary<string, GameObject>();
         private static List<GameObject> lines = new List<GameObject>();
-        public static string version { get; } = "0.1.8-pre-v2021.4.4-exp+";
+        public static string version { get; } = "0.1.9-" + Application.version;
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {
             Ray ray = new Ray(origin, dir);

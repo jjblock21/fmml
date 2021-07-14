@@ -1,6 +1,9 @@
 ﻿using FireworksMania.Common;
 using FireworksMania.Fireworks.Parts;
+using FireworksMania.Interactions;
+using FireworksMania.Inventory;
 using FireworksMania.Props;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,13 +11,13 @@ namespace Injected
 {
     public static class Actions
     {
-        public static async void IgniteAll(bool delayed)
+        public static async void IgniteAll(bool delayed, int delay)
         {
-            foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
+            foreach (GameObject obj in UnityEngine.Object.FindObjectsOfType<GameObject>())
             {
                 if (obj.GetComponent<IIgniteable>() == null) continue;
                 obj.GetComponent<IIgniteable>().Ignite(2500);
-                if (delayed) await Task.Delay(1);
+                if (delayed) await Task.Delay(delay);
             }
         }
 
@@ -32,7 +35,7 @@ namespace Injected
                 GameObject obj = collider.gameObject;
                 if (obj.tag != "MainCamera")
                 {
-                    GameObject clone = Object.Instantiate(obj) as GameObject;
+                    GameObject clone = UnityEngine.Object.Instantiate(obj) as GameObject;
                     Rigidbody rb = clone.GetComponent<Rigidbody>();
                     rb.isKinematic = false;
                     rb.useGravity = true;
@@ -45,21 +48,18 @@ namespace Injected
 
         public static void CrazyClone(Collider collider, Vector3 hitPoint)
         {
-            if (collider.attachedRigidbody != null)
+            GameObject obj = collider.gameObject;
+            if (obj.tag != "MainCamera")
             {
-                GameObject obj = collider.gameObject;
-                if (obj.tag != "MainCamera")
-                {
-                    collider.enabled = true;
-                    collider.isTrigger = false;
-                    GameObject clone = Object.Instantiate(obj) as GameObject;
-                    Rigidbody rb = clone.AddComponent<Rigidbody>();
-                    rb.isKinematic = false;
-                    rb.useGravity = true;
-                    clone.transform.position = hitPoint;
-                    clone.SetActive(true);
-                    Utils.AddClone(clone);
-                }
+                collider.enabled = true;
+                collider.isTrigger = false;
+                GameObject clone = UnityEngine.Object.Instantiate(obj) as GameObject;
+                Rigidbody rb = clone.AddComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.useGravity = true;
+                clone.transform.position = hitPoint;
+                clone.SetActive(true);
+                Utils.AddClone(clone);
             }
         }
 
@@ -81,12 +81,12 @@ namespace Injected
 
         public static bool DeleteAll()
         {
-            foreach (Rigidbody obj in Object.FindObjectsOfType<Rigidbody>())
+            foreach (Rigidbody obj in UnityEngine.Object.FindObjectsOfType<Rigidbody>())
             {
                 try
                 {
                     if (obj.tag != "MainCamera")
-                        Object.Destroy(obj.gameObject);
+                        UnityEngine.Object.Destroy(obj.gameObject);
                 }
                 catch (System.Exception e)
                 {
@@ -129,11 +129,28 @@ namespace Injected
             }
         }
 
+        [Obsolete]
         public static void SpawnTim(Camera cam, MonoBehaviour obj)
         {
             var hit = Utils.DoRaycastThroughScreenPoint(cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider == null) return;
             FireworkSpawner.SpawnTim(hit.point + new Vector3(0, 1.25f, 0), obj);
+        }
+
+        public static bool UnlockTim()
+        {
+            var im = UnityEngine.Object.FindObjectOfType<InventoryManager>();
+            if (im == null) return false;
+
+            GameReflector reflector = new GameReflector(im);
+
+            var t = reflector.Assembly.GetType("FireworksMania.Common.UnlockEntityEvent");
+            var c = t.GetConstructor(new Type[] { typeof(string), typeof(UnlockTypes) });
+            var rtrn = c.Invoke(new object[] { "Special_Shell_Tim", UnlockTypes.Temporarily });
+
+            reflector.InvokMethod("UnlockEntityId", parameters: rtrn);
+
+            return true;
         }
     }
 }

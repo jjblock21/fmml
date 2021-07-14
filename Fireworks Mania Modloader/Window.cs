@@ -9,7 +9,7 @@ namespace Fireworks_Mania_Modloader
 {
     public partial class Window : Form
     {
-        public static string path = Directory.GetCurrentDirectory() + @"\Injected.dll";
+        public static string path = Directory.GetCurrentDirectory() + @"\Main.dll";
         private static Process process;
         private static ProcessChecker checker;
         private IntPtr injected;
@@ -138,7 +138,8 @@ namespace Fireworks_Mania_Modloader
 
         private void discordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://discord.gg/WDWJ4RW5Qz");
+            More moreWindow = new More();
+            moreWindow.ShowDialog();
         }
 
         private void refreshButton_MouseEnter(object sender, EventArgs e)
@@ -153,12 +154,12 @@ namespace Fireworks_Mania_Modloader
 
         private void discordLink_MouseEnter(object sender, EventArgs e)
         {
-            discordLink.LinkColor = Color.Gainsboro;
+            moreLink.LinkColor = Color.Gainsboro;
         }
 
         private void discordLink_MouseLeave(object sender, EventArgs e)
         {
-            discordLink.LinkColor = Color.White;
+            moreLink.LinkColor = Color.White;
         }
     }
 }

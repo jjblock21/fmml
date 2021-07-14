@@ -5,13 +5,12 @@ namespace Injected.UI
 {
     public class TpDialog
     {
-        private static Player _p;
-
-        public static void Init(Player p) => _p = p;
 
         private static string TpX = "", TpY = "", TpZ = "";
 
         private static bool isSelectionState = false;
+
+        private static GameObject P => Object.FindObjectOfType<CharacterController>().gameObject;
 
         public static void UpdateDialog()
         {
@@ -19,7 +18,7 @@ namespace Injected.UI
             {
                 Vector2 position = new Vector2(10, UIHelper.GetGraphicsRect().height + 45);
                 DialogHelper.Begin("Teleport", position.x, position.y, 300, 400, 25, 35, 10, 50, 20);
-                Vector3 tpPos = new Vector3(_p.gameObject.transform.position.x, _p.gameObject.transform.position.y, _p.transform.position.z);
+                Vector3 tpPos = new Vector3(P.transform.position.x, P.transform.position.y, P.transform.position.z);
                 DialogHelper.Label("Input a location (X, Y, Z)");
                 TpX = DialogHelper.Input(TpX);
                 TpY = DialogHelper.Input(TpY);
@@ -76,8 +75,7 @@ namespace Injected.UI
 
         private static void Teleport(Vector3 pos)
         {
-            var obj = Object.FindObjectOfType<CharacterController>().gameObject;
-            obj.transform.position = pos;
+            P.transform.position = pos;
         }
     }
 }

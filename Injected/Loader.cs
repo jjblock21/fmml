@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DebugConsole = System.Addons.WinForms.Console.WindowsFormsDebugConsole;
 
 namespace Injected
 {
@@ -6,7 +7,8 @@ namespace Injected
     {
         public static void Init()
         {
-            UnityEngine.Application.runInBackground = true;
+            //DebugConsole.AttachConsole();
+            Application.runInBackground = true;
             Load = new GameObject("Mod");
             Load.AddComponent<ModMain>();
             Load.transform.parent = null;

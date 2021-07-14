@@ -34,15 +34,15 @@ namespace Fireworks_Mania_Modloader
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.status = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.discordLink = new System.Windows.Forms.LinkLabel();
+            this.moreLink = new System.Windows.Forms.LinkLabel();
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
             this.injectButton = new System.Windows.Forms.Button();
             this.ejectButton = new System.Windows.Forms.Button();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
             this.refreshButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.statusLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -59,9 +59,16 @@ namespace Fireworks_Mania_Modloader
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.panel1.Controls.Add(this.statusLabel);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.discordLink);
+            this.panel1.Controls.Add(this.moreLink);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.statusLabel, "statusLabel");
+            this.statusLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.statusLabel.Name = "statusLabel";
             // 
             // label1
             // 
@@ -69,18 +76,18 @@ namespace Fireworks_Mania_Modloader
             this.label1.ForeColor = System.Drawing.Color.DarkGray;
             this.label1.Name = "label1";
             // 
-            // discordLink
+            // moreLink
             // 
-            this.discordLink.ActiveLinkColor = System.Drawing.Color.Silver;
-            resources.ApplyResources(this.discordLink, "discordLink");
-            this.discordLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.discordLink.LinkColor = System.Drawing.Color.White;
-            this.discordLink.Name = "discordLink";
-            this.discordLink.TabStop = true;
-            this.discordLink.VisitedLinkColor = System.Drawing.Color.White;
-            this.discordLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.discordLink_LinkClicked);
-            this.discordLink.MouseEnter += new System.EventHandler(this.discordLink_MouseEnter);
-            this.discordLink.MouseLeave += new System.EventHandler(this.discordLink_MouseLeave);
+            this.moreLink.ActiveLinkColor = System.Drawing.Color.Silver;
+            resources.ApplyResources(this.moreLink, "moreLink");
+            this.moreLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.moreLink.LinkColor = System.Drawing.Color.White;
+            this.moreLink.Name = "moreLink";
+            this.moreLink.TabStop = true;
+            this.moreLink.VisitedLinkColor = System.Drawing.Color.White;
+            this.moreLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.discordLink_LinkClicked);
+            this.moreLink.MouseEnter += new System.EventHandler(this.discordLink_MouseEnter);
+            this.moreLink.MouseLeave += new System.EventHandler(this.discordLink_MouseLeave);
             // 
             // simpleGradientPanel1
             // 
@@ -142,13 +149,6 @@ namespace Fireworks_Mania_Modloader
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
-            // statusLabel
-            // 
-            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.statusLabel, "statusLabel");
-            this.statusLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.statusLabel.Name = "statusLabel";
-            // 
             // Window
             // 
             resources.ApplyResources(this, "$this");
@@ -180,7 +180,7 @@ namespace Fireworks_Mania_Modloader
         #endregion
         private Label status;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.LinkLabel discordLink;
+        private System.Windows.Forms.LinkLabel moreLink;
         private PictureBox pictureBox1;
         private JControls.SimpleGradientPanel simpleGradientPanel1;
         private Button refreshButton;
