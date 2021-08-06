@@ -168,8 +168,7 @@ public class ModMain : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.X) && crazyClonerActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
-            if (hit.collider != null)
-                Actions.CrazyClone(hit.collider, hit.point);
+            Actions.CrazyClone(hit.collider, hit.point);
         }
 
         if (Input.GetKeyDown(KeyCode.T) && newtonifierActive)
@@ -239,7 +238,7 @@ public class ModMain : MonoBehaviour
 
     #endregion
 
-    private bool showDebugLine = true;
+    private bool showDebugLine = false;
 
     /*
      * Where all the GUI stuff gets Updated.
@@ -400,7 +399,7 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Place Marker"))
         {
             var m = Utils.GetUnlitMaterial(Utils.GetRandomColor());
-            Utils.DrawLine(0.5f, m, _controller.transform.position, _controller.transform.position + Vector3.up * 100);
+            Utils.DrawLine(0.4f, m, _controller.transform.position - Vector3.up, _controller.transform.position + Vector3.up * 100);
         }
         if (UIHelper.Button("Clear Markers")) Utils.ClearLines();
         if (UIHelper.BottomNavigationButton("Back"))

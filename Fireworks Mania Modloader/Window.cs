@@ -33,7 +33,7 @@ namespace Fireworks_Mania_Modloader
 
         private void window_KeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            
+
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
@@ -166,6 +166,11 @@ namespace Fireworks_Mania_Modloader
         private void discordLink_MouseLeave(object sender, EventArgs e)
         {
             moreLink.LinkColor = Color.White;
+        }
+
+        private void launchGameButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("steam://rungameid/1079260");
         }
     }
 }

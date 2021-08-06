@@ -52,12 +52,12 @@ namespace Injected
             if (obj.tag != "MainCamera")
             {
                 collider.enabled = true;
-                collider.isTrigger = false;
                 GameObject clone = UnityEngine.Object.Instantiate(obj) as GameObject;
-                Rigidbody rb = clone.AddComponent<Rigidbody>();
+                Rigidbody rb = clone.GetComponent<Rigidbody>();
+                if (rb == null) clone.AddComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.useGravity = true;
-                clone.transform.position = hitPoint;
+                clone.gameObject.transform.position = hitPoint;
                 clone.SetActive(true);
                 Utils.AddClone(clone);
             }

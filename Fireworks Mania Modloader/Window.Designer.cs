@@ -43,6 +43,7 @@ namespace Fireworks_Mania_Modloader
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
             this.refreshButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.launchGameButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -65,8 +66,8 @@ namespace Fireworks_Mania_Modloader
             // 
             // statusLabel
             // 
-            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.statusLabel, "statusLabel");
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
             this.statusLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.statusLabel.Name = "statusLabel";
             // 
@@ -149,11 +150,21 @@ namespace Fireworks_Mania_Modloader
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
+            // launchGameButton
+            // 
+            resources.ApplyResources(this.launchGameButton, "launchGameButton");
+            this.launchGameButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.launchGameButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.launchGameButton.Name = "launchGameButton";
+            this.launchGameButton.UseVisualStyleBackColor = false;
+            this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
+            // 
             // Window
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.Controls.Add(this.launchGameButton);
             this.Controls.Add(this.simpleTransparentGradientPanel1);
             this.Controls.Add(this.ejectButton);
             this.Controls.Add(this.injectButton);
@@ -189,6 +200,7 @@ namespace Fireworks_Mania_Modloader
         private JControls.SimpleTransparentGradientPanel simpleTransparentGradientPanel1;
         private Label versionLabel;
         private Label statusLabel;
+        private Button launchGameButton;
     }
 }
 

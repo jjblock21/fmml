@@ -149,13 +149,76 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;status.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;statusLabel.Name" xml:space="preserve">
+    <value>statusLabel</value>
+  </data>
+  <data name="&gt;&gt;statusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusLabel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;statusLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
+    <value>versionLabel</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;moreLink.Name" xml:space="preserve">
+    <value>moreLink</value>
+  </data>
+  <data name="&gt;&gt;moreLink.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;moreLink.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;moreLink.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 275</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>319, 26</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="statusLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <data name="statusLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="statusLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 6</value>
+    <value>79, 7</value>
   </data>
   <data name="statusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 13</value>
@@ -233,7 +296,7 @@
     <value>NoControl</value>
   </data>
   <data name="moreLink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 7</value>
+    <value>283, 7</value>
   </data>
   <data name="moreLink.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 13</value>
@@ -256,38 +319,14 @@
   <data name="&gt;&gt;moreLink.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 257</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 26</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="simpleGradientPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
   <data name="simpleGradientPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 239</value>
+    <value>0, 257</value>
   </data>
   <data name="simpleGradientPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>319, 22</value>
   </data>
   <data name="simpleGradientPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -305,10 +344,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;simpleGradientPanel1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="injectButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+    <value>None</value>
   </data>
   <data name="injectButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -317,7 +356,7 @@
     <value>NoControl</value>
   </data>
   <data name="injectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>53, 210</value>
+    <value>114, 219</value>
   </data>
   <data name="injectButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 23</value>
@@ -338,7 +377,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;injectButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ejectButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -350,7 +389,7 @@
     <value>NoControl</value>
   </data>
   <data name="ejectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 210</value>
+    <value>216, 219</value>
   </data>
   <data name="ejectButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -371,7 +410,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ejectButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="simpleTransparentGradientPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -380,7 +419,7 @@
     <value>0, 74</value>
   </data>
   <data name="simpleTransparentGradientPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 81</value>
+    <value>319, 81</value>
   </data>
   <data name="simpleTransparentGradientPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -395,7 +434,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;simpleTransparentGradientPanel1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="refreshButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -407,7 +446,7 @@
     <value>NoControl</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 164</value>
+    <value>219, 164</value>
   </data>
   <data name="refreshButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 23</value>
@@ -428,7 +467,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;refreshButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="pictureBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -440,7 +479,7 @@
     <value>0, 0</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 155</value>
+    <value>319, 155</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
@@ -458,7 +497,40 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
+  </data>
+  <data name="launchGameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="launchGameButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="launchGameButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="launchGameButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 219</value>
+  </data>
+  <data name="launchGameButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 23</value>
+  </data>
+  <data name="launchGameButton.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="launchGameButton.Text" xml:space="preserve">
+    <value>Start Game</value>
+  </data>
+  <data name="&gt;&gt;launchGameButton.Name" xml:space="preserve">
+    <value>launchGameButton</value>
+  </data>
+  <data name="&gt;&gt;launchGameButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;launchGameButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;launchGameButton.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -467,7 +539,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>303, 283</value>
+    <value>319, 301</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -9267,11 +9339,14 @@
         CUhOAUjhoVbiDbNvV1RYhIcfebj3hAkTdh2lbrPbMgKMQA4Q+H8Ae9OqUSjkTgAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>349, 352</value>
+    <value>360, 380</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>319, 322</value>
+    <value>335, 340</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Fireworks Mania ModLoader</value>
