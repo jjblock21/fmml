@@ -33,9 +33,9 @@ namespace Fireworks_Mania_Modloader
             this.label1 = new System.Windows.Forms.Label();
             this.copyButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.backLink = new System.Windows.Forms.LinkLabel();
+            this.changeLogsLink = new System.Windows.Forms.LinkLabel();
             this.discordLink = new System.Windows.Forms.LinkLabel();
+            this.backLink = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,13 @@ namespace Fireworks_Mania_Modloader
             // 
             // copyButton
             // 
+            this.copyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.copyButton.FlatAppearance.BorderSize = 2;
+            this.copyButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.copyButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.copyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyButton.ForeColor = System.Drawing.Color.White;
             this.copyButton.Location = new System.Drawing.Point(318, 29);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(104, 23);
@@ -60,12 +67,14 @@ namespace Fireworks_Mania_Modloader
             this.copyButton.Text = "Copy PlayerLog";
             this.copyButton.UseVisualStyleBackColor = true;
             this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
+            this.copyButton.MouseEnter += new System.EventHandler(this.copyButton_MouseEnter);
+            this.copyButton.MouseLeave += new System.EventHandler(this.copyButton_MouseLeave);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.changeLogsLink);
             this.panel1.Controls.Add(this.discordLink);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.backLink);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 210);
@@ -73,25 +82,52 @@ namespace Fireworks_Mania_Modloader
             this.panel1.Size = new System.Drawing.Size(434, 26);
             this.panel1.TabIndex = 14;
             // 
-            // label2
+            // changeLogsLink
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Roboto", 8.25F);
-            this.label2.ForeColor = System.Drawing.Color.DarkGray;
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(3, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "v0.1.9";
+            this.changeLogsLink.ActiveLinkColor = System.Drawing.Color.Silver;
+            this.changeLogsLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.changeLogsLink.AutoSize = true;
+            this.changeLogsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.changeLogsLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.changeLogsLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.changeLogsLink.LinkColor = System.Drawing.Color.White;
+            this.changeLogsLink.Location = new System.Drawing.Point(3, 7);
+            this.changeLogsLink.Name = "changeLogsLink";
+            this.changeLogsLink.Size = new System.Drawing.Size(66, 13);
+            this.changeLogsLink.TabIndex = 3;
+            this.changeLogsLink.TabStop = true;
+            this.changeLogsLink.Text = " Changelogs";
+            this.changeLogsLink.VisitedLinkColor = System.Drawing.Color.White;
+            this.changeLogsLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changeLogsLink_LinkClicked);
+            this.changeLogsLink.MouseEnter += new System.EventHandler(this.changeLogsLink_MouseEnter);
+            this.changeLogsLink.MouseLeave += new System.EventHandler(this.changeLogsLink_MouseLeave);
+            // 
+            // discordLink
+            // 
+            this.discordLink.ActiveLinkColor = System.Drawing.Color.Silver;
+            this.discordLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.discordLink.AutoSize = true;
+            this.discordLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.discordLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.discordLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.discordLink.LinkColor = System.Drawing.Color.White;
+            this.discordLink.Location = new System.Drawing.Point(348, 7);
+            this.discordLink.Name = "discordLink";
+            this.discordLink.Size = new System.Drawing.Size(43, 13);
+            this.discordLink.TabIndex = 2;
+            this.discordLink.TabStop = true;
+            this.discordLink.Text = "Discord";
+            this.discordLink.VisitedLinkColor = System.Drawing.Color.White;
+            this.discordLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.discordLink_LinkClicked);
+            this.discordLink.MouseEnter += new System.EventHandler(this.discordLink_MouseEnter);
+            this.discordLink.MouseLeave += new System.EventHandler(this.discordLink_MouseLeave);
             // 
             // backLink
             // 
             this.backLink.ActiveLinkColor = System.Drawing.Color.Silver;
             this.backLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.backLink.AutoSize = true;
-            this.backLink.Font = new System.Drawing.Font("Roboto", 8.25F);
+            this.backLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.backLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.backLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.backLink.LinkColor = System.Drawing.Color.White;
@@ -105,26 +141,6 @@ namespace Fireworks_Mania_Modloader
             this.backLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.backLink_LinkClicked);
             this.backLink.MouseEnter += new System.EventHandler(this.backLink_MouseEnter);
             this.backLink.MouseLeave += new System.EventHandler(this.backLink_MouseLeave);
-            // 
-            // discordLink
-            // 
-            this.discordLink.ActiveLinkColor = System.Drawing.Color.Silver;
-            this.discordLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.discordLink.AutoSize = true;
-            this.discordLink.Font = new System.Drawing.Font("Roboto", 8.25F);
-            this.discordLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.discordLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.discordLink.LinkColor = System.Drawing.Color.White;
-            this.discordLink.Location = new System.Drawing.Point(348, 7);
-            this.discordLink.Name = "discordLink";
-            this.discordLink.Size = new System.Drawing.Size(45, 13);
-            this.discordLink.TabIndex = 2;
-            this.discordLink.TabStop = true;
-            this.discordLink.Text = "Discord";
-            this.discordLink.VisitedLinkColor = System.Drawing.Color.White;
-            this.discordLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.discordLink_LinkClicked);
-            this.discordLink.MouseEnter += new System.EventHandler(this.discordLink_MouseEnter);
-            this.discordLink.MouseLeave += new System.EventHandler(this.discordLink_MouseLeave);
             // 
             // More
             // 
@@ -155,8 +171,8 @@ namespace Fireworks_Mania_Modloader
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button copyButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel backLink;
         private System.Windows.Forms.LinkLabel discordLink;
+        private System.Windows.Forms.LinkLabel changeLogsLink;
     }
 }

@@ -35,7 +35,7 @@ namespace Fireworks_Mania_Modloader
             this.status = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.statusLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.moreLink = new System.Windows.Forms.LinkLabel();
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
             this.injectButton = new System.Windows.Forms.Button();
@@ -58,7 +58,7 @@ namespace Fireworks_Mania_Modloader
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.panel1.Controls.Add(this.statusLabel);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.versionLabel);
             this.panel1.Controls.Add(this.moreLink);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
@@ -70,11 +70,11 @@ namespace Fireworks_Mania_Modloader
             this.statusLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.statusLabel.Name = "statusLabel";
             // 
-            // label1
+            // versionLabel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.DarkGray;
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.versionLabel, "versionLabel");
+            this.versionLabel.ForeColor = System.Drawing.Color.DarkGray;
+            this.versionLabel.Name = "versionLabel";
             // 
             // moreLink
             // 
@@ -187,7 +187,7 @@ namespace Fireworks_Mania_Modloader
         private Button injectButton;
         private Button ejectButton;
         private JControls.SimpleTransparentGradientPanel simpleTransparentGradientPanel1;
-        private Label label1;
+        private Label versionLabel;
         private Label statusLabel;
     }
 }

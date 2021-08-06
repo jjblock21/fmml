@@ -31,6 +31,11 @@ namespace Injected
             return type.GetField(field, FIELD_FLAGS);
         }
 
+        public FieldInfo GetField(string field, BindingFlags customFlags)
+        {
+            return type.GetField(field, customFlags);
+        }
+
         public object InvokMethod(MethodInfo method, params object[] parameters)
         {
             return method.Invoke(obj, parameters);

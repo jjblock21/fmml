@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Addons.WinForms.Console;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,6 +10,7 @@ namespace Fireworks_Mania_Modloader
 {
     public static class Program
     {
+        public const string version = "v0.1.10";
         public static Window window;
 
         [STAThread]
@@ -27,6 +29,7 @@ namespace Fireworks_Mania_Modloader
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += ThreadException;
+            //DebugConsole.AttachConsole();
         }
 
         private static void ThreadException(object sender, ThreadExceptionEventArgs e)

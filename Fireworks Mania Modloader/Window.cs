@@ -26,8 +26,14 @@ namespace Fireworks_Mania_Modloader
 
         private void Start(object sender, EventArgs e)
         {
+            versionLabel.Text = Program.version;
             UpdateLabel();
             LoadProcesses();
+        }
+
+        private void window_KeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
@@ -56,7 +62,7 @@ namespace Fireworks_Mania_Modloader
             {
                 if (new Random().NextDouble() < 0.75f)
                     statusLabel.Text = "Independence Day!";
-                else statusLabel.Text = "Have you gotten Fireworks?";
+                else statusLabel.Text = "Got Fireworks?";
             }
             else statusLabel.Text = "";
         }

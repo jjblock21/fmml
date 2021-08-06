@@ -33,6 +33,7 @@ namespace Fireworks_Mania_Modloader
         {
             var feedback = LoadPlayerLog(out string log);
             FailHandler.HandleException(feedback);
+            if (log == null) return;
             Clipboard.SetText(log);
             MessageBox.Show("The Player log was successfully saved to your clipboard, insert it using Ctrl + V.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -71,14 +72,62 @@ namespace Fireworks_Mania_Modloader
                 contents = null;
                 if (File.Exists(path))
                     contents = File.ReadAllText(path);
-                else return new Feedback(69, null, false, -1, "The PlayerLog file doesn't exist, please run the game before you use this feature.");
-                return new Feedback(0, null, true, 0, null);
+                else return Feedback.GenerateErrorFeedback(69, "The PlayerLog file doesn't exist, please run the game before you use this feature.");
+                return Feedback.GenerateSuccessFeedback(0);
             }
             catch (Exception e)
             {
                 contents = null;
                 return new Feedback(420, e, false, -1, e.Message);
             }
+        }
+
+        private void changeLogsLink_MouseEnter(object sender, EventArgs e)
+        {
+            changeLogsLink.LinkColor = Color.Gainsboro;
+        }
+
+        private void changeLogsLink_MouseLeave(object sender, EventArgs e)
+        {
+            changeLogsLink.LinkColor = Color.White;
+        }
+
+        private void changeLogsLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ShowChangelog();
+        }
+
+        private void ShowChangelog()
+        {
+            try
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + @"\CHANGELOG";
+                if (File.Exists(path))
+                {
+                    string text = File.ReadAllText(path);
+                    MessageBox.Show(text, Program.version + " Changelog");
+                }
+                else
+                {
+                    MessageBox.Show("The " + Program.version + " Changelog is currently not available.", "Information",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Failed to display the Changelog because of an unexpected Error.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void copyButton_MouseEnter(object sender, EventArgs e)
+        {
+            copyButton.FlatAppearance.BorderColor = Color.Silver;
+        }
+
+        private void copyButton_MouseLeave(object sender, EventArgs e)
+        {
+            copyButton.FlatAppearance.BorderColor = Color.White;
         }
     }
 }

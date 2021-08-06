@@ -29,18 +29,18 @@ public class ModMain : MonoBehaviour
      */
     #region Toggles
     private ToggleClass fToggle = new ToggleClass();
-    private ToggleClass cToggle = new ToggleClass();
+    private ToggleClass clonerToggle = new ToggleClass();
     private ToggleClass vToggle = new ToggleClass();
     private ToggleClass aToggle = new ToggleClass();
     private ToggleClass aToggle2 = new ToggleClass();
     private ToggleClass aToggle3 = new ToggleClass();
-    private ToggleClass ccToggle = new ToggleClass();
-    private ToggleClass eToggle = new ToggleClass();
-    private ToggleClass nToggle = new ToggleClass();
+    private ToggleClass crazyClonerToggle = new ToggleClass();
+    private ToggleClass eraserToggle = new ToggleClass();
+    private ToggleClass newtonifierToggle = new ToggleClass();
 
     private ToggleClass debugLineToggle = new ToggleClass();
 
-    private int ieDelay = 1;
+    private int igniteEverythingDelay = 1;
     #endregion
 
     /*
@@ -49,9 +49,6 @@ public class ModMain : MonoBehaviour
     #region Start
     public void Start()
     {
-        // Disabled
-        //if (SteamChecker.IsAuthorisedGameInstance() == 0)
-        //{
         // Add Events
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         ssToggle.StateChanged += SsToggle_StateChanged;
@@ -68,10 +65,7 @@ public class ModMain : MonoBehaviour
         // Init the Pagesystem.
         AddPages();
 
-        // Authorise game and return
         authorised = true;
-        return;
-        //}
     }
 
     private void DebugLineToggle_StateChanged(object sender, bool e)
@@ -85,7 +79,8 @@ public class ModMain : MonoBehaviour
     {
         FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
         if (firstPerson == null) return;
-        FieldInfo field = firstPerson.GetType().GetField("m_JumpSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
+        GameReflector gr = new GameReflector(firstPerson);
+        FieldInfo field = gr.GetField("m_JumpSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
         if (e) field.SetValue(firstPerson, jumpHeight);
         else field.SetValue(firstPerson, 10);
     }
@@ -94,7 +89,8 @@ public class ModMain : MonoBehaviour
     {
         FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
         if (firstPerson == null) return;
-        FieldInfo field = firstPerson.GetType().GetField("m_RunSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
+        GameReflector gr = new GameReflector(firstPerson);
+        FieldInfo field = gr.GetField("m_RunSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
         if (e) field.SetValue(firstPerson, speed);
         else field.SetValue(firstPerson, 10);
     }
@@ -169,44 +165,44 @@ public class ModMain : MonoBehaviour
             if (hit.collider != null)
                 Actions.Clone(hit.collider, hit.point);
         }
-        else if (Input.GetKeyDown(KeyCode.X) && ccActive)
+        else if (Input.GetKeyDown(KeyCode.X) && crazyClonerActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null)
                 Actions.CrazyClone(hit.collider, hit.point);
         }
 
-        if (Input.GetKeyDown(KeyCode.T) && nActive)
+        if (Input.GetKeyDown(KeyCode.T) && newtonifierActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null) Actions.Newtonify(hit.collider);
         }
 
         // Delete Tool
-        if (Input.GetKeyDown(KeyCode.V) && eActive)
+        if (Input.GetKeyDown(KeyCode.V) && eraserActive)
         {
             RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
             if (hit.collider != null) Actions.Delete(hit.collider);
         }
 
         // Auto Clicker
-        if (Input.GetKey(KeyCode.R) && acActive)
+        if (Input.GetKey(KeyCode.R) && autoClickerActive)
         {
             if (aToggle2.Toggle(true))
             {
-                if (!acButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
+                if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
                 else Mouse.MouseEvent(Mouse.MouseEventFlags.RightUp);
             }
             else
             {
-                if (!acButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftDown);
+                if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftDown);
                 else Mouse.MouseEvent(Mouse.MouseEventFlags.RightDown);
             }
         }
 
         // Ignite All
         if (Input.GetKeyDown(KeyCode.K)) Actions.IgniteAll(false, 1);
-        if (Input.GetKeyDown(KeyCode.L)) Actions.IgniteAll(true, ieDelay);
+        if (Input.GetKeyDown(KeyCode.L)) Actions.IgniteAll(true, igniteEverythingDelay);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Tool.SetSelectedTool(SelectedTool.PhysicsTool);
@@ -220,7 +216,7 @@ public class ModMain : MonoBehaviour
             Tool.SetSelectedTool(SelectedTool.DeleteTool);
 
         // Draw Debug Line
-        if (flameThrowerActive || clonerActive || eActive)
+        if (flameThrowerActive || clonerActive || eraserActive)
         {
             if (showDebugLine)
             {
@@ -297,18 +293,18 @@ public class ModMain : MonoBehaviour
         flameThrowerActive = fToggle.Toggle(UIHelper.Button("Flamethrower", flameThrowerActive));
         if (UIHelper.Button("Cloning machine", clonerActive))
         {
-            clonerActive = cToggle.Toggle(true);
-            ccActive = false;
-            ccToggle.SetState(false);
+            clonerActive = clonerToggle.Toggle(true);
+            crazyClonerActive = false;
+            crazyClonerToggle.SetState(false);
         }
-        eActive = eToggle.Toggle(UIHelper.Button("Delete Tool", eActive));
+        eraserActive = eraserToggle.Toggle(UIHelper.Button("Delete Tool", eraserActive));
         UIHelper.Space(20);
         if (UIHelper.Button("Marker stuff"))
             PageSystem.SelectPage(6);
         if (UIHelper.Button("Buggy Tools"))
             PageSystem.SelectPage(5);
         UIHelper.Space(30);
-        if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true, ieDelay);
+        if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true, igniteEverythingDelay);
         if (UIHelper.Button("Instantly Ignite Everything")) Actions.IgniteAll(false, 1);
         UIHelper.Space(20);
         if (UIHelper.Button("Unlock Tim")) Actions.UnlockTim();
@@ -364,8 +360,8 @@ public class ModMain : MonoBehaviour
     private void HacksPage()
     {
         UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
-        acActive = aToggle.Toggle(UIHelper.Button("Inbuilt Auto Clicker", acActive));
-        acButtonLeft = aToggle3.Toggle(UIHelper.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !acButtonLeft));
+        autoClickerActive = aToggle.Toggle(UIHelper.Button("Inbuilt Auto Clicker", autoClickerActive));
+        autoClickerButtonLeft = aToggle3.Toggle(UIHelper.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
         UIHelper.Space(20);
         superSpeedActive = ssToggle.Toggle(UIHelper.Button("Super Speed", superSpeedActive));
         superJumpActive = sjToggle.Toggle(UIHelper.Button("Super Jump", superJumpActive));
@@ -380,12 +376,12 @@ public class ModMain : MonoBehaviour
     {
         UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
         UIHelper.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utils.CreateColorGUIStyle(Color.yellow));
-        nActive = nToggle.Toggle(UIHelper.Button("Newtonifier", nActive));
-        if (UIHelper.Button("Crazy Cloner", ccActive))
+        newtonifierActive = newtonifierToggle.Toggle(UIHelper.Button("Newtonifier", newtonifierActive));
+        if (UIHelper.Button("Crazy Cloner", crazyClonerActive))
         {
-            ccActive = ccToggle.Toggle(true);
+            crazyClonerActive = crazyClonerToggle.Toggle(true);
             clonerActive = false;
-            cToggle.SetState(false);
+            clonerToggle.SetState(false);
         }
         UIHelper.Space(20);
         if (UIHelper.Button("Teleporter") && _controller != null)
@@ -428,7 +424,7 @@ public class ModMain : MonoBehaviour
 
             UIHelper.Space(10);
             UIHelper.Label("Ingite All Delay (ms)", 25);
-            ieDelay = int.Parse(UIHelper.Input(ieDelay.ToString(), 5));
+            igniteEverythingDelay = int.Parse(UIHelper.Input(igniteEverythingDelay.ToString(), 5));
 
             if (UIHelper.BottomNavigationButton("Back"))
             {
@@ -463,11 +459,11 @@ public class ModMain : MonoBehaviour
     private bool flameThrowerActive = false;
     private bool clonerActive = false;
     private bool visible = true;
-    private bool acActive = false;
-    private bool acButtonLeft = true;
-    private bool ccActive = false;
-    private bool eActive = false;
-    private bool nActive = false;
+    private bool autoClickerActive = false;
+    private bool autoClickerButtonLeft = true;
+    private bool crazyClonerActive = false;
+    private bool eraserActive = false;
+    private bool newtonifierActive = false;
     private bool authorised = false;
 
     private IEnumerator UpdateVersionLabel()
@@ -475,7 +471,7 @@ public class ModMain : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         var obj = FindObjectOfType<VersionLabel>();
         var obj2 = obj.gameObject.GetComponentInParent<TextMeshProUGUI>();
-        obj2.text = "v" + Application.version + " (MODDED)";
+        obj2.text = "v" + Application.version + " & FMML " + Loader.version;
     }
 
     #region AuthorisationStuff
