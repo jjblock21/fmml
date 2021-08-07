@@ -1,5 +1,6 @@
 ﻿using FireworksMania.Common;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 namespace Injected.UI
 {
@@ -10,7 +11,7 @@ namespace Injected.UI
 
         private static bool isSelectionState = false;
 
-        private static GameObject P => Object.FindObjectOfType<CharacterController>().gameObject;
+        private static GameObject P => Object.FindObjectOfType<FirstPersonController>().gameObject;
 
         public static void UpdateDialog()
         {
@@ -75,7 +76,7 @@ namespace Injected.UI
 
         private static void Teleport(Vector3 pos)
         {
-            P.transform.position = pos;
+            if (P != null) P.transform.position = pos;
         }
     }
 }

@@ -51,13 +51,15 @@ namespace Injected
             GameObject obj = collider.gameObject;
             if (obj.tag != "MainCamera")
             {
-                collider.enabled = true;
                 GameObject clone = UnityEngine.Object.Instantiate(obj) as GameObject;
+                clone.AddComponent<Rigidbody>();
+                BoxCollider col = clone.AddComponent<BoxCollider>();
+                Bounds bounds = clone.GetComponent<MeshFilter>().mesh.bounds;
+                col.center = bounds.center;
                 Rigidbody rb = clone.GetComponent<Rigidbody>();
-                if (rb == null) clone.AddComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.useGravity = true;
-                clone.gameObject.transform.position = hitPoint;
+                clone.transform.position = hitPoint;
                 clone.SetActive(true);
                 Utils.AddClone(clone);
             }

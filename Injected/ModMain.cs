@@ -37,6 +37,7 @@ public class ModMain : MonoBehaviour
     private ToggleClass crazyClonerToggle = new ToggleClass();
     private ToggleClass eraserToggle = new ToggleClass();
     private ToggleClass newtonifierToggle = new ToggleClass();
+    private ToggleClass spaceModeToggle = new ToggleClass();
 
     private ToggleClass debugLineToggle = new ToggleClass();
 
@@ -95,6 +96,40 @@ public class ModMain : MonoBehaviour
         else field.SetValue(firstPerson, 10);
     }
 
+    private bool spaceModeActive = false;
+
+    private void SpaceMode(bool enabled)
+    {
+        FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
+        if (firstPerson == null) return;
+        GameReflector gr = new GameReflector(firstPerson);
+        FieldInfo field = gr.GetField("m_JumpSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (enabled)
+        {
+            Physics.gravity = Vector3.zero;
+            field.SetValue(firstPerson, 0);
+        }
+        else
+        {
+            Physics.gravity = new Vector3(0, -9.8f, 0);
+            field.SetValue(firstPerson, 10);
+        }
+    }
+
+    private void ToggleSpaceMode(bool input)
+    {
+        if (input && !spaceModeActive)
+        {
+            spaceModeActive = true;
+            SpaceMode(true);
+        }
+        else if (!input && spaceModeActive)
+        {
+            spaceModeActive = false;
+            SpaceMode(false);
+        }
+    }
+
     private void SjToggle_StateChanged(object sender, bool e)
     {
         UpdateSuperJump(e);
@@ -143,9 +178,20 @@ public class ModMain : MonoBehaviour
     private int jumpHeight = 25;
     private int speed = 50;
 
+    private bool disableKeys = false;
+
     #region Update
     public void Update()
     {
+        // Disable/Enable Key Shortcuts with F2
+        if (Input.GetKeyUp(KeyCode.F2))
+        {
+            if (disableKeys) disableKeys = false;
+            else disableKeys = true;
+        }
+
+        if (disableKeys) goto endOfKeys;
+
         // FlameThrower
         if (Input.GetKey(KeyCode.C) && flameThrowerActive)
         {
@@ -214,6 +260,9 @@ public class ModMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
             Tool.SetSelectedTool(SelectedTool.DeleteTool);
 
+        // Stuff in the update function that will not get skipped when disableKeys is on.
+        endOfKeys:
+
         // Draw Debug Line
         if (flameThrowerActive || clonerActive || eraserActive)
         {
@@ -254,6 +303,11 @@ public class ModMain : MonoBehaviour
                 PageSystem.DrawPage();
 
                 // Update Position Display
+                if (disableKeys)
+                {
+                    UIHelper.Label("Keys are disabled!", "Enable using F2", 20, 16, Color.red);
+                    return;
+                }
                 if (Actions.TryGetPositionString(out string text, _controller))
                     UIHelper.Label(text, "The players position", 20, 16, Color.white);
             }
@@ -327,6 +381,7 @@ public class ModMain : MonoBehaviour
     {
         UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 600, 25, 35, 10, 50, 10);
         UIHelper.Label("F1: Show/Hide the Menu.");
+        UIHelper.Label("F2: Toggle keys, so you're be able to type.");
         UIHelper.Space(10);
         UIHelper.Label("Flamethrower Tool:\nC: Ingite Flammable Material.");
         UIHelper.Space(10);
@@ -334,7 +389,7 @@ public class ModMain : MonoBehaviour
         UIHelper.Space(10);
         UIHelper.Label("Autoclicker Hack:\nR: Click every second Frame.");
         UIHelper.Space(10);
-        UIHelper.Label("Delete Tool:\nV: Delete literally anything!");
+        UIHelper.Label("Delete Tool:\nV: Delete anything you're looking at!");
         UIHelper.Space(10);
         UIHelper.Label("Ignite Everything:\nK: Ignite everything.\nL: Ignite Everything with specified delay.", 50);
         UIHelper.Space(10);
@@ -365,6 +420,7 @@ public class ModMain : MonoBehaviour
         superSpeedActive = ssToggle.Toggle(UIHelper.Button("Super Speed", superSpeedActive));
         superJumpActive = sjToggle.Toggle(UIHelper.Button("Super Jump", superJumpActive));
         UIHelper.Space(20);
+        ToggleSpaceMode(spaceModeToggle.Toggle(UIHelper.Button("Space Mode", spaceModeActive)));
         if (UIHelper.Button("Delete Everything")) Actions.DeleteAll();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
@@ -399,7 +455,8 @@ public class ModMain : MonoBehaviour
         if (UIHelper.Button("Place Marker"))
         {
             var m = Utils.GetUnlitMaterial(Utils.GetRandomColor());
-            Utils.DrawLine(0.4f, m, _controller.transform.position - Vector3.up, _controller.transform.position + Vector3.up * 100);
+            var p = _controller.transform.position;
+            Utils.DrawLine(0.4f, m, new Vector3(p.x, 0, p.z), new Vector3(p.x, 100, p.z));
         }
         if (UIHelper.Button("Clear Markers")) Utils.ClearLines();
         if (UIHelper.BottomNavigationButton("Back"))
