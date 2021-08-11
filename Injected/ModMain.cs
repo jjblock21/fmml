@@ -14,6 +14,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
+using Main.Setup;
+using FModApi;
 
 /*
  * FMML (Fireworks Mania ModLoader)
@@ -21,6 +23,7 @@ using UnityStandardAssets.Characters.FirstPerson;
  * Idk what to write here :)
  */
 
+[AttachToGame(AttachMode.ModObject)]
 public class ModMain : MonoBehaviour
 {
     /*
@@ -186,6 +189,85 @@ public class ModMain : MonoBehaviour
 
     #endregion
 
+    #region FlyMode
+
+    private bool flyModeActive = false;
+    private FirstPersonController flyModeControler = null;
+    private ToggleClass flyModeToggle = new ToggleClass();
+
+    private void EnableFlyMode()
+    {
+        FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
+        SetPlayerGravity(0, firstPerson);
+        SetSpeed(20, firstPerson);
+        flyModeControler = firstPerson;
+        flyModeActive = true;
+    }
+
+    private void DisableFlyMode()
+    {
+        FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
+        SetPlayerGravity(1, firstPerson);
+        SetSpeed(10, firstPerson);
+        flyModeControler = firstPerson;
+        flyModeActive = false;
+    }
+
+    private void SetPlayerGravity(int gravity, FirstPersonController firstPerson)
+    {
+        if (firstPerson == null) return;
+        GameReflector gr = new GameReflector(firstPerson);
+        FieldInfo field = gr.GetField("m_GravityMultiplier", BindingFlags.NonPublic | BindingFlags.Instance);
+        field.SetValue(firstPerson, gravity);
+    }
+
+    private void Jump(int force)
+    {
+        if (flyModeControler == null) return;
+        GameReflector gr = new GameReflector(flyModeControler);
+        Vector3 dir = (Vector3)gr.GetFieldValue("m_MoveDir");
+        dir.y = force;
+        gr.SetFieldValue("m_MoveDir", dir);
+    }
+
+    private void SetSpeed(int speed, FirstPersonController firstPerson)
+    {
+        if (firstPerson == null) return;
+        GameReflector gr = new GameReflector(firstPerson);
+        gr.SetFieldValue("m_RunSpeed", speed);
+    }
+
+    private void UpdateFlyMode()
+    {
+        if (flyModeActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump(8);
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                flyModeControler.ResetMovement(flyModeControler.gameObject.transform.position);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Jump(-8);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                flyModeControler.ResetMovement(flyModeControler.gameObject.transform.position);
+            }
+        }
+    }
+
+    private void ToggleFlyMode(bool input)
+    {
+        if (input && !flyModeActive) EnableFlyMode();
+        else if (!input && flyModeActive) DisableFlyMode();
+    }
+
+    #endregion
+
     /*
      * Adding all the Pages to the PageSystem.
      */
@@ -276,6 +358,11 @@ public class ModMain : MonoBehaviour
             DoAutoclickerClick();
         }
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            ToggleFlyMode(flyModeToggle.Toggle(true));
+        }
+
         // Ignite All
         if (Input.GetKeyDown(KeyCode.K)) Actions.IgniteAll(false, 1);
         if (Input.GetKeyDown(KeyCode.L)) Actions.IgniteAll(true, igniteEverythingDelay);
@@ -293,6 +380,8 @@ public class ModMain : MonoBehaviour
 
         // Stuff in the update function that will not get skipped when disableKeys is on.
         endOfKeys:
+
+        UpdateFlyMode();
 
         // Draw Debug Line
         if (flameThrowerActive || clonerActive || eraserActive)
@@ -409,7 +498,7 @@ public class ModMain : MonoBehaviour
     //Page 3
     private void ControllsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 600, 25, 35, 10, 50, 10);
+        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 700, 25, 35, 10, 50, 10);
         UIHelper.Label("F1: Show/Hide the Menu.");
         UIHelper.Label("F2: Toggle keys, so you're be able to type.");
         UIHelper.Space(10);
@@ -430,6 +519,11 @@ public class ModMain : MonoBehaviour
         );
         UIHelper.Space(10);
         UIHelper.Label("Newtonifier:\nT: Newtonify stuff.");
+        UIHelper.Space(10);
+        UIHelper.Label("Fly Mode:\n" +
+            "G: Toggle Fly Mode.\n" +
+            "Space: Fly up\n" +
+            "Ctrl: Fly down", 50);
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
@@ -437,7 +531,7 @@ public class ModMain : MonoBehaviour
     //Page 4
     private void HacksPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 500, 25, 35, 10, 50, 10);
         autoClickerActive = aToggle.Toggle(UIHelper.Button("Inbuilt Auto Clicker", autoClickerActive));
         autoClickerButtonLeft = aToggle3.Toggle(UIHelper.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
         UIHelper.Space(20);
@@ -445,6 +539,8 @@ public class ModMain : MonoBehaviour
         superJumpActive = sjToggle.Toggle(UIHelper.Button("Super Jump", superJumpActive));
         UIHelper.Space(20);
         ToggleSpaceMode(spaceModeToggle.Toggle(UIHelper.Button("Space Mode", spaceModeActive)));
+        ToggleFlyMode(flyModeToggle.Toggle(UIHelper.Button("Fly Mode", flyModeActive)));
+        UIHelper.Space(20);
         if (UIHelper.Button("Delete Everything")) Actions.DeleteAll();
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);

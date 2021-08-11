@@ -3,6 +3,7 @@ using FireworksMania.Fireworks.Parts;
 using FireworksMania.Interactions;
 using FireworksMania.Inventory;
 using FireworksMania.Props;
+using FModApi;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -53,9 +54,12 @@ namespace Injected
             {
                 GameObject clone = UnityEngine.Object.Instantiate(obj) as GameObject;
                 clone.AddComponent<Rigidbody>();
-                BoxCollider col = clone.AddComponent<BoxCollider>();
-                Bounds bounds = clone.GetComponent<MeshFilter>().mesh.bounds;
-                col.center = bounds.center;
+                var mesh = obj.GetComponent<MeshFilter>().mesh;
+                if (mesh != null)
+                {
+                    BoxCollider col = obj.AddComponent<BoxCollider>();
+                    col.center = mesh.bounds.center;
+                }
                 Rigidbody rb = clone.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.useGravity = true;
@@ -67,17 +71,21 @@ namespace Injected
 
         public static void Newtonify(Collider collider)
         {
-            if (collider == null) return;
             GameObject obj = collider.gameObject;
             if (obj.tag != "MainCamera")
             {
-                collider.enabled = true;
-                collider.isTrigger = false;
-                var rb = obj.GetComponent<Rigidbody>();
-                if (rb == null) rb = obj.AddComponent<Rigidbody>();
+                obj.AddComponent<Rigidbody>();
+                var mesh = obj.GetComponent<MeshFilter>().mesh;
+                if (mesh != null)
+                {
+                    BoxCollider col = obj.AddComponent<BoxCollider>();
+                    col.center = mesh.bounds.center;
+                }
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.useGravity = true;
                 obj.SetActive(true);
+                Utils.AddClone(obj);
             }
         }
 
@@ -141,18 +149,7 @@ namespace Injected
 
         public static bool UnlockTim()
         {
-            var im = UnityEngine.Object.FindObjectOfType<InventoryManager>();
-            if (im == null) return false;
-
-            GameReflector reflector = new GameReflector(im);
-
-            var t = reflector.Assembly.GetType("FireworksMania.Common.UnlockEntityEvent");
-            var c = t.GetConstructor(new Type[] { typeof(string), typeof(UnlockTypes) });
-            var rtrn = c.Invoke(new object[] { "Special_Shell_Tim", UnlockTypes.Temporarily });
-
-            reflector.InvokMethod("UnlockEntityId", parameters: rtrn);
-
-            return true;
+            return FireworkUnlocker.UnlockFirework(FireworkUnlocker.KnownFireworks.TimShell);
         }
     }
 }

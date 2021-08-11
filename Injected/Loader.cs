@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using DebugConsole = System.Addons.WinForms.Console.WindowsFormsDebugConsole;
+﻿using Main.Setup;
+using UnityEngine;
 
 namespace Injected
 {
@@ -10,10 +10,9 @@ namespace Injected
             //DebugConsole.AttachConsole();
             Application.runInBackground = true;
             Load = new GameObject("Mod");
-            Load.AddComponent<ModMain>();
+            AttachToGame.AttachAll(Load);
             Load.transform.parent = null;
             Load.hideFlags = HideFlags.DontSave;
-            Load.tag = "Loader";
             Object.DontDestroyOnLoad(Loader.Load);
         }
 

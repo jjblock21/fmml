@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-namespace Injected
+namespace FModApi
 {
     public static class Tool
     {
@@ -49,54 +49,10 @@ namespace Injected
 
         private static void TrySelectEraser(ToolMenuManager t)
         {
-            try
-            {
-                t.SelectEraserTool();
-            }
-            catch
-            {
-                Debug.LogError("FMML Error: EraserTool is not available in this version of Fireworks Mania.");
-            }
+            t.SelectEraserTool();
         }
 
         public static uint GetToolId(SelectedTool tool) => (uint)tool;
-
-        [Obsolete]
-        private static void BroadcasatToolEvent(ToolMenuItemSelectedMessengerEvent.ToolMenuItemType type)
-        {
-            //var reflector = new FMAssemblyReflector();
-            /*
-            var types = new[] { typeof(string), typeof(object) };
-            var assemblyType = reflector.GetAssemblyType("Messenger");
-            var method = reflector.GetMethod(assemblyType, "Broadcast", types, BindingFlags.Static | BindingFlags.Public);
-            Debug.LogError(assemblyType.ToString());
-            Debug.LogError(types.ToString());
-            if (method == null) Debug.LogError("METHOD was null");
-            reflector.InvokeStaticGenericMethod(
-                null,
-                method,
-                new object[]
-                {
-                    "ToolMenuItemSelected",
-                    new ToolMenuItemSelectedMessengerEvent(type)
-                },
-                typeof(ToolMenuItemSelectedMessengerEvent)
-            );
-            */
-            /*var assembly = reflector.GetAssembly();
-            var t = assembly.CreateInstance("Messenger").GetType();
-            var method = reflector.GetMethod(t, "Broadcast", new[] { typeof(string), typeof(ToolMenuItemSelectedMessengerEvent) }, BindingFlags.Static | BindingFlags.Public);
-            if (method == null) Debug.LogError("METHOD was null");
-            reflector.InvokeStaticGenericMethod(
-                null, method,
-                new object[]
-                {
-                    "ToolMenuItemSelected",
-                    new ToolMenuItemSelectedMessengerEvent(type)
-                },
-                typeof(ToolMenuItemSelectedMessengerEvent)
-            );*/
-        }
     }
 
     public enum SelectedTool : uint

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Injected
+namespace FModApi
 {
     public class GameReflector
     {
@@ -69,5 +69,28 @@ namespace Injected
         public object Object { get => obj; }
         public Type Type { get => type; }
         public Assembly Assembly { get => type.Assembly; }
+
+        public static IEnumerable<Type> GetTypesWithAttribute<T>(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (type.GetCustomAttributes(typeof(T), true).Length > 0)
+                {
+                    yield return type;
+                }
+            }
+        }
+
+        public static IEnumerable<Type> GetTypesWithAttribute(Type attribute, Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (type.GetCustomAttributes(attribute, true).Length > 0)
+                {
+                    yield return type;
+                }
+            }
+        }
+
     }
 }

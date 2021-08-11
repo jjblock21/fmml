@@ -178,20 +178,11 @@ namespace Fireworks_Mania_Modloader
 
         private async void EnterRefreshLoop()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
                 LoadProcesses();
-                if (process != null)
-                {
-                    var fb = InjectionUtil.Inject(process, path, out IntPtr value);
-                    if (fb.WasSuccessful)
-                    {
-                        injected = value;
-                        WindowState = FormWindowState.Minimized;
-                    }
-                    break;
-                }
-                await Task.Delay(5000);
+                if (process != null) break;
+                await Task.Delay(1000);
             }
         }
     }

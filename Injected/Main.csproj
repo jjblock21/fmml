@@ -32,9 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actions.cs" />
-    <Compile Include="Console.cs" />
-    <Compile Include="FireworkSpawner.cs" />
-    <Compile Include="GameReflector.cs" />
+    <Compile Include="FModApi\FireworkSpawner.cs" />
+    <Compile Include="FModApi\FireworkUnlocker.cs" />
+    <Compile Include="FModApi\GameReflector.cs" />
+    <Compile Include="Setup\AttachToGameAttribute.cs" />
     <Compile Include="ShapeDrawer.cs" />
     <Compile Include="UI\DialogHelper.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />
