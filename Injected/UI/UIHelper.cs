@@ -88,5 +88,15 @@ namespace Injected.UI
             s.normal.textColor = color;
             GUI.Label(r, c, s);
         }
+
+        public static void Label(string text, string toolTip, int xOffset, int yOffset, int fontSize, Color color)
+        {
+            Rect r = ControlRect(xOffset, GetGraphicsRect().height + yOffset, true);
+            GUIContent c = new GUIContent(text, toolTip);
+            GUIStyle s = new GUIStyle();
+            s.fontSize = fontSize;
+            s.normal.textColor = color;
+            GUI.Label(r, c, s);
+        }
     }
 }

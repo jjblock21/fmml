@@ -28,9 +28,9 @@ public class ModMain : MonoBehaviour
      * TODO: Just make this better, idk.
      */
     #region Toggles
-    private ToggleClass fToggle = new ToggleClass();
+    private ToggleClass flameThrowerToggle = new ToggleClass();
     private ToggleClass clonerToggle = new ToggleClass();
-    private ToggleClass vToggle = new ToggleClass();
+    private ToggleClass visibleToggle = new ToggleClass();
     private ToggleClass aToggle = new ToggleClass();
     private ToggleClass aToggle2 = new ToggleClass();
     private ToggleClass aToggle3 = new ToggleClass();
@@ -42,6 +42,33 @@ public class ModMain : MonoBehaviour
     private ToggleClass debugLineToggle = new ToggleClass();
 
     private int igniteEverythingDelay = 1;
+    private int jumpHeight = 25;
+    private int speed = 50;
+
+    private bool disableKeys = false;
+    private bool spaceModeActive = false;
+    private bool showDebugLine = false;
+
+    private bool superSpeedActive = false;
+    private ToggleClass ssToggle = new ToggleClass();
+    private bool superJumpActive = false;
+    private ToggleClass sjToggle = new ToggleClass();
+
+    public Camera _cam;
+    public ToolsBobbing _toolAnimation;
+    public Player _controller;
+    public TorchTool _torch;
+
+    private bool flameThrowerActive = false;
+    private bool clonerActive = false;
+    private bool visible = true;
+    private bool autoClickerActive = false;
+    private bool autoClickerButtonLeft = true;
+    private bool crazyClonerActive = false;
+    private bool eraserActive = false;
+    private bool newtonifierActive = false;
+    private bool authorised = false;
+
     #endregion
 
     /*
@@ -68,13 +95,14 @@ public class ModMain : MonoBehaviour
 
         authorised = true;
     }
+    #endregion
 
     private void DebugLineToggle_StateChanged(object sender, bool e)
     {
         if (e == false) ShapeDrawer.RemovePlane();
     }
 
-    // TODO Replace with GameReflector
+    #region SuperJump/Speed
 
     private void UpdateSuperJump(bool e)
     {
@@ -96,7 +124,19 @@ public class ModMain : MonoBehaviour
         else field.SetValue(firstPerson, 10);
     }
 
-    private bool spaceModeActive = false;
+    private void SjToggle_StateChanged(object sender, bool e)
+    {
+        UpdateSuperJump(e);
+    }
+
+    private void SsToggle_StateChanged(object sender, bool e)
+    {
+        UpdateSuperSpeed(e);
+    }
+
+    #endregion
+
+    #region Actions
 
     private void SpaceMode(bool enabled)
     {
@@ -130,15 +170,20 @@ public class ModMain : MonoBehaviour
         }
     }
 
-    private void SjToggle_StateChanged(object sender, bool e)
+    private void DoAutoclickerClick()
     {
-        UpdateSuperJump(e);
+        if (aToggle2.Toggle(true))
+        {
+            if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
+            else Mouse.MouseEvent(Mouse.MouseEventFlags.RightUp);
+        }
+        else
+        {
+            if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftDown);
+            else Mouse.MouseEvent(Mouse.MouseEventFlags.RightDown);
+        }
     }
 
-    private void SsToggle_StateChanged(object sender, bool e)
-    {
-        UpdateSuperSpeed(e);
-    }
     #endregion
 
     /*
@@ -175,11 +220,6 @@ public class ModMain : MonoBehaviour
      * The Update function, this is where most of the stuff is happening.
      */
 
-    private int jumpHeight = 25;
-    private int speed = 50;
-
-    private bool disableKeys = false;
-
     #region Update
     public void Update()
     {
@@ -195,54 +235,45 @@ public class ModMain : MonoBehaviour
         // FlameThrower
         if (Input.GetKey(KeyCode.C) && flameThrowerActive)
         {
-            RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit = Utils.DoScreenRaycast(_cam);
             if (hit.collider != null)
                 Actions.SpawnFire(hit.collider.gameObject);
         }
 
         // Hide/Show
         if (Input.GetKeyDown(KeyCode.F1))
-            visible = vToggle.Toggle(true);
+            visible = visibleToggle.Toggle(true);
 
         //Cloner
         if (Input.GetKeyDown(KeyCode.X) && clonerActive)
         {
-            RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit = Utils.DoScreenRaycast(_cam);
             if (hit.collider != null)
                 Actions.Clone(hit.collider, hit.point);
         }
         else if (Input.GetKeyDown(KeyCode.X) && crazyClonerActive)
         {
-            RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit = Utils.DoScreenRaycast(_cam);
             Actions.CrazyClone(hit.collider, hit.point);
         }
 
         if (Input.GetKeyDown(KeyCode.T) && newtonifierActive)
         {
-            RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit = Utils.DoScreenRaycast(_cam);
             if (hit.collider != null) Actions.Newtonify(hit.collider);
         }
 
         // Delete Tool
         if (Input.GetKeyDown(KeyCode.V) && eraserActive)
         {
-            RaycastHit hit = Utils.DoRaycastThroughScreenPoint(_cam, new Vector2(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit = Utils.DoScreenRaycast(_cam);
             if (hit.collider != null) Actions.Delete(hit.collider);
         }
 
         // Auto Clicker
         if (Input.GetKey(KeyCode.R) && autoClickerActive)
         {
-            if (aToggle2.Toggle(true))
-            {
-                if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
-                else Mouse.MouseEvent(Mouse.MouseEventFlags.RightUp);
-            }
-            else
-            {
-                if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftDown);
-                else Mouse.MouseEvent(Mouse.MouseEventFlags.RightDown);
-            }
+            DoAutoclickerClick();
         }
 
         // Ignite All
@@ -268,6 +299,7 @@ public class ModMain : MonoBehaviour
         {
             if (showDebugLine)
             {
+                /*
                 Ray ray1 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(-0.075f, 0, -0.075f));
                 Ray ray2 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(0.075f, 0, -0.075f));
                 Ray ray3 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(0.075f, 0, 0.075f));
@@ -277,6 +309,7 @@ public class ModMain : MonoBehaviour
                 Physics.Raycast(ray3, out RaycastHit hit3);
                 Physics.Raycast(ray4, out RaycastHit hit4);
                 ShapeDrawer.DrawPlane(hit1.point, hit2.point, hit3.point, hit4.point, Color.red);
+                */
             }
         }
         else
@@ -287,7 +320,7 @@ public class ModMain : MonoBehaviour
 
     #endregion
 
-    private bool showDebugLine = false;
+
 
     /*
      * Where all the GUI stuff gets Updated.
@@ -302,12 +335,9 @@ public class ModMain : MonoBehaviour
                 // Update Page
                 PageSystem.DrawPage();
 
+                if (disableKeys) UIHelper.Label("Keys are disabled!", "Enable using F2", 20, 40, 16, Color.red);
+
                 // Update Position Display
-                if (disableKeys)
-                {
-                    UIHelper.Label("Keys are disabled!", "Enable using F2", 20, 16, Color.red);
-                    return;
-                }
                 if (Actions.TryGetPositionString(out string text, _controller))
                     UIHelper.Label(text, "The players position", 20, 16, Color.white);
             }
@@ -343,7 +373,7 @@ public class ModMain : MonoBehaviour
     private void ToolsPage()
     {
         UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 600, 25, 35, 10, 50, 10);
-        flameThrowerActive = fToggle.Toggle(UIHelper.Button("Flamethrower", flameThrowerActive));
+        flameThrowerActive = flameThrowerToggle.Toggle(UIHelper.Button("Flamethrower", flameThrowerActive));
         if (UIHelper.Button("Cloning machine", clonerActive))
         {
             clonerActive = clonerToggle.Toggle(true);
@@ -403,12 +433,6 @@ public class ModMain : MonoBehaviour
         if (UIHelper.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
-
-    private bool superSpeedActive = false;
-    private ToggleClass ssToggle = new ToggleClass();
-
-    private bool superJumpActive = false;
-    private ToggleClass sjToggle = new ToggleClass();
 
     //Page 4
     private void HacksPage()
@@ -507,27 +531,16 @@ public class ModMain : MonoBehaviour
         _torch = FindObjectOfType<TorchTool>();
     }
 
-    public Camera _cam;
-    public ToolsBobbing _toolAnimation;
-    public Player _controller;
-    public TorchTool _torch;
-
-    private bool flameThrowerActive = false;
-    private bool clonerActive = false;
-    private bool visible = true;
-    private bool autoClickerActive = false;
-    private bool autoClickerButtonLeft = true;
-    private bool crazyClonerActive = false;
-    private bool eraserActive = false;
-    private bool newtonifierActive = false;
-    private bool authorised = false;
-
     private IEnumerator UpdateVersionLabel()
     {
         yield return new WaitForSeconds(0.05f);
         var obj = FindObjectOfType<VersionLabel>();
         var obj2 = obj.gameObject.GetComponentInParent<TextMeshProUGUI>();
-        obj2.text = "v" + Application.version + " & FMML " + Loader.version;
+        obj2.transform.position = new Vector3(
+            obj2.transform.position.x,
+            obj2.transform.position.y - 10,
+            obj2.transform.position.z);
+        obj2.text = "v" + Application.version + "\nFMML " + Utils.modVersion;
     }
 
     #region AuthorisationStuff

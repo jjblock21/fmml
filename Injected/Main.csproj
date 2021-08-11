@@ -36,7 +36,6 @@
     <Compile Include="FireworkSpawner.cs" />
     <Compile Include="GameReflector.cs" />
     <Compile Include="ShapeDrawer.cs" />
-    <Compile Include="SteamChecker.cs" />
     <Compile Include="UI\DialogHelper.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />
     <Compile Include="UI\PageSystem.cs" />

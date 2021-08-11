@@ -5,7 +5,6 @@ namespace Injected
 {
     public static class Loader
     {
-        public static readonly string version = "v0.1.10";
         public static void Init()
         {
             //DebugConsole.AttachConsole();

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using JumpinFrog.ProcessChecker;
 
@@ -69,7 +70,6 @@ namespace Fireworks_Mania_Modloader
 
         private void injectButton_Click(object sender, EventArgs e)
         {
-
             if (process != null)
             {
                 var fb = InjectionUtil.Inject(process, path, out IntPtr value);
@@ -97,6 +97,7 @@ namespace Fireworks_Mania_Modloader
             }
             else
             {
+                process = null;
                 status.Text = "Fireworks Mania is not currently active";
                 UpdateButtons(false);
             }
@@ -106,6 +107,7 @@ namespace Fireworks_Mania_Modloader
         {
             injectButton.Enabled = on;
             ejectButton.Enabled = on;
+            launchGameButton.Enabled = !on;
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -171,6 +173,26 @@ namespace Fireworks_Mania_Modloader
         private void launchGameButton_Click(object sender, EventArgs e)
         {
             Process.Start("steam://rungameid/1079260");
+            EnterRefreshLoop();
+        }
+
+        private async void EnterRefreshLoop()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                LoadProcesses();
+                if (process != null)
+                {
+                    var fb = InjectionUtil.Inject(process, path, out IntPtr value);
+                    if (fb.WasSuccessful)
+                    {
+                        injected = value;
+                        WindowState = FormWindowState.Minimized;
+                    }
+                    break;
+                }
+                await Task.Delay(5000);
+            }
         }
     }
 }

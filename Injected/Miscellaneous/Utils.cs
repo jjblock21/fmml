@@ -9,7 +9,8 @@ namespace Injected
     {
         private static Dictionary<string, GameObject> clones = new Dictionary<string, GameObject>();
         private static List<GameObject> lines = new List<GameObject>();
-        public static string version { get; } = "0.1.9-" + Application.version;
+        public static string version { get; } = modVersion + "-" + Application.version;
+        public static readonly string modVersion = "v0.1.10";
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {
             Ray ray = new Ray(origin, dir);
@@ -22,6 +23,11 @@ namespace Injected
             Ray ray = cam.ScreenPointToRay(point);
             Physics.Raycast(ray, out RaycastHit hit);
             return hit;
+        }
+
+        public static RaycastHit DoScreenRaycast(Camera cam)
+        {
+            return DoRaycastThroughScreenPoint(cam, new Vector2(Screen.width / 2, Screen.height / 2));
         }
 
         public static string AddClone(GameObject obj)
@@ -93,7 +99,7 @@ namespace Injected
         {
             if (prev == -1) goto drawLine;
             RemoveLine(prev);
-        drawLine:
+            drawLine:
             if (Physics.Raycast(new Ray(rayOrigin, direction), out RaycastHit hitinfo))
             {
                 Vector3 endPoint = hitinfo.point;
