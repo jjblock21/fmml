@@ -36,12 +36,12 @@ namespace FModApi
             return type.GetField(field, customFlags);
         }
 
-        public object InvokMethod(MethodInfo method, params object[] parameters)
+        public object InvokeMethod(MethodInfo method, params object[] parameters)
         {
             return method.Invoke(obj, parameters);
         }
 
-        public object InvokMethod(string method, params object[] parameters)
+        public object InvokeMethod(string method, params object[] parameters)
         {
             return GetMethod(method).Invoke(obj, parameters);
         }

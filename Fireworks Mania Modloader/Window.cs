@@ -15,11 +15,6 @@ namespace Fireworks_Mania_Modloader
         private static ProcessChecker checker;
         private IntPtr injected;
 
-        // This is part of an Easteregg 'c' :) :D ^^ idk why so many Smilies
-        // Here, have another one: 'u'
-        // Why am I spening my time on this? OwO
-        private int reloadCounter = 0;
-
         public Window()
         {
             InitializeComponent();
@@ -30,6 +25,7 @@ namespace Fireworks_Mania_Modloader
             versionLabel.Text = Program.version;
             UpdateLabel();
             LoadProcesses();
+            EnterRefreshLoop();
         }
 
         private void window_KeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -107,18 +103,6 @@ namespace Fireworks_Mania_Modloader
         {
             injectButton.Enabled = on;
             ejectButton.Enabled = on;
-            launchGameButton.Enabled = !on;
-        }
-
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-            reloadCounter++;
-            LoadProcesses();
-            if (reloadCounter == 21)
-                statusLabel.Text = "You refreshed 21 times!";
-            else if (reloadCounter == 69)
-                statusLabel.Text = "You refreshed 69 times, nice.";
-            else statusLabel.Text = "";
         }
 
         private void ejectButton_Click(object sender, EventArgs e)
@@ -152,12 +136,12 @@ namespace Fireworks_Mania_Modloader
 
         private void refreshButton_MouseEnter(object sender, EventArgs e)
         {
-            refreshButton.FlatAppearance.BorderColor = Color.Silver;
+            launchGameButton.FlatAppearance.BorderColor = Color.Silver;
         }
 
         private void refreshButton_MouseLeave(object sender, EventArgs e)
         {
-            refreshButton.FlatAppearance.BorderColor = Color.White;
+            launchGameButton.FlatAppearance.BorderColor = Color.White;
         }
 
         private void discordLink_MouseEnter(object sender, EventArgs e)
@@ -173,16 +157,14 @@ namespace Fireworks_Mania_Modloader
         private void launchGameButton_Click(object sender, EventArgs e)
         {
             Process.Start("steam://rungameid/1079260");
-            EnterRefreshLoop();
         }
 
         private async void EnterRefreshLoop()
         {
-            for (int i = 0; i < 30; i++)
+            while (true)
             {
                 LoadProcesses();
-                if (process != null) break;
-                await Task.Delay(1000);
+                await Task.Delay(2500);
             }
         }
     }

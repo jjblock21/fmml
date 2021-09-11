@@ -10,17 +10,21 @@ namespace Fireworks_Mania_Modloader
 {
     public static class Program
     {
-        public const string version = "v0.1.10";
+        public const string version = "v0.2.0.1";
+        public const bool showVerWarning = false;
         public static Window window;
 
         [STAThread]
         static void Main()
         {
             Init();
-            MessageBox.Show(
-                "Warning!\nThis version of FMML only supports" + " the version v2021.6.1 or newer.",
-                "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning
-            );
+            if (showVerWarning)
+            {
+                MessageBox.Show(
+                    "Warning!\nThis version of FMML only supports" + " the version v2021.6.1 or newer.",
+                    "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning
+                );
+            }
             Run();
         }
 

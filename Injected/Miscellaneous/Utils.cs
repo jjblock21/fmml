@@ -3,14 +3,14 @@ using FireworksMania.Input;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Injected
+namespace Main
 {
     public static class Utils
     {
         private static Dictionary<string, GameObject> clones = new Dictionary<string, GameObject>();
         private static List<GameObject> lines = new List<GameObject>();
         public static string version { get; } = modVersion + "-" + Application.version;
-        public static readonly string modVersion = "v0.1.10";
+        public static readonly string modVersion = "v0.2.0.1";
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {
             Ray ray = new Ray(origin, dir);
@@ -106,6 +106,34 @@ namespace Injected
                 return DrawLine(0.0025f, GetUnlitMaterial(color), origin, endPoint);
             }
             else return -1;
+        }
+
+        public static int GetRandomHash()
+        {
+            return System.DateTime.Now.Ticks.ToString().GetHashCode();
+        }
+
+        public static Vector3 GetRandomIntVector(System.Random rand, int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
+        {
+            int x = rand.Next(minX, maxX);
+            int y = rand.Next(minY, maxY);
+            int z = rand.Next(minZ, maxZ);
+            return new Vector3(x, y, z);
+        }
+
+        public static Vector3 GetRandomIntVector(System.Random rand, int min, int max)
+        {
+            int x = rand.Next(min, max);
+            int y = rand.Next(min, max);
+            int z = rand.Next(min, max);
+            return new Vector3(x, y, z);
+        }
+
+        public static Vector3 GetRandomIntVector(System.Random rand, int min, int max, int y)
+        {
+            int x = rand.Next(min, max);
+            int z = rand.Next(min, max);
+            return new Vector3(x, y, z);
         }
     }
 }

@@ -16,12 +16,27 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using Main.Setup;
 using FModApi;
+using Main.FModApi;
+using Main;
 
 /*
  * FMML (Fireworks Mania ModLoader)
  * by jjblock21
  * Idk what to write here :)
  */
+
+/*
+ * Scenes
+ * 
+    1   Splash
+    2   UnableToConnect
+    3   Loading
+    4   MainMenu
+    5   Town                         [Map]
+    6   Ranch                        [Map]
+    7   Flat                         [Map]
+    8   Lab (Not in the game rn)     [Map]
+*/
 
 [AttachToGame(AttachMode.ModObject)]
 public class ModMain : MonoBehaviour
@@ -30,7 +45,7 @@ public class ModMain : MonoBehaviour
      * Creating instances of the toggle class.
      * TODO: Just make this better, idk.
      */
-    #region Toggles
+    #region Variables
     private ToggleClass flameThrowerToggle = new ToggleClass();
     private ToggleClass clonerToggle = new ToggleClass();
     private ToggleClass visibleToggle = new ToggleClass();
@@ -49,18 +64,19 @@ public class ModMain : MonoBehaviour
     private int speed = 50;
 
     private bool disableKeys = false;
+    private bool isMenuOpen = false;
+
+
     private bool spaceModeActive = false;
     private bool showDebugLine = false;
 
     private bool superSpeedActive = false;
-    private ToggleClass ssToggle = new ToggleClass();
+    private ToggleClass superSpeedToggle = new ToggleClass();
     private bool superJumpActive = false;
-    private ToggleClass sjToggle = new ToggleClass();
+    private ToggleClass superJumpToggle = new ToggleClass();
 
     public Camera _cam;
-    public ToolsBobbing _toolAnimation;
     public Player _controller;
-    public TorchTool _torch;
 
     private bool flameThrowerActive = false;
     private bool clonerActive = false;
@@ -72,18 +88,26 @@ public class ModMain : MonoBehaviour
     private bool newtonifierActive = false;
     private bool authorised = false;
 
+    private SilvesterSimulation silvesterSimulation = new SilvesterSimulation();
+    private ToggleClass silvesterSimulationToggle = new ToggleClass();
+    private bool silvesterSimulationActive = false;
+
     #endregion
 
     /*
      * Basicly the Main() function.
      */
+
+    /*
+     * Wow, these comments are so helpfull me.
+     */
     #region Start
     public void Start()
     {
         // Add Events
-        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-        ssToggle.StateChanged += SsToggle_StateChanged;
-        sjToggle.StateChanged += SjToggle_StateChanged;
+        UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        superSpeedToggle.StateChanged += SsToggle_StateChanged;
+        superJumpToggle.StateChanged += SjToggle_StateChanged;
         debugLineToggle.SetState(true);
         debugLineToggle.StateChanged += DebugLineToggle_StateChanged;
 
@@ -95,6 +119,9 @@ public class ModMain : MonoBehaviour
 
         // Init the Pagesystem.
         AddPages();
+
+        // Add the Teleport Locations
+        TeleportDialog.InitLocations();
 
         authorised = true;
     }
@@ -207,7 +234,7 @@ public class ModMain : MonoBehaviour
     private void DisableFlyMode()
     {
         FirstPersonController firstPerson = FindObjectOfType<FirstPersonController>();
-        SetPlayerGravity(1, firstPerson);
+        SetPlayerGravity(2, firstPerson);
         SetSpeed(10, firstPerson);
         flyModeControler = firstPerson;
         flyModeActive = false;
@@ -295,6 +322,7 @@ public class ModMain : MonoBehaviour
         StartCoroutine(UpdateVersionLabel());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
+        ResetDisableKeys();
     }
     #endregion
 
@@ -302,9 +330,32 @@ public class ModMain : MonoBehaviour
      * The Update function, this is where most of the stuff is happening.
      */
 
+    private void ResetDisableKeys()
+    {
+        disableKeys = false;
+        isMenuOpen = false;
+    }
+
     #region Update
     public void Update()
     {
+        if (silvesterSimulationActive) silvesterSimulation.UpdateFireworkSpawn();
+
+        // Auto Dissable Key
+        if (Input.GetKeyDown(KeyCode.Tab) && ModSceneManager.IsPlayableMapLoaded())
+        {
+            if (isMenuOpen)
+            {
+                isMenuOpen = false;
+                disableKeys = false;
+            }
+            else
+            {
+                isMenuOpen = true;
+                disableKeys = true;
+            }
+        }
+
         // Disable/Enable Key Shortcuts with F2
         if (Input.GetKeyUp(KeyCode.F2))
         {
@@ -319,7 +370,7 @@ public class ModMain : MonoBehaviour
         {
             RaycastHit hit = Utils.DoScreenRaycast(_cam);
             if (hit.collider != null)
-                Actions.SpawnFire(hit.collider.gameObject);
+                Lighter.SpawnFire(hit.collider.gameObject);
         }
 
         // Hide/Show
@@ -331,18 +382,18 @@ public class ModMain : MonoBehaviour
         {
             RaycastHit hit = Utils.DoScreenRaycast(_cam);
             if (hit.collider != null)
-                Actions.Clone(hit.collider, hit.point);
+                Cloner.Clone(hit.collider, hit.point);
         }
         else if (Input.GetKeyDown(KeyCode.X) && crazyClonerActive)
         {
             RaycastHit hit = Utils.DoScreenRaycast(_cam);
-            Actions.CrazyClone(hit.collider, hit.point);
+            Cloner.CrazyClone(hit.collider, hit.point);
         }
 
         if (Input.GetKeyDown(KeyCode.T) && newtonifierActive)
         {
             RaycastHit hit = Utils.DoScreenRaycast(_cam);
-            if (hit.collider != null) Actions.Newtonify(hit.collider);
+            if (hit.collider != null) Cloner.Newtonify(hit.collider);
         }
 
         // Delete Tool
@@ -364,8 +415,8 @@ public class ModMain : MonoBehaviour
         }
 
         // Ignite All
-        if (Input.GetKeyDown(KeyCode.K)) Actions.IgniteAll(false, 1);
-        if (Input.GetKeyDown(KeyCode.L)) Actions.IgniteAll(true, igniteEverythingDelay);
+        if (Input.GetKeyDown(KeyCode.K)) Lighter.IgniteAll(false, 1);
+        if (Input.GetKeyDown(KeyCode.L)) Lighter.IgniteAll(true, igniteEverythingDelay);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Tool.SetSelectedTool(SelectedTool.PhysicsTool);
@@ -388,17 +439,7 @@ public class ModMain : MonoBehaviour
         {
             if (showDebugLine)
             {
-                /*
-                Ray ray1 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(-0.075f, 0, -0.075f));
-                Ray ray2 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(0.075f, 0, -0.075f));
-                Ray ray3 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(0.075f, 0, 0.075f));
-                Ray ray4 = new Ray(_cam.transform.position, _cam.transform.forward + new Vector3(-0.075f, 0, 0.075f));
-                Physics.Raycast(ray1, out RaycastHit hit1);
-                Physics.Raycast(ray2, out RaycastHit hit2);
-                Physics.Raycast(ray3, out RaycastHit hit3);
-                Physics.Raycast(ray4, out RaycastHit hit4);
-                ShapeDrawer.DrawPlane(hit1.point, hit2.point, hit3.point, hit4.point, Color.red);
-                */
+
             }
         }
         else
@@ -408,8 +449,6 @@ public class ModMain : MonoBehaviour
     }
 
     #endregion
-
-
 
     /*
      * Where all the GUI stuff gets Updated.
@@ -421,14 +460,10 @@ public class ModMain : MonoBehaviour
         {
             if (visible)
             {
-                // Update Page
                 PageSystem.DrawPage();
-
-                if (disableKeys) UIHelper.Label("Keys are disabled!", "Enable using F2", 20, 40, 16, Color.red);
-
-                // Update Position Display
+                if (disableKeys) ModUI.Label("Keys are disabled!", "Enable using F2", 20, 40, 16, Color.red);
                 if (Actions.TryGetPositionString(out string text, _controller))
-                    UIHelper.Label(text, "The players position", 20, 16, Color.white);
+                    ModUI.Label(text, "The players position", 20, 16, Color.white);
             }
             return;
         }
@@ -441,146 +476,163 @@ public class ModMain : MonoBehaviour
     //Page 0
     private void MainPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
-        if (UIHelper.Button("Tools"))
+        ModUI.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 25);
+        if (ModUI.Button("Tools"))
             PageSystem.SelectPage(1);
-        if (UIHelper.Button("Hacks"))
+        if (ModUI.Button("Hacks"))
             PageSystem.SelectPage(4);
-        UIHelper.Space(25);
-        if (UIHelper.Button("About"))
+        ModUI.Space(25);
+        if (ModUI.Button("About"))
             PageSystem.SelectPage(2);
-        if (UIHelper.Button("Controls"))
+        if (ModUI.Button("Controls"))
             PageSystem.SelectPage(3);
-        UIHelper.Space(25);
-        if (UIHelper.Button("Settings"))
+        ModUI.Space(25);
+        if (ModUI.Button("Settings"))
+        {
+            OpenSettingsPage();
             PageSystem.SelectPage(7);
-        if (UIHelper.BottomNavigationButton("Hide"))
+        }
+        if (ModUI.BottomNavigationButton("Hide"))
             visible = false;
     }
 
     //Page 1
     private void ToolsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 600, 25, 35, 10, 50, 10);
-        flameThrowerActive = flameThrowerToggle.Toggle(UIHelper.Button("Flamethrower", flameThrowerActive));
-        if (UIHelper.Button("Cloning machine", clonerActive))
+        ModUI.Begin("Fireworks Mania Modloader", 10, 10, 300, 700, 25, 35, 10, 50, 25);
+        flameThrowerActive = flameThrowerToggle.Toggle(ModUI.Button("Flamethrower", flameThrowerActive));
+        if (ModUI.Button("Cloning machine", clonerActive))
         {
             clonerActive = clonerToggle.Toggle(true);
             crazyClonerActive = false;
             crazyClonerToggle.SetState(false);
         }
-        eraserActive = eraserToggle.Toggle(UIHelper.Button("Delete Tool", eraserActive));
-        UIHelper.Space(20);
-        if (UIHelper.Button("Marker stuff"))
+        eraserActive = eraserToggle.Toggle(ModUI.Button("Delete Tool", eraserActive));
+        ModUI.Space(20);
+        if (ModUI.Button("Marker stuff"))
             PageSystem.SelectPage(6);
-        if (UIHelper.Button("Buggy Tools"))
+        if (ModUI.Button("Buggy Tools"))
             PageSystem.SelectPage(5);
-        UIHelper.Space(30);
-        if (UIHelper.Button("Ignite Everything")) Actions.IgniteAll(true, igniteEverythingDelay);
-        if (UIHelper.Button("Instantly Ignite Everything")) Actions.IgniteAll(false, 1);
-        UIHelper.Space(20);
-        if (UIHelper.Button("Unlock Tim")) Actions.UnlockTim();
-        if (UIHelper.BottomNavigationButton("Back"))
+        ModUI.Space(20);
+        if (ModUI.Button("Teleporter") && _controller != null)
+        {
+            TeleportDialog.ResetText();
+            TeleportDialog.ShowDialog();
+        }
+        ModUI.Space(20);
+        if (ModUI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
+        if (ModUI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
+        ModUI.Space(20);
+        if (ModUI.Button("Unlock Tim")) Actions.UnlockTim();
+        ModUI.Space(20);
+        silvesterSimulationActive = silvesterSimulationToggle.Toggle(
+            ModUI.Button("Silvester Simulation", silvesterSimulationActive)
+        );
+        if (ModUI.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
 
     //Page 2
     private void AboutPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - About", 10, 10, 300, 450, 25, 35, 10, 50, 10);
-        UIHelper.Label("Made by jjblock21\nInspired by FMenu.");
-        UIHelper.Space(20);
-        UIHelper.Label("Fireworks Mania ModLoader v" + Utils.version);
-        if (UIHelper.BottomNavigationButton("Back"))
+        ModUI.Begin("Fireworks Mania Modloader - About", 10, 10, 300, 450, 25, 35, 10, 50, 25);
+        ModUI.Label("Made by jjblock21\nInspired by FMenu.");
+        ModUI.Label("Special thanks also go to Keltusar.");
+        ModUI.Space(10);
+        ModUI.Label("Fireworks Mania ModLoader " + Utils.version);
+        if (ModUI.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
 
     //Page 3
     private void ControllsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 700, 25, 35, 10, 50, 10);
-        UIHelper.Label("F1: Show/Hide the Menu.");
-        UIHelper.Label("F2: Toggle keys, so you're be able to type.");
-        UIHelper.Space(10);
-        UIHelper.Label("Flamethrower Tool:\nC: Ingite Flammable Material.");
-        UIHelper.Space(10);
-        UIHelper.Label("Cloning Machine Tool:\nX: Clone object (For both clone tools)");
-        UIHelper.Space(10);
-        UIHelper.Label("Autoclicker Hack:\nR: Click every second Frame.");
-        UIHelper.Space(10);
-        UIHelper.Label("Delete Tool:\nV: Delete anything you're looking at!");
-        UIHelper.Space(10);
-        UIHelper.Label("Ignite Everything:\nK: Ignite everything.\nL: Ignite Everything with specified delay.", 50);
-        UIHelper.Space(10);
-        UIHelper.Label("Fast navigation:\n" +
+        ModUI.Begin("Fireworks Mania Modloader - Controls", 10, 10, 300, 700, 25, 35, 10, 50, 25);
+        ModUI.Label("F1: Show/Hide the Menu.");
+        ModUI.Label("F2: Toggle keys, so you're be able to type.");
+        ModUI.Space(10);
+        ModUI.Label("Flamethrower Tool:\nC: Ingite Flammable Material.");
+        ModUI.Space(10);
+        ModUI.Label("Cloning Machine Tool:\nX: Clone object (For both clone tools)");
+        ModUI.Space(10);
+        ModUI.Label("Autoclicker Hack:\nR: Click every second Frame.");
+        ModUI.Space(10);
+        ModUI.Label("Delete Tool:\nV: Delete what you're looking at!");
+        ModUI.Space(10);
+        ModUI.Label("Ignite Everything:\nK: Ignite everything.\nL: Ignite Everything with specified delay.", 50);
+        ModUI.Space(10);
+        ModUI.Label("Fast navigation:\n" +
             "1: Physics Tool, 2: Lighter,\n" +
             "3: Fuse Tool, 4: Clear view\n" +
-            "5: Eraser Tool", 50
+            "5: Eraser Tool", 65
         );
-        UIHelper.Space(10);
-        UIHelper.Label("Newtonifier:\nT: Newtonify stuff.");
-        UIHelper.Space(10);
-        UIHelper.Label("Fly Mode:\n" +
+        ModUI.Space(10);
+        ModUI.Label("Newtonifier:\nT: Newtonify stuff.");
+        ModUI.Space(10);
+        ModUI.Label("Fly Mode:\n" +
             "G: Toggle Fly Mode.\n" +
             "Space: Fly up\n" +
-            "Ctrl: Fly down", 50);
-        if (UIHelper.BottomNavigationButton("Back"))
+            "Ctrl: Fly down", 65);
+        if (ModUI.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
 
     //Page 4
     private void HacksPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 500, 25, 35, 10, 50, 10);
-        autoClickerActive = aToggle.Toggle(UIHelper.Button("Inbuilt Auto Clicker", autoClickerActive));
-        autoClickerButtonLeft = aToggle3.Toggle(UIHelper.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
-        UIHelper.Space(20);
-        superSpeedActive = ssToggle.Toggle(UIHelper.Button("Super Speed", superSpeedActive));
-        superJumpActive = sjToggle.Toggle(UIHelper.Button("Super Jump", superJumpActive));
-        UIHelper.Space(20);
-        ToggleSpaceMode(spaceModeToggle.Toggle(UIHelper.Button("Space Mode", spaceModeActive)));
-        ToggleFlyMode(flyModeToggle.Toggle(UIHelper.Button("Fly Mode", flyModeActive)));
-        UIHelper.Space(20);
-        if (UIHelper.Button("Delete Everything")) Actions.DeleteAll();
-        if (UIHelper.BottomNavigationButton("Back"))
+        ModUI.Begin("Fireworks Mania Modloader", 10, 10, 300, 500, 25, 35, 10, 50, 25);
+        autoClickerActive = aToggle.Toggle(ModUI.Button("Inbuilt Auto Clicker", autoClickerActive));
+        autoClickerButtonLeft = aToggle3.Toggle(ModUI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
+        ModUI.Space(20);
+        superSpeedActive = superSpeedToggle.Toggle(ModUI.Button("Super Speed", superSpeedActive));
+        superJumpActive = superJumpToggle.Toggle(ModUI.Button("Super Jump", superJumpActive));
+        ModUI.Space(20);
+        ToggleSpaceMode(spaceModeToggle.Toggle(ModUI.Button("Space Mode", spaceModeActive)));
+        ToggleFlyMode(flyModeToggle.Toggle(ModUI.Button("Fly Mode", flyModeActive)));
+        ModUI.Space(20);
+        if (ModUI.Button("Delete Everything")) Actions.DeleteAll();
+        if (ModUI.BottomNavigationButton("Back"))
             PageSystem.SelectPage(0);
     }
 
     // Page 5
     private void ExperimentalToolsPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
-        UIHelper.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utils.CreateColorGUIStyle(Color.yellow));
-        newtonifierActive = newtonifierToggle.Toggle(UIHelper.Button("Newtonifier", newtonifierActive));
-        if (UIHelper.Button("Crazy Cloner", crazyClonerActive))
+        ModUI.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 25);
+        ModUI.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utils.CreateColorGUIStyle(Color.yellow));
+        newtonifierActive = newtonifierToggle.Toggle(ModUI.Button("Newtonifier", newtonifierActive));
+        if (ModUI.Button("Crazy Cloner", crazyClonerActive))
         {
             crazyClonerActive = crazyClonerToggle.Toggle(true);
             clonerActive = false;
             clonerToggle.SetState(false);
         }
-        UIHelper.Space(20);
-        if (UIHelper.Button("Teleporter") && _controller != null)
-        {
-            TpDialog.ResetText();
-            TpDialog.ShowDialog();
-        }
-        if (UIHelper.BottomNavigationButton("Back"))
+        if (ModUI.BottomNavigationButton("Back"))
             PageSystem.SelectPage(1);
     }
 
     // Page 6
     private void MarkersPage()
     {
-        UIHelper.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 10);
-        if (UIHelper.Button("Place Marker"))
+        ModUI.Begin("Fireworks Mania Modloader", 10, 10, 300, 450, 25, 35, 10, 50, 25);
+        if (ModUI.Button("Place Marker"))
         {
             var m = Utils.GetUnlitMaterial(Utils.GetRandomColor());
             var p = _controller.transform.position;
             Utils.DrawLine(0.4f, m, new Vector3(p.x, 0, p.z), new Vector3(p.x, 100, p.z));
         }
-        if (UIHelper.Button("Clear Markers")) Utils.ClearLines();
-        if (UIHelper.BottomNavigationButton("Back"))
+        if (ModUI.Button("Clear Markers")) Utils.ClearLines();
+        if (ModUI.BottomNavigationButton("Back"))
             PageSystem.SelectPage(1);
+    }
+
+    private int tempSettingsIED = 0;
+    private int tempSettingsFSR = 0;
+
+    private void OpenSettingsPage()
+    {
+        tempSettingsIED = igniteEverythingDelay;
+        tempSettingsFSR = silvesterSimulation.Rarity;
     }
 
     // Page 7
@@ -588,25 +640,32 @@ public class ModMain : MonoBehaviour
     {
         try
         {
-            UIHelper.Begin("Fireworks Mania Modloader - Settings", 10, 10, 300, 450, 25, 35, 10, 50, 10);
+            ModUI.Begin("Fireworks Mania Modloader - Settings", 10, 10, 300, 450, 25, 35, 10, 50, 25);
 
-            UIHelper.Label("Super Jump Force", 25);
-            jumpHeight = int.Parse(UIHelper.Input(jumpHeight.ToString(), 2));
-            UIHelper.Label("Speed", 25);
-            speed = int.Parse(UIHelper.Input(speed.ToString(), 2));
+            ModUI.Label("Super Jump Force", 20);
+            jumpHeight = int.Parse(ModUI.Input(jumpHeight.ToString(), 2));
+            ModUI.Label("Speed", 20);
+            speed = int.Parse(ModUI.Input(speed.ToString(), 2));
 
-            UIHelper.Space(10);
-            showDebugLine = debugLineToggle.Toggle(UIHelper.Button("Red Laser Thing", showDebugLine));
+            /*ModUI.Space(10);
+            showDebugLine = debugLineToggle.Toggle(ModUI.Button("Red Laser Thing", showDebugLine));*/
 
-            UIHelper.Space(10);
-            UIHelper.Label("Ingite All Delay (ms)", 25);
-            igniteEverythingDelay = int.Parse(UIHelper.Input(igniteEverythingDelay.ToString(), 5));
+            ModUI.Space(10);
+            ModUI.Label("Ingite All Delay (ms): " + tempSettingsIED, 20);
+            tempSettingsIED = (int)ModUI.Slider(tempSettingsIED, 1, 1000);
 
-            if (UIHelper.BottomNavigationButton("Back"))
+            ModUI.Space(10);
+            ModUI.Label("Firework Spawn Rarity: " + tempSettingsFSR, 20);
+            tempSettingsFSR = (int)ModUI.Slider(tempSettingsFSR, 2, 50);
+
+            if (ModUI.BottomNavigationButton("Apply"))
             {
                 // Update Affected Modules
                 UpdateSuperJump(superJumpActive);
                 UpdateSuperSpeed(superSpeedActive);
+
+                igniteEverythingDelay = tempSettingsIED;
+                silvesterSimulation.Rarity = tempSettingsFSR;
 
                 PageSystem.SelectPage(0);
             }
@@ -622,9 +681,10 @@ public class ModMain : MonoBehaviour
     private void ChacheComponents()
     {
         _cam = FindObjectOfType<Camera>();
-        _toolAnimation = FindObjectOfType<ToolsBobbing>();
         _controller = FindObjectOfType<Player>();
-        _torch = FindObjectOfType<TorchTool>();
+        ModSceneManager.ChacheComponents();
+        TeleportDialog.ChacheComponents();
+        FireworkSpawner.ChacheComponents();
     }
 
     private IEnumerator UpdateVersionLabel()
@@ -652,10 +712,10 @@ public class ModMain : MonoBehaviour
     private void Unauthorised()
     {
         DisableAll();
-        UIHelper.Begin("Unauthorised Game", Screen.width / 2 - 300, Screen.height / 2 - 300, 600, 400, 25, 35, 10, 50, 10);
-        UIHelper.Label("Failed to authorise this instance of the game,\nplease make sure you are connected to the\ninternet.",
+        ModUI.Begin("Unauthorised Game", Screen.width / 2 - 300, Screen.height / 2 - 300, 600, 400, 25, 35, 10, 50, 10);
+        ModUI.Label("Failed to authorise this instance of the game,\nplease make sure you are connected to the\ninternet.",
             30, Utils.CreateColorGUIStyle(Color.red, 26));
-        if (UIHelper.BottomNavigationButton("Unload Mod and close Game"))
+        if (ModUI.BottomNavigationButton("Unload Mod and close Game"))
         {
             Loader.Disable();
             Application.Quit();

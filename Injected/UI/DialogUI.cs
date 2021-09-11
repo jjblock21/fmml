@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Injected.UI
 {
-    public static class DialogHelper
+    public static class DialogUI
     {
         private static float
         x, y,

@@ -41,9 +41,8 @@ namespace Fireworks_Mania_Modloader
             this.injectButton = new System.Windows.Forms.Button();
             this.ejectButton = new System.Windows.Forms.Button();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
-            this.refreshButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.launchGameButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -127,21 +126,21 @@ namespace Fireworks_Mania_Modloader
             this.simpleTransparentGradientPanel1.Name = "simpleTransparentGradientPanel1";
             this.simpleTransparentGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             // 
-            // refreshButton
+            // launchGameButton
             // 
-            resources.ApplyResources(this.refreshButton, "refreshButton");
-            this.refreshButton.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.refreshButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.refreshButton.FlatAppearance.BorderSize = 2;
-            this.refreshButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.refreshButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.refreshButton.ForeColor = System.Drawing.Color.White;
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.UseCompatibleTextRendering = true;
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            this.refreshButton.MouseEnter += new System.EventHandler(this.refreshButton_MouseEnter);
-            this.refreshButton.MouseLeave += new System.EventHandler(this.refreshButton_MouseLeave);
+            resources.ApplyResources(this.launchGameButton, "launchGameButton");
+            this.launchGameButton.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.launchGameButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.launchGameButton.FlatAppearance.BorderSize = 2;
+            this.launchGameButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.launchGameButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.launchGameButton.ForeColor = System.Drawing.Color.White;
+            this.launchGameButton.Name = "launchGameButton";
+            this.launchGameButton.UseCompatibleTextRendering = true;
+            this.launchGameButton.UseVisualStyleBackColor = true;
+            this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
+            this.launchGameButton.MouseEnter += new System.EventHandler(this.refreshButton_MouseEnter);
+            this.launchGameButton.MouseLeave += new System.EventHandler(this.refreshButton_MouseLeave);
             // 
             // pictureBox1
             // 
@@ -150,25 +149,15 @@ namespace Fireworks_Mania_Modloader
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
-            // launchGameButton
-            // 
-            resources.ApplyResources(this.launchGameButton, "launchGameButton");
-            this.launchGameButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.launchGameButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.launchGameButton.Name = "launchGameButton";
-            this.launchGameButton.UseVisualStyleBackColor = false;
-            this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
-            // 
             // Window
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.Controls.Add(this.launchGameButton);
             this.Controls.Add(this.simpleTransparentGradientPanel1);
             this.Controls.Add(this.ejectButton);
             this.Controls.Add(this.injectButton);
-            this.Controls.Add(this.refreshButton);
+            this.Controls.Add(this.launchGameButton);
             this.Controls.Add(this.status);
             this.Controls.Add(this.simpleGradientPanel1);
             this.Controls.Add(this.pictureBox1);
@@ -194,7 +183,6 @@ namespace Fireworks_Mania_Modloader
         private System.Windows.Forms.LinkLabel moreLink;
         private PictureBox pictureBox1;
         private JControls.SimpleGradientPanel simpleGradientPanel1;
-        private Button refreshButton;
         private Button injectButton;
         private Button ejectButton;
         private JControls.SimpleTransparentGradientPanel simpleTransparentGradientPanel1;

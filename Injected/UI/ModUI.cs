@@ -3,16 +3,10 @@ using UnityEngine;
 
 namespace Injected.UI
 {
-    public static class UIHelper
+    public static class ModUI
     {
-        private static float
-            x, y,
-            width, height,
-            margin,
-            controlHeight,
-            controlDist,
-            nextControlY,
-            bottomOffset;
+        private static float x, y, width, height, margin,
+            controlHeight, controlDist, nextControlY, bottomOffset;
 
         public static void Begin(string text, float _x, float _y, float _width, float _height, float _margin, float _controlHeight, float _controlDist, float contolStartY, float bottomWidgetOffset)
         {
@@ -52,7 +46,7 @@ namespace Injected.UI
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
         public static void Label(string text) => GUI.Label(NextControlRect(), text);
         public static void Label(string text, float height) => GUI.Label(NextControlRect(height), text);
-        public static string Input(string text, int length) => GUI.TextField(NextControlRect(), text, length);
+        public static string Input(string text, int length) => GUI.TextField(NextControlRect(controlHeight - 5), text, length);
         public static string Input(string text) => GUI.TextField(NextControlRect(), text);
         public static string Input() => Input("");
         public static void Label(string text, float height, GUIStyle style, string toolTip = "")
@@ -61,7 +55,7 @@ namespace Injected.UI
             GUI.Label(NextControlRect(height), content, style);
         }
 
-        public static float Slider(float val, float min, float max) => GUI.HorizontalSlider(NextControlRect(), val, min, max);
+        public static float Slider(float val, float min, float max) => GUI.HorizontalSlider(NextControlRect(20), val, min, max);
 
         private static Rect BottomSpaceRect()
         {
@@ -83,9 +77,11 @@ namespace Injected.UI
         {
             Rect r = ControlRect(offset, GetGraphicsRect().height + offset, true);
             GUIContent c = new GUIContent(text, toolTip);
-            GUIStyle s = new GUIStyle();
-            s.fontSize = fontSize;
-            s.normal.textColor = color;
+            GUIStyle s = new GUIStyle()
+            {
+                fontSize = fontSize,
+                normal = { textColor = color }
+            };
             GUI.Label(r, c, s);
         }
 
@@ -93,9 +89,11 @@ namespace Injected.UI
         {
             Rect r = ControlRect(xOffset, GetGraphicsRect().height + yOffset, true);
             GUIContent c = new GUIContent(text, toolTip);
-            GUIStyle s = new GUIStyle();
-            s.fontSize = fontSize;
-            s.normal.textColor = color;
+            GUIStyle s = new GUIStyle()
+            {
+                fontSize = fontSize,
+                normal = { textColor = color }
+            };
             GUI.Label(r, c, s);
         }
     }

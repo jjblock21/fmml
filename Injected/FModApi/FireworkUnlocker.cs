@@ -17,21 +17,11 @@ namespace FModApi
             var c = t.GetConstructor(new Type[] { typeof(string), typeof(UnlockTypes) });
             var rtrn = c.Invoke(new object[] { id, unlockType });
 
-            reflector.InvokMethod("UnlockEntityId", parameters: rtrn);
+            reflector.InvokeMethod("UnlockEntityId", parameters: rtrn);
 
             return true;
         }
 
         public static KnownFireworks KnownFireworks { get; } = new KnownFireworks();
-    }
-
-    public sealed class KnownFireworks
-    {
-        public KnownFireworks()
-        {
-            TimShell = "Special_Shell_Tim";
-        }
-
-        public string TimShell { get; }
     }
 }

@@ -149,7 +149,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;status.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;statusLabel.Name" xml:space="preserve">
     <value>statusLabel</value>
@@ -191,10 +191,10 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 275</value>
+    <value>0, 265</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 26</value>
+    <value>309, 26</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -209,7 +209,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="statusLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -217,8 +217,11 @@
   <data name="statusLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
+  <data name="statusLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="statusLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>79, 7</value>
+    <value>74, 7</value>
   </data>
   <data name="statusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 13</value>
@@ -296,7 +299,7 @@
     <value>NoControl</value>
   </data>
   <data name="moreLink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>283, 7</value>
+    <value>273, 7</value>
   </data>
   <data name="moreLink.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 13</value>
@@ -323,10 +326,10 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="simpleGradientPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 257</value>
+    <value>0, 247</value>
   </data>
   <data name="simpleGradientPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 22</value>
+    <value>309, 22</value>
   </data>
   <data name="simpleGradientPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -344,7 +347,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;simpleGradientPanel1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="injectButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -356,7 +359,7 @@
     <value>NoControl</value>
   </data>
   <data name="injectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 219</value>
+    <value>55, 208</value>
   </data>
   <data name="injectButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 23</value>
@@ -377,7 +380,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;injectButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="ejectButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -389,7 +392,7 @@
     <value>NoControl</value>
   </data>
   <data name="ejectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 219</value>
+    <value>157, 208</value>
   </data>
   <data name="ejectButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -410,7 +413,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ejectButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="simpleTransparentGradientPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -419,7 +422,7 @@
     <value>0, 74</value>
   </data>
   <data name="simpleTransparentGradientPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 81</value>
+    <value>309, 81</value>
   </data>
   <data name="simpleTransparentGradientPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -434,40 +437,40 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;simpleTransparentGradientPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
-  <data name="refreshButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="launchGameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="refreshButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="launchGameButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="refreshButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="launchGameButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>219, 164</value>
+  <data name="launchGameButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>209, 164</value>
   </data>
-  <data name="refreshButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="launchGameButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 23</value>
   </data>
-  <data name="refreshButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="launchGameButton.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="refreshButton.Text" xml:space="preserve">
-    <value>Reload</value>
+  <data name="launchGameButton.Text" xml:space="preserve">
+    <value>Start Game</value>
   </data>
-  <data name="&gt;&gt;refreshButton.Name" xml:space="preserve">
-    <value>refreshButton</value>
+  <data name="&gt;&gt;launchGameButton.Name" xml:space="preserve">
+    <value>launchGameButton</value>
   </data>
-  <data name="&gt;&gt;refreshButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;launchGameButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;refreshButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;launchGameButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;refreshButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;launchGameButton.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="pictureBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -479,7 +482,7 @@
     <value>0, 0</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 155</value>
+    <value>309, 155</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
@@ -497,40 +500,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="launchGameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="launchGameButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="launchGameButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="launchGameButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 219</value>
-  </data>
-  <data name="launchGameButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 23</value>
-  </data>
-  <data name="launchGameButton.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="launchGameButton.Text" xml:space="preserve">
-    <value>Start Game</value>
-  </data>
-  <data name="&gt;&gt;launchGameButton.Name" xml:space="preserve">
-    <value>launchGameButton</value>
-  </data>
-  <data name="&gt;&gt;launchGameButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;launchGameButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;launchGameButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>6</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -539,7 +509,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>319, 301</value>
+    <value>309, 291</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -9339,14 +9309,11 @@
         CUhOAUjhoVbiDbNvV1RYhIcfebj3hAkTdh2lbrPbMgKMQA4Q+H8Ae9OqUSjkTgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>360, 380</value>
+    <value>345, 350</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>335, 340</value>
+    <value>325, 330</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Fireworks Mania ModLoader</value>
