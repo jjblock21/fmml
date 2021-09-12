@@ -7,9 +7,11 @@ namespace Injected.UI
     public class TeleportDialog
     {
 
-        private static string tpX = "", tpY = "", tpZ = "";
+        private static string tpX = "0", tpY = "0", tpZ = "0";
 
         private static bool isSelectionState = false;
+
+        public static bool blockDialog = false;
 
         private static Dictionary<string, Vector3> tpLocations = new Dictionary<string, Vector3>();
 
@@ -33,6 +35,7 @@ namespace Injected.UI
 
         public static void UpdateDialog()
         {
+            if (blockDialog) return;
             Rect controlRect = ModUI.GetGraphicsRect();
             if (!isSelectionState)
             {
@@ -81,9 +84,9 @@ namespace Injected.UI
         public static void ResetText()
         {
             isSelectionState = false;
-            tpX = "";
-            tpY = "";
-            tpZ = "";
+            tpX = "0";
+            tpY = "0";
+            tpZ = "0";
         }
 
         private static void Teleport(Vector3 pos)

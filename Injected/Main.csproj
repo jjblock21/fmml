@@ -33,9 +33,11 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="Cloner.cs" />
+    <Compile Include="FModApi\EventHook.cs" />
     <Compile Include="FModApi\FireworkSpawner.cs" />
     <Compile Include="FModApi\FireworkUnlocker.cs" />
     <Compile Include="FModApi\GameReflector.cs" />
+    <Compile Include="FModApi\GameUIManager.cs" />
     <Compile Include="FModApi\KnownFireworks.cs" />
     <Compile Include="FModApi\ModSceneManager.cs" />
     <Compile Include="Lighter.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="UI\TeleportDialog.cs" />
     <Compile Include="UI\ModUI.cs" />
     <Compile Include="Miscellaneous\Utils.cs" />
+    <Compile Include="UI\UIStyles.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">

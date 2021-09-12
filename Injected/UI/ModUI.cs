@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Main.UI;
+using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Injected.UI
 {
@@ -19,7 +21,7 @@ namespace Injected.UI
             controlDist = _controlDist;
             nextControlY = contolStartY + y;
             bottomOffset = bottomWidgetOffset;
-            GUI.Box(new Rect(x, y, width, height), text);
+            GUI.Box(new Rect(x, y, width, height), text, UIStyles.UpdatedBoxStyle());
         }
 
         private static Rect NextControlRect()
@@ -41,13 +43,13 @@ namespace Injected.UI
         public static string MakeEnable(string text, bool state) => string.Format("{0} {1}", text, state ? "ON" : "OFF");
         public static string MakeEnable(string onText, string offText, bool state) => state ? onText : offText;
         public static bool Button(string text, bool state) => Button(MakeEnable(text, state));
-        public static bool Button(string text) => GUI.Button(NextControlRect(), text);
+        public static bool Button(string text) => GUI.Button(NextControlRect(), text, UIStyles.UpdatedStyle());
         public static bool Button(string text, string text2, bool state) => Button(MakeEnable(text, text2, state));
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
-        public static void Label(string text) => GUI.Label(NextControlRect(), text);
-        public static void Label(string text, float height) => GUI.Label(NextControlRect(height), text);
-        public static string Input(string text, int length) => GUI.TextField(NextControlRect(controlHeight - 5), text, length);
-        public static string Input(string text) => GUI.TextField(NextControlRect(), text);
+        public static void Label(string text) => GUI.Label(NextControlRect(), text, UIStyles.UpdatedTextStyle());
+        public static void Label(string text, float height) => GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle());
+        public static string Input(string text, int length) => GUI.TextField(NextControlRect(controlHeight - 5), text, length, UIStyles.UpdatedStyle());
+        public static string Input(string text) => GUI.TextField(NextControlRect(), text, UIStyles.UpdatedStyle());
         public static string Input() => Input("");
         public static void Label(string text, float height, GUIStyle style, string toolTip = "")
         {
@@ -63,7 +65,7 @@ namespace Injected.UI
             return r;
         }
 
-        public static bool BottomNavigationButton(string text) => GUI.Button(BottomSpaceRect(), text);
+        public static bool BottomNavigationButton(string text) => GUI.Button(BottomSpaceRect(), text, UIStyles.UpdatedStyle());
 
         public static Rect GetGraphicsRect() => new Rect(x, y, width, height);
 
