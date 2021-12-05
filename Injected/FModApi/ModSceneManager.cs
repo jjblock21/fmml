@@ -6,7 +6,7 @@ namespace Main.FModApi
 {
     public static class ModSceneManager
     {
-        public static void ChacheComponents()
+        public static void FindComponents()
         {
             s = Object.FindObjectOfType<SceneLoadingActions>();
         }

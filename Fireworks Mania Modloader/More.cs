@@ -119,15 +119,5 @@ namespace Fireworks_Mania_Modloader
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void copyButton_MouseEnter(object sender, EventArgs e)
-        {
-            copyButton.FlatAppearance.BorderColor = Color.Silver;
-        }
-
-        private void copyButton_MouseLeave(object sender, EventArgs e)
-        {
-            copyButton.FlatAppearance.BorderColor = Color.White;
-        }
     }
 }

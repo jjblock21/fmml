@@ -41,7 +41,7 @@ namespace Fireworks_Mania_Modloader
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(13, 13);
@@ -54,21 +54,17 @@ namespace Fireworks_Mania_Modloader
             // copyButton
             // 
             this.copyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.copyButton.FlatAppearance.BorderSize = 2;
-            this.copyButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.copyButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.copyButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.copyButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.copyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.copyButton.ForeColor = System.Drawing.Color.White;
+            this.copyButton.ForeColor = System.Drawing.Color.Black;
             this.copyButton.Location = new System.Drawing.Point(318, 29);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(104, 23);
             this.copyButton.TabIndex = 1;
             this.copyButton.Text = "Copy PlayerLog";
-            this.copyButton.UseVisualStyleBackColor = true;
+            this.copyButton.UseVisualStyleBackColor = false;
             this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
-            this.copyButton.MouseEnter += new System.EventHandler(this.copyButton_MouseEnter);
-            this.copyButton.MouseLeave += new System.EventHandler(this.copyButton_MouseLeave);
             // 
             // panel1
             // 

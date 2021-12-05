@@ -9,8 +9,8 @@ namespace Main
     {
         private static Dictionary<string, GameObject> clones = new Dictionary<string, GameObject>();
         private static List<GameObject> lines = new List<GameObject>();
-        public static string version { get; } = modVersion + "-" + Application.version;
-        public static readonly string modVersion = "v0.2.0.1";
+        public static string version { get => modVersion + "-" + Application.version; }
+        public static readonly string modVersion = "1.2.0.1";
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {
             Ray ray = new Ray(origin, dir);
@@ -99,7 +99,7 @@ namespace Main
         {
             if (prev == -1) goto drawLine;
             RemoveLine(prev);
-            drawLine:
+        drawLine:
             if (Physics.Raycast(new Ray(rayOrigin, direction), out RaycastHit hitinfo))
             {
                 Vector3 endPoint = hitinfo.point;

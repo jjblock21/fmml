@@ -4,7 +4,17 @@ namespace Injected
 {
     public class ToggleClass
     {
-        private bool toggle = false;
+        public ToggleClass(bool startState)
+        {
+            toggle = startState;
+        }
+
+        public ToggleClass()
+        {
+            toggle = false;
+        }
+
+        private bool toggle;
 
         public event EventHandler<bool> StateChanged;
 

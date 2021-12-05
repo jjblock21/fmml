@@ -129,16 +129,16 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JumpinFrog.Diagnostics.ProcessChecker\JumpinFrog.ProcessChecker.csproj">
-      <Project>{60571bec-aa7d-414c-b9fe-74d392068742}</Project>
-      <Name>JumpinFrog.ProcessChecker</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="img.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FMML2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JumpinFrog.Diagnostics.ProcessChecker\ProcessChecker.csproj">
+      <Project>{60571BEC-AA7D-414C-B9FE-74D392068742}</Project>
+      <Name>ProcessChecker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

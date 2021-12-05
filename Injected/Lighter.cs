@@ -1,7 +1,5 @@
-﻿using FireworksMania.Fireworks.Parts;
-using FireworksMania.Props;
-using FireworksMania.ScriptableObjects.EntityDefinitions;
-using FModApi;
+﻿using FireworksMania.Core.Behaviors;
+using FireworksMania.Core.Behaviors.Fireworks.Parts;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,16 +9,15 @@ namespace Main
     {
         public static void IgniteFirework(GameObject obj)
         {
-            if (obj.GetComponent<IIgniteable>() == null) return;
-            obj.GetComponent<IIgniteable>().Ignite(2500);
+            if (obj.GetComponent<IIgnitable>() == null) return;
+            obj.GetComponent<IIgnitable>().Ignite(2500);
         }
 
         public static async void IgniteAll(bool delayed, int delay)
         {
             foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
             {
-                if (obj.GetComponent<IIgniteable>() == null) continue;
-                obj.GetComponent<IIgniteable>().Ignite(2500);
+                IgniteFirework(obj);
                 if (delayed) await Task.Delay(delay);
             }
         }

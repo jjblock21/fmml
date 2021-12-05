@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fireworks Mania Modloader", "Fireworks Mania Modloader.csproj", "{4BF26852-B3DE-499D-89E5-8A8CF51E8E16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpinFrog.ProcessChecker", "..\JumpinFrog.Diagnostics.ProcessChecker\JumpinFrog.ProcessChecker.csproj", "{60571BEC-AA7D-414C-B9FE-74D392068742}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessChecker", "..\JumpinFrog.Diagnostics.ProcessChecker\ProcessChecker.csproj", "{60571BEC-AA7D-414C-B9FE-74D392068742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

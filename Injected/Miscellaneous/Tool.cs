@@ -1,4 +1,5 @@
 ﻿using FireworksMania.Common;
+using FireworksMania.Core.Common;
 using FireworksMania.UI.ToolsMenu;
 using System;
 using System.Reflection;
@@ -8,11 +9,6 @@ namespace FModApi
 {
     public static class Tool
     {
-        public static void Init()
-        {
-
-        }
-
         public static void SetSelectedTool(SelectedTool tool)
         {
             var toolHandler = UnityEngine.Object.FindObjectOfType<ToolMenuManager>();

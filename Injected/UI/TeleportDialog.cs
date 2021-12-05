@@ -8,9 +8,7 @@ namespace Injected.UI
     {
 
         private static string tpX = "0", tpY = "0", tpZ = "0";
-
         private static bool isSelectionState = false;
-
         public static bool blockDialog = false;
 
         private static Dictionary<string, Vector3> tpLocations = new Dictionary<string, Vector3>();
@@ -26,7 +24,7 @@ namespace Injected.UI
             tpLocations.Add("Barn - Ranch", new Vector3(15f, 1f, -24f));
         }
 
-        public static void ChacheComponents()
+        public static void FindComponents()
         {
             p = Object.FindObjectOfType<FirstPersonController>();
         }
@@ -36,33 +34,41 @@ namespace Injected.UI
         public static void UpdateDialog()
         {
             if (blockDialog) return;
-            Rect controlRect = ModUI.GetGraphicsRect();
+            Rect controlRect = UI.GetGraphicsRect();
             if (!isSelectionState)
             {
                 Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
-                DialogUI.Begin("Teleport", position.x, position.y, 300, 400, 25, 35, 10, 50, 20);
-                Vector3 tpPos = new Vector3(p.gameObject.transform.position.x, p.gameObject.transform.position.y, p.gameObject.transform.position.z);
-                DialogUI.Label("Input a location (X, Y, Z)");
-                tpX = DialogUI.Input(tpX);
-                tpY = DialogUI.Input(tpY);
-                tpZ = DialogUI.Input(tpZ);
-                if (DialogUI.Button("Presets")) isSelectionState = true;
-                DialogUI.Space(20);
-                if (DialogUI.Button("Teleport"))
+                UI.Begin("Teleport", position.x, position.y, 300, 400, 25, 35, 10, 50, 20);
+                Vector3 tpPos = new Vector3(
+                    p.gameObject.transform.position.x,
+                    p.gameObject.transform.position.y,
+                    p.gameObject.transform.position.z
+                );
+                UI.Label("Input a location (X, Y, Z)");
+                tpX = UI.Input(tpX);
+                tpY = UI.Input(tpY);
+                tpZ = UI.Input(tpZ);
+                if (UI.Button("Presets")) isSelectionState = true;
+                UI.Space(20);
+                if (UI.Button("Teleport"))
                 {
-                    if (float.TryParse(tpX, out float x) && float.TryParse(tpY, out float y) && float.TryParse(tpZ, out float z))
+                    if (float.TryParse(tpX, out float x)
+                        && float.TryParse(tpY, out float y)
+                        && float.TryParse(tpZ, out float z))
+                    {
                         tpPos = new Vector3(x, y, z);
-                    Teleport(tpPos);
-                    PageSystem.RemoveActiveDialog();
+                    }
+                    TeleportToLocation(tpPos);
+                    PageSystem.CloseCurrentDialog();
                 }
-                if (DialogUI.BottomNavigationButton("Cancel")) PageSystem.RemoveActiveDialog();
+                if (UI.BottomNavigationButton("Cancel")) PageSystem.CloseCurrentDialog();
             }
             else
             {
                 Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
-                DialogUI.Begin("Teleport", position.x, position.y, 300, 450, 25, 35, 10, 50, 20);
+                UI.Begin("Teleport", position.x, position.y, 300, 450, 25, 35, 10, 50, 20);
                 CreateButtons();
-                if (DialogUI.BottomNavigationButton("Back")) isSelectionState = false;
+                if (UI.BottomNavigationButton("Back")) isSelectionState = false;
             }
         }
 
@@ -70,16 +76,22 @@ namespace Injected.UI
         {
             foreach (KeyValuePair<string, Vector3> pair in tpLocations)
             {
-                if (DialogUI.Button(pair.Key))
+                if (UI.Button(pair.Key))
                 {
-                    Teleport(pair.Value);
-                    PageSystem.RemoveActiveDialog();
+                    TeleportToLocation(pair.Value);
+                    PageSystem.CloseCurrentDialog();
                 }
             }
         }
 
-        public static void ShowDialog() => PageSystem.SetDialog(UpdateDialog);
-        public static void HideDialog() => PageSystem.RemoveActiveDialog();
+        public static void ShowDialog()
+        {
+            PageSystem.OpenDialog(UpdateDialog);
+        }
+        public static void HideDialog()
+        {
+            PageSystem.CloseCurrentDialog();
+        }
 
         public static void ResetText()
         {
@@ -89,7 +101,7 @@ namespace Injected.UI
             tpZ = "0";
         }
 
-        private static void Teleport(Vector3 pos)
+        private static void TeleportToLocation(Vector3 pos)
         {
             if (p != null) p.ResetMovement(pos);
         }
