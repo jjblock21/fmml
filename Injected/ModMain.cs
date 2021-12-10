@@ -218,10 +218,11 @@ public class ModMain : MonoBehaviour
     {
         PageSystem.AddPage(MainPage, "main");
         PageSystem.AddPage(ToolsPage, "tools");
+        PageSystem.AddPage(ToolsPage, "fireworks");
+        PageSystem.AddPage(ExperimentalToolsPage, "experimental_tools");
         PageSystem.AddPage(AboutPage, "about");
         PageSystem.AddPage(ControlsPage, "controls");
         PageSystem.AddPage(HacksPage, "hacks");
-        PageSystem.AddPage(ExperimentalToolsPage, "experimental_tools");
         PageSystem.AddPage(MarkersPage, "markers");
         PageSystem.AddPage(SettingsPage, "settings");
     }
@@ -384,7 +385,7 @@ public class ModMain : MonoBehaviour
     //Page 1
     private void ToolsPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 850, 25, 35, 10, 50, 25);
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);
         flameThrowerActive = flameThrowerToggle.Toggle(UI.Button("Flamethrower", flameThrowerActive));
         if (UI.Button("Cloning machine", clonerActive))
         {
@@ -398,13 +399,25 @@ public class ModMain : MonoBehaviour
             PageSystem.SelectPage("markers");
         if (UI.Button("Buggy Tools"))
             PageSystem.SelectPage("experimental_tools");
-        UI.Space(20);
         if (UI.Button("Teleporter") && _controller != null)
         {
             TeleportDialog.ResetText();
             TeleportDialog.ShowDialog();
         }
+        if (UI.Button("Fireworks Related"))
+            PageSystem.SelectPage("fireworks");
         UI.Space(20);
+        if (UI.Button("Legacy Physics Gun"))
+        {
+            Tool.SetSelectedTool(SelectedTool.Hand);
+        }
+        if (UI.BottomNavigationButton("Back"))
+            PageSystem.SelectPage("main");
+    }
+
+    private void FireworksPage()
+    {
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
         if (UI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
@@ -424,13 +437,8 @@ public class ModMain : MonoBehaviour
         {
             StartCoroutine(Actions.FuseAll(FuseConnectionType.Instant));
         }
-        UI.Space(20);
-        if (UI.Button("Legacy Physics Gun"))
-        {
-            Tool.SetSelectedTool(SelectedTool.Hand);
-        }
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("main");
+            PageSystem.SelectPage("tools");
     }
 
     //Page 2

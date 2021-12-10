@@ -12,6 +12,7 @@ namespace Injected.UI
         public static bool blockDialog = false;
 
         private static Dictionary<string, Vector3> tpLocations = new Dictionary<string, Vector3>();
+        private static FirstPersonController fpsController = null;
 
         public static void InitLocations()
         {
@@ -26,11 +27,10 @@ namespace Injected.UI
 
         public static void FindComponents()
         {
-            p = Object.FindObjectOfType<FirstPersonController>();
+            fpsController = Object.FindObjectOfType<FirstPersonController>();
         }
 
-        private static FirstPersonController p = null;
-
+        //TODO: Write clean code here.
         public static void UpdateDialog()
         {
             if (blockDialog) return;
@@ -40,9 +40,9 @@ namespace Injected.UI
                 Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
                 UI.Begin("Teleport", position.x, position.y, 300, 400, 25, 35, 10, 50, 20);
                 Vector3 tpPos = new Vector3(
-                    p.gameObject.transform.position.x,
-                    p.gameObject.transform.position.y,
-                    p.gameObject.transform.position.z
+                    fpsController.gameObject.transform.position.x,
+                    fpsController.gameObject.transform.position.y,
+                    fpsController.gameObject.transform.position.z
                 );
                 UI.Label("Input a location (X, Y, Z)");
                 tpX = UI.Input(tpX);
@@ -65,7 +65,7 @@ namespace Injected.UI
             }
             else
             {
-                Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
+                Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y);
                 UI.Begin("Teleport", position.x, position.y, 300, 450, 25, 35, 10, 50, 20);
                 CreateButtons();
                 if (UI.BottomNavigationButton("Back")) isSelectionState = false;
@@ -103,7 +103,7 @@ namespace Injected.UI
 
         private static void TeleportToLocation(Vector3 pos)
         {
-            if (p != null) p.ResetMovement(pos);
+            if (fpsController != null) fpsController.ResetMovement(pos);
         }
     }
 }
