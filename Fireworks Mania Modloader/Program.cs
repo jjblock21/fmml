@@ -10,7 +10,7 @@ namespace Fireworks_Mania_Modloader
 {
     public static class Program
     {
-        public const string version = "v0.2.0.3";
+        public const string version = "v1.2.1.4";
         public const bool showVerWarning = true;
         public static Window window;
 

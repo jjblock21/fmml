@@ -7,6 +7,10 @@ namespace Fireworks_Mania_Modloader
 {
     public static class InjectionUtil
     {
+        public const string CLASS = "Injected.Loader";
+        public const string INJECT_METHOD = "Init";
+        public const string EJECT_METHOD = "Disable";
+
         public static Feedback Inject(Process process, string path, out IntPtr value)
         {
             try
@@ -14,12 +18,18 @@ namespace Fireworks_Mania_Modloader
                 value = IntPtr.Zero;
                 if (CheckForFile(path) && process.Id != new int())
                 {
-                    Assign(out string ns, out string cn, out string mn);
                     Injector injector = new Injector(process.Id);
-                    value = injector.Inject(File.ReadAllBytes(path), ns, cn, mn);
+                    value = injector.Inject(
+                        File.ReadAllBytes(path),
+                        GetNamespace(),
+                        GetClassName(),
+                        INJECT_METHOD
+                    );
                 }
                 if (value != IntPtr.Zero || value != new IntPtr())
+                {
                     return Feedback.GenerateSuccessFeedback(0);
+                }
                 else return Feedback.GenerateErrorFeedback(1, "File " + path + " doesn't exist.");
             }
             catch (Exception e)
@@ -35,9 +45,13 @@ namespace Fireworks_Mania_Modloader
             {
                 if (assembly != IntPtr.Zero)
                 {
-                    AssignEject(out string ns, out string cn, out string mn);
                     Injector injector = new Injector(process.Id);
-                    injector.Eject(assembly, ns, cn, mn);
+                    injector.Eject(
+                        assembly,
+                        GetNamespace(),
+                        GetClassName(),
+                        EJECT_METHOD
+                    );
                     return Feedback.GenerateSuccessFeedback(0);
                 }
                 else return Feedback.GenerateErrorFeedback(1, "The assembly Handle was 0.");
@@ -48,20 +62,19 @@ namespace Fireworks_Mania_Modloader
             }
         }
 
-        private static bool CheckForFile(string path) => File.Exists(path);
-
-        private static void Assign(out string ns, out string cn, out string mn)
+        private static bool CheckForFile(string path)
         {
-            ns = "Injected";
-            cn = "Loader";
-            mn = "Init";
+            return File.Exists(path);
         }
 
-        private static void AssignEject(out string ns, out string cn, out string mn)
+        private static string GetNamespace()
         {
-            ns = "Injected";
-            cn = "Loader";
-            mn = "Disable";
+            return CLASS.Split('.')[0];
+        }
+
+        private static string GetClassName()
+        {
+            return CLASS.Split('.')[1];
         }
     }
 }

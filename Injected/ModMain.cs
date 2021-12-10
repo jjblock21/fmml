@@ -218,7 +218,7 @@ public class ModMain : MonoBehaviour
     {
         PageSystem.AddPage(MainPage, "main");
         PageSystem.AddPage(ToolsPage, "tools");
-        PageSystem.AddPage(ToolsPage, "fireworks");
+        PageSystem.AddPage(FireworksPage, "fireworks");
         PageSystem.AddPage(ExperimentalToolsPage, "experimental_tools");
         PageSystem.AddPage(AboutPage, "about");
         PageSystem.AddPage(ControlsPage, "controls");
@@ -399,13 +399,14 @@ public class ModMain : MonoBehaviour
             PageSystem.SelectPage("markers");
         if (UI.Button("Buggy Tools"))
             PageSystem.SelectPage("experimental_tools");
+        if (UI.Button("Fireworks Related"))
+            PageSystem.SelectPage("fireworks");
+        UI.Space(20);
         if (UI.Button("Teleporter") && _controller != null)
         {
             TeleportDialog.ResetText();
             TeleportDialog.ShowDialog();
         }
-        if (UI.Button("Fireworks Related"))
-            PageSystem.SelectPage("fireworks");
         UI.Space(20);
         if (UI.Button("Legacy Physics Gun"))
         {

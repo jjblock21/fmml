@@ -43,27 +43,6 @@ namespace Fireworks_Mania_Modloader
 
         }
 
-        private void UpdateLabel()
-        {
-            if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 24)
-                statusLabel.Text = "Merry Christmas!";
-            else if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 25)
-                statusLabel.Text = "Merry Christmas!";
-            else if (DateTime.UtcNow.Month == 10 && DateTime.UtcNow.Day == 31)
-            {
-                if (new Random().NextDouble() < 0.5f)
-                    statusLabel.Text = "Boo!";
-                else statusLabel.Text = "OooOo Spooky!";
-            }
-            else if (DateTime.UtcNow.Month == 7 && DateTime.UtcNow.Day == 4)
-            {
-                if (new Random().NextDouble() < 0.75f)
-                    statusLabel.Text = "Independence Day!";
-                else statusLabel.Text = "Got Fireworks?";
-            }
-            else statusLabel.Text = "";
-        }
-
         private void injectButton_Click(object sender, EventArgs e)
         {
             if (process != null)
@@ -79,23 +58,6 @@ namespace Fireworks_Mania_Modloader
                     FailHandler.HandleException("Failed to inject the assembly.\n" + fb.ErrorDescription);
                     LoadProcesses();
                 }
-            }
-        }
-
-        private void LoadProcesses()
-        {
-            checker = new ProcessChecker("Fireworks Mania");
-            if (checker.GetProcess() != null)
-            {
-                process = checker.GetProcess();
-                status.Text = "Selected: " + process.ProcessName + " (" + process.Id + ")";
-                UpdateButtons(true);
-            }
-            else
-            {
-                process = null;
-                status.Text = "Fireworks Mania is not currently active";
-                UpdateButtons(false);
             }
         }
 
@@ -159,6 +121,45 @@ namespace Fireworks_Mania_Modloader
             Process.Start("steam://rungameid/1079260");
         }
 
+        #region Midend
+        private void UpdateLabel()
+        {
+            if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 24)
+                statusLabel.Text = "Merry Christmas!";
+            else if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 25)
+                statusLabel.Text = "Merry Christmas!";
+            else if (DateTime.UtcNow.Month == 10 && DateTime.UtcNow.Day == 31)
+            {
+                if (new Random().NextDouble() < 0.5f)
+                    statusLabel.Text = "Boo!";
+                else statusLabel.Text = "OooOo Spooky!";
+            }
+            else if (DateTime.UtcNow.Month == 7 && DateTime.UtcNow.Day == 4)
+            {
+                if (new Random().NextDouble() < 0.75f)
+                    statusLabel.Text = "Independence Day!";
+                else statusLabel.Text = "Got Fireworks?";
+            }
+            else statusLabel.Text = "";
+        }
+
+        private void LoadProcesses()
+        {
+            checker = new ProcessChecker("Fireworks Mania");
+            if (checker.GetProcess() != null)
+            {
+                process = checker.GetProcess();
+                status.Text = "Selected: " + process.ProcessName + " (" + process.Id + ")";
+                UpdateButtons(true);
+            }
+            else
+            {
+                process = null;
+                status.Text = "Fireworks Mania is not currently active";
+                UpdateButtons(false);
+            }
+        }
+
         private async void EnterRefreshLoop()
         {
             while (true)
@@ -167,5 +168,7 @@ namespace Fireworks_Mania_Modloader
                 await Task.Delay(2500);
             }
         }
+
+        #endregion
     }
 }

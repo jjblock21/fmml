@@ -35,7 +35,8 @@ namespace Fireworks_Mania_Modloader
             FailHandler.HandleException(feedback);
             if (log == null) return;
             Clipboard.SetText(log);
-            MessageBox.Show("The Player log was successfully saved to your clipboard, insert it using Ctrl + V.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("The Player log was successfully saved to your clipboard, insert it using Ctrl + V.",
+                "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void backLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -63,25 +64,6 @@ namespace Fireworks_Mania_Modloader
             Process.Start("https://discord.gg/WDWJ4RW5Qz");
         }
 
-        private Feedback LoadPlayerLog(out string contents)
-        {
-            try
-            {
-                string fp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"Low\";
-                string path = fp + @"Laumania ApS\Fireworks Mania\Player.log";
-                contents = null;
-                if (File.Exists(path))
-                    contents = File.ReadAllText(path);
-                else return Feedback.GenerateErrorFeedback(69, "The PlayerLog file doesn't exist, please run the game before you use this feature.");
-                return Feedback.GenerateSuccessFeedback(0);
-            }
-            catch (Exception e)
-            {
-                contents = null;
-                return new Feedback(420, e, false, -1, e.Message);
-            }
-        }
-
         private void changeLogsLink_MouseEnter(object sender, EventArgs e)
         {
             changeLogsLink.LinkColor = Color.Gainsboro;
@@ -95,6 +77,28 @@ namespace Fireworks_Mania_Modloader
         private void changeLogsLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowChangelog();
+        }
+
+        #region Midend
+
+        private Feedback LoadPlayerLog(out string contents)
+        {
+            try
+            {
+                string fp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"Low\";
+                string path = fp + @"Laumania ApS\Fireworks Mania\Player.log";
+                contents = null;
+                if (File.Exists(path))
+                    contents = File.ReadAllText(path);
+                else return Feedback.GenerateErrorFeedback(69,
+                    "The PlayerLog file doesn't exist, please run the game before you use this feature.");
+                return Feedback.GenerateSuccessFeedback(0);
+            }
+            catch (Exception e)
+            {
+                contents = null;
+                return new Feedback(420, e, false, -1, e.Message);
+            }
         }
 
         private void ShowChangelog()
@@ -119,5 +123,7 @@ namespace Fireworks_Mania_Modloader
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #endregion
     }
 }
