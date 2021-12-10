@@ -1,4 +1,5 @@
 ﻿using FireworksMania.Common;
+using FireworksMania.Core.Behaviors.Fireworks.Parts;
 using FireworksMania.Fireworks.Parts;
 using FireworksMania.Interactions;
 using FireworksMania.Inventory;
@@ -6,7 +7,9 @@ using FireworksMania.Props;
 using FireworksMania.ScriptableObjects.EntityDefinitions;
 using FModApi;
 using Main;
+using Main.FModApi;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -32,6 +35,7 @@ namespace Injected
             return true;
         }
 
+        // TODO: Make this better.
         public static bool Delete(Collider collider)
         {
             try
@@ -69,6 +73,26 @@ namespace Injected
         public static void ClearFireworks()
         {
             FireworksManager.Instance.ClearFireworks();
+        }
+
+        public static IEnumerator FuseAll(FuseConnectionType fuseType)
+        {
+            FuseConnector fuseConnector = new FuseConnector(fuseType);
+            IFuseConnectionPoint previousFuseConnectionPoint = null;
+            foreach (Rigidbody rigidbody in UnityEngine.Object.FindObjectsOfType<Rigidbody>())
+            {
+                IHaveFuseConnectionPoint haveFuseConnectionPoint = rigidbody.gameObject.GetComponent<IHaveFuseConnectionPoint>();
+                if (haveFuseConnectionPoint == null) continue;
+                IFuseConnectionPoint fuseConnectionPoint = haveFuseConnectionPoint.ConnectionPoint;
+                if (previousFuseConnectionPoint == null)
+                {
+                    previousFuseConnectionPoint = fuseConnectionPoint;
+                    continue;
+                }
+                fuseConnector.ConnectWithFuse(fuseConnectionPoint, previousFuseConnectionPoint);
+                previousFuseConnectionPoint = fuseConnectionPoint;
+                yield return new WaitForSeconds(0.001f);
+            }
         }
     }
 }

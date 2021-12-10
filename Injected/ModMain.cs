@@ -384,7 +384,7 @@ public class ModMain : MonoBehaviour
     //Page 1
     private void ToolsPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 800, 25, 35, 10, 50, 25);
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 850, 25, 35, 10, 50, 25);
         flameThrowerActive = flameThrowerToggle.Toggle(UI.Button("Flamethrower", flameThrowerActive));
         if (UI.Button("Cloning machine", clonerActive))
         {
@@ -415,6 +415,15 @@ public class ModMain : MonoBehaviour
         fireworksAutoSpawn = silvesterSimulationToggle.Toggle(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
         );
+        UI.Space(20);
+        if (UI.Button("Fuse all Fireworks - Fast"))
+        {
+            StartCoroutine(Actions.FuseAll(FuseConnectionType.Fast));
+        }
+        if (UI.Button("Fuse all Fireworks - Instant"))
+        {
+            StartCoroutine(Actions.FuseAll(FuseConnectionType.Instant));
+        }
         UI.Space(20);
         if (UI.Button("Legacy Physics Gun"))
         {

@@ -53,7 +53,7 @@ namespace FModApi
 
         public object GetFieldValue(string field)
         {
-            return GetField(field).GetValue(obj);
+            return type.GetField(field, FIELD_FLAGS).GetValue(obj);
         }
 
         public void SetFieldValue(FieldInfo field, object value)
@@ -63,7 +63,7 @@ namespace FModApi
 
         public void SetFieldValue(string field, object value)
         {
-            GetField(field).SetValue(obj, value);
+            GetField(field, FIELD_FLAGS).SetValue(obj, value);
         }
 
         public object Object { get => obj; }

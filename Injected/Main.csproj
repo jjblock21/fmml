@@ -37,6 +37,7 @@
     <Compile Include="FModApi\EventHook.cs" />
     <Compile Include="FModApi\FireworkSpawner.cs" />
     <Compile Include="FModApi\FireworkUnlocker.cs" />
+    <Compile Include="FModApi\FuseConnector.cs" />
     <Compile Include="FModApi\GameReflector.cs" />
     <Compile Include="FModApi\GameUIManager.cs" />
     <Compile Include="FModApi\KnownFireworks.cs" />
