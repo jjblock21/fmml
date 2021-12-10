@@ -7,17 +7,23 @@ namespace Injected.UI
 {
     public static class PageSystem
     {
-        private static List<PageDrawCallTarget> pages = new List<PageDrawCallTarget>();
+        private static List<PageDrawCallTarget> pageList = new List<PageDrawCallTarget>();
+        private static Dictionary<string, int> indexDictionary = new Dictionary<string, int>();
         private static DialogDrawCallTarget _dialog = null;
-        private static int selectedIndex = 0;
+        private static int selectedPage = 0;
 
-        public static void AddPage(PageDrawCallTarget page)
+        public static void AddPage(PageDrawCallTarget page, string name)
         {
-            pages.Add(page);
+            pageList.Add(page);
+            indexDictionary.Add(name, pageList.Count - 1);
         }
-        public static void SelectPage(int index)
+
+        public static void SelectPage(string name)
         {
-            selectedIndex = index;
+            if (indexDictionary.TryGetValue(name, out int index))
+            {
+                selectedPage = index;
+            }
         }
 
         public static void OpenDialog(DialogDrawCallTarget dialog)
@@ -29,10 +35,16 @@ namespace Injected.UI
             _dialog = null;
         }
 
+        public static void ClearPages()
+        {
+            pageList.Clear();
+            indexDictionary.Clear();
+        }
+
         public static void MakeDrawCalls()
         {
-            pages[selectedIndex]?.Invoke();
             _dialog?.Invoke();
+            pageList[selectedPage]?.Invoke();
         }
 
         public delegate void PageDrawCallTarget();

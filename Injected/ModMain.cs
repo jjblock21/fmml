@@ -216,14 +216,14 @@ public class ModMain : MonoBehaviour
     #region AddPages
     private void AddPages()
     {
-        PageSystem.AddPage(MainPage);
-        PageSystem.AddPage(ToolsPage);
-        PageSystem.AddPage(AboutPage);
-        PageSystem.AddPage(ControllsPage);
-        PageSystem.AddPage(HacksPage);
-        PageSystem.AddPage(ExperimentalToolsPage);
-        PageSystem.AddPage(MarkersPage);
-        PageSystem.AddPage(SettingsPage);
+        PageSystem.AddPage(MainPage, "main");
+        PageSystem.AddPage(ToolsPage, "tools");
+        PageSystem.AddPage(AboutPage, "about");
+        PageSystem.AddPage(ControlsPage, "controls");
+        PageSystem.AddPage(HacksPage, "hacks");
+        PageSystem.AddPage(ExperimentalToolsPage, "experimental_tools");
+        PageSystem.AddPage(MarkersPage, "markers");
+        PageSystem.AddPage(SettingsPage, "settings");
     }
     #endregion
 
@@ -363,22 +363,22 @@ public class ModMain : MonoBehaviour
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.Button("Tools"))
-            PageSystem.SelectPage(1);
+            PageSystem.SelectPage("tools");
         if (UI.Button("Hacks"))
-            PageSystem.SelectPage(4);
+            PageSystem.SelectPage("hacks");
         UI.Space(25);
         if (UI.Button("About"))
-            PageSystem.SelectPage(2);
+            PageSystem.SelectPage("about");
         if (UI.Button("Controls"))
-            PageSystem.SelectPage(3);
+            PageSystem.SelectPage("controls");
         UI.Space(25);
         if (UI.Button("Settings"))
         {
             OpenSettingsPage();
-            PageSystem.SelectPage(7);
+            PageSystem.SelectPage("settings");
         }
         if (UI.BottomNavigationButton("Hide"))
-            ModMain.visible = false;
+            visible = false;
     }
 
     //Page 1
@@ -395,11 +395,11 @@ public class ModMain : MonoBehaviour
         eraserActive = eraserToggle.Toggle(UI.Button("Delete Tool", eraserActive));
         UI.Space(20);
         if (UI.Button("Marker stuff"))
-            PageSystem.SelectPage(6);
+            PageSystem.SelectPage("markers");
         if (UI.Button("Buggy Tools"))
-            PageSystem.SelectPage(5);
+            PageSystem.SelectPage("experimental_tools");
         UI.Space(20);
-        if (UI.Button("Teleporter") && ModMain._controller != null)
+        if (UI.Button("Teleporter") && _controller != null)
         {
             TeleportDialog.ResetText();
             TeleportDialog.ShowDialog();
@@ -430,7 +430,7 @@ public class ModMain : MonoBehaviour
             Tool.SetSelectedTool(SelectedTool.Hand);
         }
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage(0);
+            PageSystem.SelectPage("main");
     }
 
     //Page 2
@@ -442,11 +442,11 @@ public class ModMain : MonoBehaviour
         UI.Space(10);
         UI.Label("Fireworks Mania ModLoader\n" + Utils.version);
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage(0);
+            PageSystem.SelectPage("main");
     }
 
     //Page 3
-    private void ControllsPage()
+    private void ControlsPage()
     {
         UI.Begin("Fireworks Mania Modloader - Controls", 10, 20, 300, 750, 25, 35, 10, 50, 25);
         UI.Label("F1: Show/Hide the Menu.");
@@ -475,7 +475,7 @@ public class ModMain : MonoBehaviour
            "Space: Fly up\n" +
            "Ctrl: Fly down", 65);
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage(0);
+            PageSystem.SelectPage("main");
     }
 
     //Page 4
@@ -493,7 +493,7 @@ public class ModMain : MonoBehaviour
         UI.Space(20);
         //if (UI.Button("Delete Everything")) Actions.DeleteAll();
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage(0);
+            PageSystem.SelectPage("main");
     }
 
     // Page 5
@@ -509,7 +509,7 @@ public class ModMain : MonoBehaviour
             clonerToggle.SetState(false);
         }
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage(1);
+            PageSystem.SelectPage("tools");
     }
 
     // Page 6
@@ -524,7 +524,7 @@ public class ModMain : MonoBehaviour
         }
         if (UI.Button("Clear Markers")) Utils.ClearLines();
         if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage(1);
+            PageSystem.SelectPage("main");
     }
 
     private int tempSettingsIED = 0;
@@ -570,7 +570,7 @@ public class ModMain : MonoBehaviour
             if (UI.BottomNavigationButton("Apply"))
             {
                 UpdateSettingsFromTemp();
-                PageSystem.SelectPage(0);
+                PageSystem.SelectPage("main");
             }
         }
         catch (Exception e)
@@ -580,7 +580,7 @@ public class ModMain : MonoBehaviour
                 "An unspecified error has occurred\n" +
                 "while drawing the page.");
             if (UI.BottomNavigationButton("Back"))
-                PageSystem.SelectPage(0);
+                PageSystem.SelectPage("main");
         }
     }
 
