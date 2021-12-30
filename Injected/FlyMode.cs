@@ -54,26 +54,19 @@ namespace Main
             gr.SetFieldValue("m_RunSpeed", speed);
         }
 
+        private static void ResetMovement()
+        {
+            flyModeControler.ResetMovement(flyModeControler.gameObject.transform.position);
+        }
+
         public static void UpdateFlyMode()
         {
             if (flyModeActive)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Jump(8);
-                }
-                if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    flyModeControler.ResetMovement(flyModeControler.gameObject.transform.position);
-                }
-                if (Input.GetKeyDown(KeyCode.LeftControl))
-                {
-                    Jump(-8);
-                }
-                if (Input.GetKeyUp(KeyCode.LeftControl))
-                {
-                    flyModeControler.ResetMovement(flyModeControler.gameObject.transform.position);
-                }
+                if (Input.GetKeyDown(KeyCode.Space)) Jump(8);
+                if (Input.GetKeyUp(KeyCode.Space)) ResetMovement();
+                if (Input.GetKeyDown(KeyCode.LeftControl)) Jump(-8);
+                if (Input.GetKeyUp(KeyCode.LeftControl)) ResetMovement();
             }
         }
 
