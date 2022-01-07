@@ -59,16 +59,16 @@ namespace Injected.UI
                         tpPos = new Vector3(x, y, z);
                     }
                     TeleportToLocation(tpPos);
-                    PageSystem.CloseCurrentDialog();
+                    Pages.CloseCurrentDialog();
                 }
-                if (UI.BottomNavigationButton("Cancel")) PageSystem.CloseCurrentDialog();
+                if (UI.NavigationButton("Cancel")) Pages.CloseCurrentDialog();
             }
             else
             {
                 Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y);
                 UI.Begin("Teleport", position.x, position.y, 300, 450, 25, 35, 10, 50, 20);
                 CreateButtons();
-                if (UI.BottomNavigationButton("Back")) isSelectionState = false;
+                if (UI.NavigationButton("Back")) isSelectionState = false;
             }
         }
 
@@ -79,18 +79,18 @@ namespace Injected.UI
                 if (UI.Button(pair.Key))
                 {
                     TeleportToLocation(pair.Value);
-                    PageSystem.CloseCurrentDialog();
+                    Pages.CloseCurrentDialog();
                 }
             }
         }
 
         public static void ShowDialog()
         {
-            PageSystem.OpenDialog(UpdateDialog);
+            Pages.OpenDialog(UpdateDialog);
         }
         public static void HideDialog()
         {
-            PageSystem.CloseCurrentDialog();
+            Pages.CloseCurrentDialog();
         }
 
         public static void ResetText()

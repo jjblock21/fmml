@@ -16,12 +16,12 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using Main.Setup;
 using FModApi;
-using Main.FModApi;
+using Main.EnvironmentObserver;
 using Main;
 using Main.UI;
 using Doozy.Engine;
-using FireworksMania.DayNightCycle;
 using FireworksMania.Input;
+using Main.Miscellaneous;
 
 /*
  * FMML (Fireworks Mania ModLoader)
@@ -39,7 +39,7 @@ using FireworksMania.Input;
     5   Town                         [Map]
     6   Ranch                        [Map]
     7   Flat                         [Map]
-    8   Lab (Not in the game rn)     [Map]
+    8   City                         [Map]
 */
 
 [AttachToGame(AttachMode.ModObject)]
@@ -94,17 +94,12 @@ public class ModMain : MonoBehaviour
 
     private float originalFov = 0;
 
+    private LineManager markerLineRenderer = new LineManager();
+
     // TODO: Put the width, the control height and the x / y is variables. Make sure to update the RuntimeTextureGeneration too.
 
     #endregion
 
-    /*
-     * Basicly the Main() function.
-     */
-
-    /*
-     * Wow, these comments are so helpfull me.
-     */
     #region Start
     public void Start()
     {
@@ -216,15 +211,15 @@ public class ModMain : MonoBehaviour
     #region AddPages
     private void AddPages()
     {
-        PageSystem.AddPage(MainPage, "main");
-        PageSystem.AddPage(ToolsPage, "tools");
-        PageSystem.AddPage(FireworksPage, "fireworks");
-        PageSystem.AddPage(ExperimentalToolsPage, "experimental_tools");
-        PageSystem.AddPage(AboutPage, "about");
-        PageSystem.AddPage(ControlsPage, "controls");
-        PageSystem.AddPage(HacksPage, "hacks");
-        PageSystem.AddPage(MarkersPage, "markers");
-        PageSystem.AddPage(SettingsPage, "settings");
+        Pages.AddPage(MainPage, "main");
+        Pages.AddPage(ToolsPage, "tools");
+        Pages.AddPage(FireworksPage, "fireworks");
+        Pages.AddPage(ExperimentalToolsPage, "experimental_tools");
+        Pages.AddPage(AboutPage, "about");
+        Pages.AddPage(ControlsPage, "controls");
+        Pages.AddPage(HacksPage, "hacks");
+        Pages.AddPage(MarkersPage, "markers");
+        Pages.AddPage(SettingsPage, "settings");
     }
     #endregion
 
@@ -240,6 +235,7 @@ public class ModMain : MonoBehaviour
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
         ResetDisableKeys();
+        //Debug.LogError(arg0.name + " " + arg0.buildIndex + " | " + arg1.name + " " + arg1.buildIndex);
     }
     #endregion
 
@@ -270,7 +266,7 @@ public class ModMain : MonoBehaviour
         // FlameThrower
         if (Input.GetKey(KeyCode.C) && flameThrowerActive)
         {
-            RaycastHit hit = Utils.DoScreenRaycast(_cam);
+            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
             if (hit.collider != null)
                 Lighter.SpawnFire(hit.collider.gameObject);
         }
@@ -282,26 +278,26 @@ public class ModMain : MonoBehaviour
         //Cloner
         if (Input.GetKeyDown(KeyCode.X) && clonerActive)
         {
-            RaycastHit hit = Utils.DoScreenRaycast(_cam);
+            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
             if (hit.collider != null)
                 Cloner.Clone(hit.collider, hit.point);
         }
         else if (Input.GetKeyDown(KeyCode.X) && crazyClonerActive)
         {
-            RaycastHit hit = Utils.DoScreenRaycast(_cam);
+            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
             Cloner.CrazyClone(hit.collider, hit.point);
         }
 
         if (Input.GetKeyDown(KeyCode.T) && newtonifierActive)
         {
-            RaycastHit hit = Utils.DoScreenRaycast(_cam);
+            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
             if (hit.collider != null) Cloner.Newtonify(hit.collider);
         }
 
         // Delete Tool
         if (Input.GetKeyDown(KeyCode.V) && eraserActive)
         {
-            RaycastHit hit = Utils.DoScreenRaycast(_cam);
+            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
             if (hit.collider != null) Actions.Delete(hit.collider);
         }
 
@@ -329,6 +325,8 @@ public class ModMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
             Tool.SetSelectedTool(SelectedTool.None);
         if (Input.GetKeyDown(KeyCode.Alpha5))
+            Tool.SetSelectedTool(SelectedTool.TimeTool);
+        if (Input.GetKeyDown(KeyCode.Alpha6))
             Tool.SetSelectedTool(SelectedTool.DeleteTool);
 
         // Stuff in the update function that will not get skipped when disableKeys is on.
@@ -348,7 +346,7 @@ public class ModMain : MonoBehaviour
     {
         if (visible)
         {
-            PageSystem.MakeDrawCalls();
+            Pages.MakeDrawCalls();
             if (disableKeys) UI.Label("Hotkeys are disabled!", "Enable using F2", 20, 40, 16, Color.red);
             if (Actions.TryGetPositionString(out string text, _controller))
                 UI.Label(text, "The players position", 20, 16, Color.white);
@@ -364,21 +362,21 @@ public class ModMain : MonoBehaviour
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.Button("Tools"))
-            PageSystem.SelectPage("tools");
+            Pages.SelectPage("tools");
         if (UI.Button("Hacks"))
-            PageSystem.SelectPage("hacks");
+            Pages.SelectPage("hacks");
         UI.Space(25);
         if (UI.Button("About"))
-            PageSystem.SelectPage("about");
+            Pages.SelectPage("about");
         if (UI.Button("Controls"))
-            PageSystem.SelectPage("controls");
+            Pages.SelectPage("controls");
         UI.Space(25);
         if (UI.Button("Settings"))
         {
             OpenSettingsPage();
-            PageSystem.SelectPage("settings");
+            Pages.SelectPage("settings");
         }
-        if (UI.BottomNavigationButton("Hide"))
+        if (UI.NavigationButton("Hide"))
             visible = false;
     }
 
@@ -396,11 +394,11 @@ public class ModMain : MonoBehaviour
         eraserActive = eraserToggle.Toggle(UI.Button("Delete Tool", eraserActive));
         UI.Space(20);
         if (UI.Button("Marker stuff"))
-            PageSystem.SelectPage("markers");
+            Pages.SelectPage("markers");
         if (UI.Button("Buggy Tools"))
-            PageSystem.SelectPage("experimental_tools");
+            Pages.SelectPage("experimental_tools");
         if (UI.Button("Fireworks Related"))
-            PageSystem.SelectPage("fireworks");
+            Pages.SelectPage("fireworks");
         UI.Space(20);
         if (UI.Button("Teleporter") && _controller != null)
         {
@@ -412,13 +410,13 @@ public class ModMain : MonoBehaviour
         {
             Tool.SetSelectedTool(SelectedTool.Hand);
         }
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("main");
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("main");
     }
 
     private void FireworksPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);
         if (UI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
@@ -429,17 +427,19 @@ public class ModMain : MonoBehaviour
         fireworksAutoSpawn = silvesterSimulationToggle.Toggle(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
         );
+
         UI.Space(20);
         if (UI.Button("Fuse all Fireworks - Fast"))
-        {
             StartCoroutine(Actions.FuseAll(FuseConnectionType.Fast));
-        }
         if (UI.Button("Fuse all Fireworks - Instant"))
-        {
             StartCoroutine(Actions.FuseAll(FuseConnectionType.Instant));
-        }
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("tools");
+        if (UI.Button("Fuse all Fireworks - Medium"))
+            StartCoroutine(Actions.FuseAll(FuseConnectionType.Medium));
+        if (UI.Button("Fuse all Fireworks - Slow"))
+            StartCoroutine(Actions.FuseAll(FuseConnectionType.Slow));
+
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("tools");
     }
 
     //Page 2
@@ -449,9 +449,9 @@ public class ModMain : MonoBehaviour
         UI.Label("Made by jjblock21\nInspired by FMenu.");
         UI.Label("Special thanks also go to Keltusar.");
         UI.Space(10);
-        UI.Label("Fireworks Mania ModLoader\n" + Utils.version);
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("main");
+        UI.Label("Fireworks Mania ModLoader\n" + Utilities.version);
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("main");
     }
 
     //Page 3
@@ -474,7 +474,7 @@ public class ModMain : MonoBehaviour
         UI.Label("Fast navigation:\n" +
            "1: Physics Tool, 2: Lighter,\n" +
            "3: Fuse Tool, 4: Clear view\n" +
-           "5: Eraser Tool", 65
+           "5: Time Tool, 6: Eraser Tool", 65
         );
         UI.Space(10);
         UI.Label("Newtonifier:\nT: Newtonify stuff.");
@@ -483,8 +483,8 @@ public class ModMain : MonoBehaviour
            "G: Toggle Fly Mode.\n" +
            "Space: Fly up\n" +
            "Ctrl: Fly down", 65);
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("main");
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("main");
     }
 
     //Page 4
@@ -501,15 +501,15 @@ public class ModMain : MonoBehaviour
         FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Toggle(UI.Button("Fly Mode", FlyMode.flyModeActive)));
         UI.Space(20);
         //if (UI.Button("Delete Everything")) Actions.DeleteAll();
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("main");
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("main");
     }
 
     // Page 5
     private void ExperimentalToolsPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
-        UI.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utils.CreateColorGUIStyle(Color.yellow));
+        UI.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utilities.CreateColorGUIStyle(Color.yellow));
         newtonifierActive = newtonifierToggle.Toggle(UI.Button("Newtonifier", newtonifierActive));
         if (UI.Button("Crazy Cloner", crazyClonerActive))
         {
@@ -517,8 +517,8 @@ public class ModMain : MonoBehaviour
             clonerActive = false;
             clonerToggle.SetState(false);
         }
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("tools");
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("tools");
     }
 
     // Page 6
@@ -527,13 +527,13 @@ public class ModMain : MonoBehaviour
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.Button("Place Marker"))
         {
-            var m = Utils.GetUnlitMaterial(Utils.GetRandomColor());
+            var m = Utilities.GetUnlitMaterial(Utilities.GetRandomColor());
             var p = _controller.transform.position;
-            Utils.DrawLine(0.4f, m, new Vector3(p.x, 0, p.z), new Vector3(p.x, 100, p.z));
+            markerLineRenderer.CreateLine(0.4f, m, new Vector3(p.x, 0, p.z), new Vector3(p.x, 100, p.z));
         }
-        if (UI.Button("Clear Markers")) Utils.ClearLines();
-        if (UI.BottomNavigationButton("Back"))
-            PageSystem.SelectPage("main");
+        if (UI.Button("Clear Markers")) markerLineRenderer.ClearLines();
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("main");
     }
 
     private int tempSettingsIED = 0;
@@ -576,10 +576,10 @@ public class ModMain : MonoBehaviour
             UI.Label("Firework Spawn Rarity", 15);
             tempSettingsFSR = UI.ClampedIntegerInput(tempSettingsFSR, 2, 50);
 
-            if (UI.BottomNavigationButton("Apply"))
+            if (UI.NavigationButton("Apply"))
             {
                 UpdateSettingsFromTemp();
-                PageSystem.SelectPage("main");
+                Pages.SelectPage("main");
             }
         }
         catch (Exception e)
@@ -588,8 +588,8 @@ public class ModMain : MonoBehaviour
             UI.Label(e.Message + "\n" +
                 "An unspecified error has occurred\n" +
                 "while drawing the page.");
-            if (UI.BottomNavigationButton("Back"))
-                PageSystem.SelectPage("main");
+            if (UI.NavigationButton("Back"))
+                Pages.SelectPage("main");
         }
     }
 
@@ -616,6 +616,6 @@ public class ModMain : MonoBehaviour
             text.transform.position.x,
             text.transform.position.y - 10,
             text.transform.position.z);
-        text.text = "v" + Application.version + "\nFMML " + Utils.modVersion;
+        text.text = "v" + Application.version + "\nFMML " + Utilities.modVersion;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Injected.UI
 {
-    public static class PageSystem
+    public static class Pages
     {
         private static List<PageDrawCallTarget> pageList = new List<PageDrawCallTarget>();
         private static Dictionary<string, int> indexDictionary = new Dictionary<string, int>();
@@ -21,9 +21,7 @@ namespace Injected.UI
         public static void SelectPage(string name)
         {
             if (indexDictionary.TryGetValue(name, out int index))
-            {
                 selectedPage = index;
-            }
         }
 
         public static void OpenDialog(DialogDrawCallTarget dialog)

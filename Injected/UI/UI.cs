@@ -88,7 +88,7 @@ namespace Injected.UI
             return r;
         }
 
-        public static bool BottomNavigationButton(string text) => GUI.Button(BottomSpaceRect(), text, UIStyles.UpdatedStyle());
+        public static bool NavigationButton(string text) => GUI.Button(BottomSpaceRect(), text, UIStyles.UpdatedStyle());
 
         public static Rect GetGraphicsRect() => new Rect(x, y, width, height);
 

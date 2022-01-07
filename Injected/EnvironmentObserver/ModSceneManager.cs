@@ -2,39 +2,47 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Main.FModApi
+namespace Main.EnvironmentObserver
 {
     public static class ModSceneManager
     {
         public static void FindComponents()
         {
-            s = Object.FindObjectOfType<SceneLoadingActions>();
+            sceneLoadingActions = Object.FindObjectOfType<SceneLoadingActions>();
         }
 
-        private static SceneLoadingActions s = null;
+        private static SceneLoadingActions sceneLoadingActions = null;
 
         public static void LoadMap(Map map)
         {
-            if (s == null) return;
+            if (sceneLoadingActions == null) return;
             switch (map)
             {
                 case Map.Town:
-                    s.LoadTownMap();
+                    sceneLoadingActions.LoadTownMap();
                     break;
                 case Map.Ranch:
-                    s.LoadRanchMap();
+                    sceneLoadingActions.LoadRanchMap();
                     break;
                 case Map.Flat:
-                    s.LoadFlatMap();
+                    sceneLoadingActions.LoadFlatMap();
+                    break;
+                case Map.City:
+                    sceneLoadingActions.LoadCityMap();
                     break;
                 case Map.Laboratory:
-                    s.LoadLabMap();
+                    sceneLoadingActions.LoadLabMap();
                     break;
             }
         }
 
         public static int GetActiveSceneIndex()
         {
+            /*for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                string n = SceneManager.GetSceneByBuildIndex(i).name;
+                Debug.LogError(n + " " + i);
+            }*/
             return SceneManager.GetActiveScene().buildIndex;
         }
 
@@ -48,6 +56,6 @@ namespace Main.FModApi
 
     public enum Map
     {
-        Town, Ranch, Flat, Laboratory
+        Town, Ranch, Flat, Laboratory, City
     }
 }

@@ -34,29 +34,29 @@
     <Compile Include="Actions.cs" />
     <Compile Include="Cloner.cs" />
     <Compile Include="FlyMode.cs" />
-    <Compile Include="FModApi\EventHook.cs" />
-    <Compile Include="FModApi\FireworkSpawner.cs" />
-    <Compile Include="FModApi\FireworkUnlocker.cs" />
-    <Compile Include="FModApi\FuseConnector.cs" />
-    <Compile Include="FModApi\GameReflector.cs" />
-    <Compile Include="FModApi\GameUIManager.cs" />
-    <Compile Include="FModApi\KnownFireworks.cs" />
-    <Compile Include="FModApi\ModSceneManager.cs" />
+    <Compile Include="EnvironmentObserver\EventHook.cs" />
+    <Compile Include="EnvironmentObserver\FireworkSpawner.cs" />
+    <Compile Include="EnvironmentObserver\FireworkUnlocker.cs" />
+    <Compile Include="EnvironmentObserver\FuseConnector.cs" />
+    <Compile Include="EnvironmentObserver\GameReflector.cs" />
+    <Compile Include="EnvironmentObserver\GameUIManager.cs" />
+    <Compile Include="EnvironmentObserver\KnownFireworks.cs" />
+    <Compile Include="EnvironmentObserver\ModSceneManager.cs" />
     <Compile Include="Lighter.cs" />
     <Compile Include="FireworksAutoSpawn.cs" />
+    <Compile Include="Miscellaneous\LineManager.cs" />
     <Compile Include="Setup\AttachToGame.cs" />
-    <Compile Include="ShapeDrawer.cs" />
     <Compile Include="SpaceMode.cs" />
     <Compile Include="UI\UI.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />
-    <Compile Include="UI\PageSystem.cs" />
+    <Compile Include="UI\Pages.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Miscellaneous\ToggleClass.cs" />
     <Compile Include="Miscellaneous\Tool.cs" />
     <Compile Include="UI\TeleportDialog.cs" />
-    <Compile Include="Miscellaneous\Utils.cs" />
+    <Compile Include="Miscellaneous\Utilities.cs" />
     <Compile Include="UI\UIStyles.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +88,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\DOTween.Modules.dll</HintPath>
     </Reference>
+    <Reference Include="EnviroSky">
+      <HintPath>..\bin\EnviroSky.dll</HintPath>
+    </Reference>
     <Reference Include="FbxBuildTestAssets, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\FbxBuildTestAssets.dll</HintPath>
@@ -96,24 +99,30 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\FireworksMania.dll</HintPath>
     </Reference>
-    <Reference Include="FireworksMania.Core">
+    <Reference Include="FireworksMania.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\FireworksMania.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip.Unity">
+    <Reference Include="Ionic.Zip.Unity, Version=1.9.1.9000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Ionic.Zip.Unity.dll</HintPath>
     </Reference>
     <Reference Include="MAScripts, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\MAScripts.dll</HintPath>
     </Reference>
-    <Reference Include="modio.UnityPlugin">
+    <Reference Include="modio.UnityPlugin, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\modio.UnityPlugin.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="NewAssembly">
+      <HintPath>..\bin\NewAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -168,25 +177,32 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Tayx.Graphy.dll</HintPath>
     </Reference>
-    <Reference Include="Trivial.CodeSecurity">
+    <Reference Include="Trivial.CodeSecurity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Trivial.CodeSecurity.dll</HintPath>
     </Reference>
-    <Reference Include="Trivial.Mono.Cecil">
+    <Reference Include="Trivial.Mono.Cecil, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Trivial.Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="Trivial.Mono.Cecil.Mdb">
+    <Reference Include="Trivial.Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Trivial.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
-    <Reference Include="Trivial.Mono.Cecil.Pdb">
+    <Reference Include="Trivial.Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Trivial.Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
-    <Reference Include="UMod">
+    <Reference Include="UMod, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UMod.dll</HintPath>
     </Reference>
-    <Reference Include="UMod-Interface">
+    <Reference Include="UMod-Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UMod-Interface.dll</HintPath>
     </Reference>
-    <Reference Include="UMod-Shared">
+    <Reference Include="UMod-Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UMod-Shared.dll</HintPath>
     </Reference>
     <Reference Include="UniTask, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -300,9 +316,6 @@
     <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UnityEngine.ClothModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CloudBuild">
-      <HintPath>..\bin\UnityEngine.CloudBuild.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -533,6 +546,5 @@
       <HintPath>..\bin\UnityEngine.XRModule.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

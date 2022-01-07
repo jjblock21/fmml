@@ -1,6 +1,6 @@
 ﻿using FireworksMania.Core.Definitions.EntityDefinitions;
 using FModApi;
-using Main.FModApi;
+using Main.EnvironmentObserver;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -44,13 +44,16 @@ namespace Main
                 switch (ModSceneManager.GetActiveSceneIndex())
                 {
                     case 4:
-                        pos = Utils.GetRandomIntVector(rand, -100, 100, 1);
+                        pos = Utilities.GetRandomIntVector(rand, -100, 100, 1);
                         break;
                     case 5:
-                        pos = Utils.GetRandomIntVector(rand, -150, 150, 3);
+                        pos = Utilities.GetRandomIntVector(rand, -150, 150, 3);
                         break;
                     case 6:
-                        pos = Utils.GetRandomIntVector(rand, -100, 100, 1);
+                        pos = Utilities.GetRandomIntVector(rand, -100, 100, 1);
+                        break;
+                    case 7:
+                        pos = Utilities.GetRandomIntVector(rand, -80, 80, 2);
                         break;
                 }
                 if (pos != new Vector3()) Spawn(pos);

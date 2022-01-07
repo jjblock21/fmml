@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Main.FModApi
+namespace Main.EnvironmentObserver
 {
     /* Tool indexes
      *  1_HandTool

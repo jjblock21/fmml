@@ -7,7 +7,7 @@ using FireworksMania.Props;
 using FireworksMania.ScriptableObjects.EntityDefinitions;
 using FModApi;
 using Main;
-using Main.FModApi;
+using Main.EnvironmentObserver;
 using System;
 using System.Collections;
 using System.Threading.Tasks;

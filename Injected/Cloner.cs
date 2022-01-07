@@ -23,7 +23,7 @@ namespace Main
                     rb.useGravity = true;
                     clone.transform.position = hitPoint;
                     clone.SetActive(true);
-                    Utils.AddClone(clone);
+                    Utilities.AddClone(clone);
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace Main
                 rb.useGravity = true;
                 clone.transform.position = hitPoint;
                 clone.SetActive(true);
-                Utils.AddClone(clone);
+                Utilities.AddClone(clone);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Main
                 rb.isKinematic = false;
                 rb.useGravity = true;
                 obj.SetActive(true);
-                Utils.AddClone(obj);
+                Utilities.AddClone(obj);
             }
         }
     }

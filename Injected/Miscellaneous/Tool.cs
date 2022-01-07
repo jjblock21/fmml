@@ -11,44 +11,45 @@ namespace FModApi
     {
         public static void SetSelectedTool(SelectedTool tool)
         {
-            var toolHandler = UnityEngine.Object.FindObjectOfType<ToolMenuManager>();
+            var toolManager = UnityEngine.Object.FindObjectOfType<ToolMenuManager>();
             GameObject obj = null;
-            if (toolHandler == null)
+            if (toolManager == null)
             {
                 obj = new GameObject("ToolManager");
-                toolHandler = obj.AddComponent<ToolMenuManager>();
+                toolManager = obj.AddComponent<ToolMenuManager>();
             }
             switch (tool)
             {
                 case SelectedTool.FuseTool:
-                    toolHandler.SelectFuseConnectionTool();
+                    toolManager.SelectFuseConnectionTool();
                     break;
                 case SelectedTool.Hand:
-                    toolHandler.SelectHandTool();
+                    toolManager.SelectHandTool();
                     break;
                 case SelectedTool.None:
-                    toolHandler.SelectNoneTool();
+                    toolManager.SelectNoneTool();
                     break;
                 case SelectedTool.PhysicsTool:
-                    toolHandler.SelectPhysicsTool();
+                    toolManager.SelectPhysicsTool();
                     break;
                 case SelectedTool.Torch:
-                    toolHandler.SelectIgnitorTool();
+                    toolManager.SelectIgnitorTool();
                     break;
                 case SelectedTool.DeleteTool:
-                    TrySelectEraser(toolHandler);
+                    TrySelectEraser(toolManager);
+                    break;
+                case SelectedTool.TimeTool:
+                    toolManager.SelectDayNightTimeTool();
                     break;
             }
             if (obj == null) return;
             UnityEngine.Object.Destroy(obj);
         }
 
-        private static void TrySelectEraser(ToolMenuManager t)
+        private static void TrySelectEraser(ToolMenuManager toolManager)
         {
-            t.SelectEraserTool();
+            toolManager.SelectEraserTool();
         }
-
-        public static uint GetToolId(SelectedTool tool) => (uint)tool;
     }
 
     public enum SelectedTool : uint
@@ -58,6 +59,7 @@ namespace FModApi
         Torch = 3,
         PhysicsTool = 2,
         FuseTool = 4,
-        DeleteTool = 5
+        DeleteTool = 5,
+        TimeTool = 6
     }
 }
