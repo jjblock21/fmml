@@ -52,7 +52,6 @@ namespace Fireworks_Mania_Modloader
             resources.ApplyResources(this.status, "status");
             this.status.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.status.Name = "status";
-            this.status.Click += new System.EventHandler(this.status_Click);
             // 
             // panel1
             // 
@@ -97,7 +96,6 @@ namespace Fireworks_Mania_Modloader
             this.simpleGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.simpleGradientPanel1.Name = "simpleGradientPanel1";
             this.simpleGradientPanel1.StartColor = System.Drawing.Color.Transparent;
-            this.simpleGradientPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.simpleGradientPanel1_Paint);
             // 
             // injectButton
             // 
@@ -163,12 +161,12 @@ namespace Fireworks_Mania_Modloader
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Window";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
             this.Load += new System.EventHandler(this.Start);
-            this.Resize += new System.EventHandler(this.Window_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

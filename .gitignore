@@ -365,3 +365,4 @@ FodyWeavers.xsd
 *.bat
 *.ignore
 FMML*Launcher/
+JumpinFrog*Diagnostics*ProcessChecker/

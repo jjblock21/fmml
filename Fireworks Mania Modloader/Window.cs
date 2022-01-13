@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using JumpinFrog.ProcessChecker;
 
 namespace Fireworks_Mania_Modloader
 {
@@ -12,7 +11,6 @@ namespace Fireworks_Mania_Modloader
     {
         public static string path = Directory.GetCurrentDirectory() + @"\Main.dll";
         private static Process process;
-        private static ProcessChecker checker;
         private IntPtr injected;
 
         public Window()
@@ -22,15 +20,10 @@ namespace Fireworks_Mania_Modloader
 
         private void Start(object sender, EventArgs e)
         {
-            versionLabel.Text = Program.version;
+            versionLabel.Text = Program.Version;
             UpdateLabel();
             LoadProcesses();
             EnterRefreshLoop();
-        }
-
-        private void window_KeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
@@ -80,16 +73,6 @@ namespace Fireworks_Mania_Modloader
             }
         }
 
-        private void status_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void simpleGradientPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void discordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             More moreWindow = new More();
@@ -118,16 +101,16 @@ namespace Fireworks_Mania_Modloader
 
         private void launchGameButton_Click(object sender, EventArgs e)
         {
-            Process.Start("steam://rungameid/1079260");
+            Process.Start(Program.GameLaunchCommand);
         }
 
         #region Midend
         private void UpdateLabel()
         {
-            if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 24)
+            if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 24 || DateTime.UtcNow.Day == 25)
+            {
                 statusLabel.Text = "Merry Christmas!";
-            else if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 25)
-                statusLabel.Text = "Merry Christmas!";
+            }
             else if (DateTime.UtcNow.Month == 10 && DateTime.UtcNow.Day == 31)
             {
                 if (new Random().NextDouble() < 0.5f)
@@ -136,25 +119,25 @@ namespace Fireworks_Mania_Modloader
             }
             else if (DateTime.UtcNow.Month == 7 && DateTime.UtcNow.Day == 4)
             {
-                if (new Random().NextDouble() < 0.75f)
-                    statusLabel.Text = "Independence Day!";
-                else statusLabel.Text = "Got Fireworks?";
+                statusLabel.Text = "Fireworks!";
+            }
+            else if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 31)
+            {
+                statusLabel.Text = "Happy New Year!";
             }
             else statusLabel.Text = "";
         }
 
         private void LoadProcesses()
         {
-            checker = new ProcessChecker("Fireworks Mania");
-            if (checker.GetProcess() != null)
+            Process process = ProcessFinder.GetProcess(Program.TargetProcessName);
+            if (process != null)
             {
-                process = checker.GetProcess();
                 status.Text = "Selected: " + process.ProcessName + " (" + process.Id + ")";
                 UpdateButtons(true);
             }
             else
             {
-                process = null;
                 status.Text = "Fireworks Mania is not currently active";
                 UpdateButtons(false);
             }

@@ -109,11 +109,11 @@ namespace Fireworks_Mania_Modloader
                 if (File.Exists(path))
                 {
                     string text = File.ReadAllText(path);
-                    MessageBox.Show(text, Program.version + " Changelog");
+                    MessageBox.Show(text, Program.Version + " Changelog");
                 }
                 else
                 {
-                    MessageBox.Show("The " + Program.version + " Changelog is currently not available.", "Information",
+                    MessageBox.Show("The " + Program.Version + " Changelog is currently not available.", "Information",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
