@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Main.EnvironmentObserver;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -7,22 +8,29 @@ namespace Injected.UI
     public class TeleportDialog
     {
 
-        private static string tpX = "0", tpY = "0", tpZ = "0";
+        private static string teleportLocationX = "0";
+        private static string teleportLocationY = "0";
+        private static string teleportLocationZ = "0";
         private static bool isSelectionState = false;
         public static bool blockDialog = false;
 
-        private static Dictionary<string, Vector3> tpLocations = new Dictionary<string, Vector3>();
+        private static Dictionary<LocationInfo, Vector3> tpLocations = new Dictionary<LocationInfo, Vector3>();
         private static FirstPersonController fpsController = null;
 
         public static void InitLocations()
         {
-            tpLocations.Add("Tim - Town", new Vector3(47.5f, 1.5f, 31.2f));
-            tpLocations.Add("Tim - Ranch", new Vector3(-44f, 0.5f, -17.5f));
-            tpLocations.Add("Flamingo - Town", new Vector3(-344.8f, 43f, -61.1f));
-            tpLocations.Add("Wind Turbine - Ranch", new Vector3(-69.6f, 47.5f, -240.0f));
-            tpLocations.Add("Big House - Town", new Vector3(4f, 5f, -17.5f));
-            tpLocations.Add("Mountain - Town", new Vector3(118f, 44f, 55f));
-            tpLocations.Add("Barn - Ranch", new Vector3(15f, 1f, -24f));
+            tpLocations.Add(new LocationInfo("Tim", Map.Town), new Vector3(47.5f, 1.5f, 31.2f));
+            tpLocations.Add(new LocationInfo("Big House", Map.Town), new Vector3(4f, 5f, -17.5f));
+            tpLocations.Add(new LocationInfo("Mountain", Map.Town), new Vector3(118f, 44f, 55f));
+            tpLocations.Add(new LocationInfo("Flamingo", Map.Town), new Vector3(-344.8f, 43f, -61.1f));
+
+            tpLocations.Add(new LocationInfo("Tim", Map.Ranch), new Vector3(-44f, 0.5f, -17.5f));
+            tpLocations.Add(new LocationInfo("Wind Turbine", Map.Ranch), new Vector3(-69.6f, 47.5f, -240.0f));
+            tpLocations.Add(new LocationInfo("Barn", Map.Ranch), new Vector3(15f, 1f, -24f));
+
+            tpLocations.Add(new LocationInfo("Park", Map.City), new Vector3(54.25f, 2.5f, 46.5f));
+            tpLocations.Add(new LocationInfo("Gas Station", Map.City), new Vector3(115f, 2f, 77f));
+            tpLocations.Add(new LocationInfo("City Hall", Map.City), new Vector3(-50f, 2.5f, -95f));
         }
 
         public static void FindComponents()
@@ -45,16 +53,16 @@ namespace Injected.UI
                     fpsController.gameObject.transform.position.z
                 );
                 UI.Label("Input a location (X, Y, Z)");
-                tpX = UI.Input(tpX);
-                tpY = UI.Input(tpY);
-                tpZ = UI.Input(tpZ);
+                teleportLocationX = UI.Input(teleportLocationX);
+                teleportLocationY = UI.Input(teleportLocationY);
+                teleportLocationZ = UI.Input(teleportLocationZ);
                 if (UI.Button("Presets")) isSelectionState = true;
                 UI.Space(20);
                 if (UI.Button("Teleport"))
                 {
-                    if (float.TryParse(tpX, out float x)
-                        && float.TryParse(tpY, out float y)
-                        && float.TryParse(tpZ, out float z))
+                    if (float.TryParse(teleportLocationX, out float x)
+                        && float.TryParse(teleportLocationY, out float y)
+                        && float.TryParse(teleportLocationZ, out float z))
                     {
                         tpPos = new Vector3(x, y, z);
                     }
@@ -74,9 +82,11 @@ namespace Injected.UI
 
         private static void CreateButtons()
         {
-            foreach (KeyValuePair<string, Vector3> pair in tpLocations)
+            Map map = ModSceneManager.GetLoadedMap();
+            foreach (KeyValuePair<LocationInfo, Vector3> pair in tpLocations)
             {
-                if (UI.Button(pair.Key))
+                if (pair.Key.Map != map) continue;
+                if (UI.Button(pair.Key.Name))
                 {
                     TeleportToLocation(pair.Value);
                     Pages.CloseCurrentDialog();
@@ -96,14 +106,29 @@ namespace Injected.UI
         public static void ResetText()
         {
             isSelectionState = false;
-            tpX = "0";
-            tpY = "0";
-            tpZ = "0";
+            teleportLocationX = "0";
+            teleportLocationY = "0";
+            teleportLocationZ = "0";
         }
 
         private static void TeleportToLocation(Vector3 pos)
         {
             if (fpsController != null) fpsController.ResetMovement(pos);
         }
+    }
+
+    public struct LocationInfo
+    {
+        private string name;
+        private Map map;
+
+        public LocationInfo(string name, Map map)
+        {
+            this.name = name;
+            this.map = map;
+        }
+
+        public Map Map { get { return map; } }
+        public string Name { get { return name; } }
     }
 }

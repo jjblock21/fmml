@@ -52,10 +52,28 @@ namespace Main.EnvironmentObserver
                 return true;
             return false;
         }
+
+        public static Map GetLoadedMap()
+        {
+            if (!IsPlayableMapLoaded()) return Map.None;
+            switch (GetActiveSceneIndex())
+            {
+                case 4:
+                    return Map.Town;
+                case 5:
+                    return Map.Ranch;
+                case 6:
+                    return Map.Flat;
+                case 7:
+                    return Map.City;
+                default:
+                    return Map.None;
+            }
+        }
     }
 
     public enum Map
     {
-        Town, Ranch, Flat, Laboratory, City
+        Town, Ranch, Flat, Laboratory, City, None
     }
 }

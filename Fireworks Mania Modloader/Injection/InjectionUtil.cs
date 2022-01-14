@@ -16,13 +16,12 @@ namespace Fireworks_Mania_Modloader
             try
             {
                 value = IntPtr.Zero;
-                if (CheckForFile(path) && process.Id != new int())
+                if (CheckForFile(path))
                 {
                     Injector injector = new Injector(process.Id);
                     value = injector.Inject(
                         File.ReadAllBytes(path),
-                        GetNamespace(),
-                        GetClassName(),
+                        GetNamespace(), GetClassName(),
                         INJECT_METHOD
                     );
                 }
@@ -48,8 +47,7 @@ namespace Fireworks_Mania_Modloader
                     Injector injector = new Injector(process.Id);
                     injector.Eject(
                         assembly,
-                        GetNamespace(),
-                        GetClassName(),
+                        GetNamespace(), GetClassName(),
                         EJECT_METHOD
                     );
                     return Feedback.GenerateSuccessFeedback(0);

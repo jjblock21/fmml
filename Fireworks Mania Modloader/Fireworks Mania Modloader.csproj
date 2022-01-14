@@ -87,6 +87,7 @@
     <Compile Include="More.Designer.cs">
       <DependentUpon>More.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcessFinder.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,12 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FMML2.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JumpinFrog.Diagnostics.ProcessChecker\ProcessChecker.csproj">
-      <Project>{60571BEC-AA7D-414C-B9FE-74D392068742}</Project>
-      <Name>ProcessChecker</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

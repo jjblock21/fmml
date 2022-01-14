@@ -392,20 +392,20 @@ public class ModMain : MonoBehaviour
             crazyClonerToggle.SetState(false);
         }
         eraserActive = eraserToggle.Toggle(UI.Button("Delete Tool", eraserActive));
-        UI.Space(20);
+        UI.DefSpace();
         if (UI.Button("Marker stuff"))
             Pages.SelectPage("markers");
         if (UI.Button("Buggy Tools"))
             Pages.SelectPage("experimental_tools");
         if (UI.Button("Fireworks Related"))
             Pages.SelectPage("fireworks");
-        UI.Space(20);
+        UI.DefSpace();
         if (UI.Button("Teleporter") && _controller != null)
         {
             TeleportDialog.ResetText();
             TeleportDialog.ShowDialog();
         }
-        UI.Space(20);
+        UI.DefSpace();
         if (UI.Button("Legacy Physics Gun"))
         {
             Tool.SetSelectedTool(SelectedTool.Hand);
@@ -421,14 +421,14 @@ public class ModMain : MonoBehaviour
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
         if (UI.Button("Clear Fireworks")) Actions.ClearFireworks();
-        UI.Space(20);
+        UI.DefSpace();
         if (UI.Button("Unlock Tim")) Actions.UnlockTim();
-        UI.Space(20);
+        UI.DefSpace();
         fireworksAutoSpawn = silvesterSimulationToggle.Toggle(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
         );
 
-        UI.Space(20);
+        UI.DefSpace();
         if (UI.Button("Fuse all Fireworks - Fast"))
             StartCoroutine(Actions.FuseAll(FuseConnectionType.Fast));
         if (UI.Button("Fuse all Fireworks - Instant"))
@@ -493,13 +493,13 @@ public class ModMain : MonoBehaviour
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
         autoClickerActive = aToggle.Toggle(UI.Button("Inbuilt Auto Clicker", autoClickerActive));
         autoClickerButtonLeft = aToggle3.Toggle(UI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
-        UI.Space(20);
+        UI.DefSpace();
         superSpeedActive = superSpeedToggle.Toggle(UI.Button("Super Speed", superSpeedActive));
         superJumpActive = superJumpToggle.Toggle(UI.Button("Super Jump", superJumpActive));
-        UI.Space(20);
+        UI.DefSpace();
         SpaceMode.ToggleSpaceMode(SpaceMode.spaceModeToggle.Toggle(UI.Button("Space Mode", SpaceMode.spaceModeActive)));
         FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Toggle(UI.Button("Fly Mode", FlyMode.flyModeActive)));
-        UI.Space(20);
+        UI.DefSpace();
         //if (UI.Button("Delete Everything")) Actions.DeleteAll();
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("main");
@@ -568,11 +568,11 @@ public class ModMain : MonoBehaviour
             UI.Label("Speed", 15);
             speed = UI.ClampedIntegerInput(speed, 1, 50);
 
-            UI.Space(20);
+            UI.DefSpace();
             UI.Label("Ingite All Delay (ms)", 15);
             tempSettingsIED = UI.ClampedIntegerInput(tempSettingsIED, 1, 1000);
 
-            UI.Space(20);
+            UI.DefSpace();
             UI.Label("Firework Spawn Rarity", 15);
             tempSettingsFSR = UI.ClampedIntegerInput(tempSettingsFSR, 2, 50);
 

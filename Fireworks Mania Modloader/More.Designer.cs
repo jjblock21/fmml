@@ -36,6 +36,7 @@ namespace Fireworks_Mania_Modloader
             this.changeLogsLink = new System.Windows.Forms.LinkLabel();
             this.discordLink = new System.Windows.Forms.LinkLabel();
             this.backLink = new System.Windows.Forms.LinkLabel();
+            this.gradient1 = new JControls.SimpleGradientPanel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,12 +139,26 @@ namespace Fireworks_Mania_Modloader
             this.backLink.MouseEnter += new System.EventHandler(this.backLink_MouseEnter);
             this.backLink.MouseLeave += new System.EventHandler(this.backLink_MouseLeave);
             // 
+            // gradient1
+            // 
+            this.gradient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gradient1.Angle = 90F;
+            this.gradient1.DoubleTitled = false;
+            this.gradient1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.gradient1.Location = new System.Drawing.Point(0, 192);
+            this.gradient1.Name = "gradient1";
+            this.gradient1.Size = new System.Drawing.Size(434, 22);
+            this.gradient1.StartColor = System.Drawing.Color.Transparent;
+            this.gradient1.TabIndex = 15;
+            // 
             // More
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.ClientSize = new System.Drawing.Size(434, 236);
+            this.Controls.Add(this.gradient1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.copyButton);
             this.Controls.Add(this.label1);
@@ -170,5 +185,6 @@ namespace Fireworks_Mania_Modloader
         private System.Windows.Forms.LinkLabel backLink;
         private System.Windows.Forms.LinkLabel discordLink;
         private System.Windows.Forms.LinkLabel changeLogsLink;
+        private JControls.SimpleGradientPanel gradient1;
     }
 }

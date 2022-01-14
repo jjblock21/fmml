@@ -8,7 +8,7 @@ namespace Main
 {
     public class FireworksAutoSpawn
     {
-        private int m_Rarity = 25;
+        private int m_Rarity = 10;
         private int m_Tick = 0;
 
         public void SpawnAndIngniteFirework(Vector3 position, string id)
@@ -29,9 +29,9 @@ namespace Main
         {
             if (DoTickCheck())
             {
-                System.Random rand = new System.Random();
-                int val = rand.Next(1, m_Rarity);
-                if (val == m_Rarity / 2) SpawnRandom();
+                System.Random random = new System.Random();
+                int value = random.Next(1, m_Rarity);
+                if (value == m_Rarity / 2) SpawnRandom();
             }
         }
 
@@ -41,18 +41,18 @@ namespace Main
             {
                 System.Random rand = new System.Random();
                 Vector3 pos = new Vector3();
-                switch (ModSceneManager.GetActiveSceneIndex())
+                switch (ModSceneManager.GetLoadedMap())
                 {
-                    case 4:
+                    case Map.Town:
                         pos = Utilities.GetRandomIntVector(rand, -100, 100, 1);
                         break;
-                    case 5:
+                    case Map.Ranch:
                         pos = Utilities.GetRandomIntVector(rand, -150, 150, 3);
                         break;
-                    case 6:
+                    case Map.Flat:
                         pos = Utilities.GetRandomIntVector(rand, -100, 100, 1);
                         break;
-                    case 7:
+                    case Map.City:
                         pos = Utilities.GetRandomIntVector(rand, -80, 80, 2);
                         break;
                 }
@@ -66,7 +66,7 @@ namespace Main
             int numberOfCakes = FireworkSpawner.KnownFireworks.Cakes.Length;
             int numberOfRockets = FireworkSpawner.KnownFireworks.Rockets.Length;
             int randomIndex = rand1.Next(0, numberOfCakes);
-            int randomIndex1 = rand1.Next(0, numberOfCakes);
+            int randomIndex1 = rand1.Next(0, numberOfRockets);
             SpawnAndIngniteFirework(position, FireworkSpawner.KnownFireworks.Cakes[randomIndex]);
             SpawnAndIngniteFirework(position, FireworkSpawner.KnownFireworks.Rockets[randomIndex1]);
         }

@@ -130,10 +130,10 @@ namespace Fireworks_Mania_Modloader
 
         private void LoadProcesses()
         {
-            Process process = ProcessFinder.GetProcess(Program.TargetProcessName);
-            if (process != null)
+            Process proc = ProcessFinder.GetProcess(Program.TargetProcessName);
+            if (proc != null)
             {
-                status.Text = "Selected: " + process.ProcessName + " (" + process.Id + ")";
+                status.Text = "Selected: " + proc.ProcessName + " (" + proc.Id + ")";
                 UpdateButtons(true);
             }
             else
@@ -141,6 +141,7 @@ namespace Fireworks_Mania_Modloader
                 status.Text = "Fireworks Mania is not currently active";
                 UpdateButtons(false);
             }
+            process = proc;
         }
 
         private async void EnterRefreshLoop()

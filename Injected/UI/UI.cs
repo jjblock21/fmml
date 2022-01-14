@@ -56,6 +56,7 @@ namespace Injected.UI
 
         public static void Space() => nextControlY += controlHeight + controlDist;
         public static void Space(int space) => nextControlY += space;
+        public static void DefSpace() => nextControlY += 20;
 
         public static string MakeEnable(string text, bool state) => string.Format("{0} {1}", text, state ? "ON" : "OFF");
         public static string MakeEnable(string onText, string offText, bool state) => state ? onText : offText;
