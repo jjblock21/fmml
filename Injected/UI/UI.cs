@@ -54,6 +54,13 @@ namespace Injected.UI
             return r;
         }
 
+        private static Rect NextControlRect(float height, float distance)
+        {
+            Rect r = new Rect(x + margin, nextControlY, width - margin * 2, height);
+            nextControlY += height + distance;
+            return r;
+        }
+
         public static void Space() => nextControlY += controlHeight + controlDist;
         public static void Space(int space) => nextControlY += space;
         public static void DefSpace() => nextControlY += 20;
@@ -68,6 +75,7 @@ namespace Injected.UI
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
         public static void Label(string text) => GUI.Label(NextControlRect(), text, UIStyles.UpdatedTextStyle());
         public static void Label(string text, int height) => GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle());
+        public static void ZeroSpaceLabel(string text, int height) => GUI.Label(NextControlRect(height, 5f), text, UIStyles.UpdatedTextStyle());
 
         public static float Slider(float val, float min, float max) => GUI.HorizontalSlider(NextControlRect(), val, min, max);
         public static float Slider(float min, float max) => GUI.HorizontalSlider(NextControlRect(), 0, min, max);

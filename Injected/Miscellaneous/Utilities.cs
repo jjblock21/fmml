@@ -10,7 +10,7 @@ namespace Main
         private static Dictionary<string, GameObject> clones = new Dictionary<string, GameObject>();
         public static string version { get => modVersion + " - " + Application.version; }
 
-        public static readonly string modVersion = "1.0.0";
+        public static readonly string modVersion = "1.1.0-beta";
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {
             Ray ray = new Ray(origin, dir);

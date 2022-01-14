@@ -87,14 +87,16 @@ public class ModMain : MonoBehaviour
     public static Camera _cam;
     public static Player _controller;
 
-    private FireworksAutoSpawn silvesterSimulation = new FireworksAutoSpawn();
+    private FireworksAutoSpawn fireworksAutoSpawnObject = new FireworksAutoSpawn();
 
-    public static ToggleClass silvesterSimulationToggle = new ToggleClass();
+    public static ToggleClass fireworksAutoSpawnToggle = new ToggleClass();
     public static bool fireworksAutoSpawn = false;
 
-    private float originalFov = 0;
+    public bool autoSpawnAllFireworks = false;
 
     private LineManager markerLineRenderer = new LineManager();
+
+    private FuseConnectionType connectAllFuseSpeed = FuseConnectionType.Fast;
 
     // TODO: Put the width, the control height and the x / y is variables. Make sure to update the RuntimeTextureGeneration too.
 
@@ -128,7 +130,7 @@ public class ModMain : MonoBehaviour
         UIStyles.CreateTextures(250, 35);
         UIStyles.CreateStyles();
 
-        originalFov = _cam.fieldOfView;
+        fireworksAutoSpawnObject.UpdateSpawnAllFireworksSettings(autoSpawnAllFireworks);
     }
 
     private void GameUIManager_InventoryEvent(bool isOpen)
@@ -199,7 +201,7 @@ public class ModMain : MonoBehaviour
     {
         if (fireworksAutoSpawn)
         {
-            silvesterSimulation.UpdateFireworkSpawn();
+            fireworksAutoSpawnObject.UpdateFireworkSpawn();
         }
     }
 
@@ -416,7 +418,7 @@ public class ModMain : MonoBehaviour
 
     private void FireworksPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
@@ -424,20 +426,14 @@ public class ModMain : MonoBehaviour
         UI.DefSpace();
         if (UI.Button("Unlock Tim")) Actions.UnlockTim();
         UI.DefSpace();
-        fireworksAutoSpawn = silvesterSimulationToggle.Toggle(
+        fireworksAutoSpawn = fireworksAutoSpawnToggle.Toggle(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
         );
-
         UI.DefSpace();
-        if (UI.Button("Fuse all Fireworks - Fast"))
-            StartCoroutine(Actions.FuseAll(FuseConnectionType.Fast));
-        if (UI.Button("Fuse all Fireworks - Instant"))
-            StartCoroutine(Actions.FuseAll(FuseConnectionType.Instant));
-        if (UI.Button("Fuse all Fireworks - Medium"))
-            StartCoroutine(Actions.FuseAll(FuseConnectionType.Medium));
-        if (UI.Button("Fuse all Fireworks - Slow"))
-            StartCoroutine(Actions.FuseAll(FuseConnectionType.Slow));
-
+        if (UI.Button("Fuse all Fireworks"))
+        {
+            StartCoroutine(Actions.FuseAll(connectAllFuseSpeed));
+        }
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("tools");
     }
@@ -538,11 +534,13 @@ public class ModMain : MonoBehaviour
 
     private int tempSettingsIED = 0;
     private int tempSettingsFSR = 0;
+    private FuseConnectionType tempSettingsFCS = 0;
 
     private void OpenSettingsPage()
     {
         tempSettingsIED = igniteEverythingDelay;
-        tempSettingsFSR = silvesterSimulation.Rarity;
+        tempSettingsFSR = fireworksAutoSpawnObject.Rarity;
+        tempSettingsFCS = connectAllFuseSpeed;
     }
 
     private void UpdateSettingsFromTemp()
@@ -551,7 +549,11 @@ public class ModMain : MonoBehaviour
         UpdateSuperSpeed(superSpeedActive);
 
         igniteEverythingDelay = tempSettingsIED;
-        silvesterSimulation.Rarity = tempSettingsFSR;
+        fireworksAutoSpawnObject.Rarity = tempSettingsFSR;
+
+        fireworksAutoSpawnObject.UpdateSpawnAllFireworksSettings(autoSpawnAllFireworks);
+
+        connectAllFuseSpeed = tempSettingsFCS;
     }
 
     // Page 7
@@ -559,22 +561,37 @@ public class ModMain : MonoBehaviour
     {
         try
         {
-            UI.Begin("Fireworks Mania Modloader - Settings", 10, 20, 300, 500, 25, 35, 10, 50, 25);
+            UI.Begin("Fireworks Mania Modloader - Settings", 10, 20, 300, 600, 25, 35, 10, 50, 25);
 
-            UI.Label("Super Jump Force", 15);
+            UI.ZeroSpaceLabel("Super Jump Force", 15);
             jumpHeight = UI.ClampedIntegerInput(jumpHeight, 1, 50);
 
-            UI.Space(10);
-            UI.Label("Speed", 15);
+            UI.ZeroSpaceLabel("Speed", 15);
             speed = UI.ClampedIntegerInput(speed, 1, 50);
 
             UI.DefSpace();
-            UI.Label("Ingite All Delay (ms)", 15);
+            UI.ZeroSpaceLabel("Ingite All Delay (ms)", 15);
             tempSettingsIED = UI.ClampedIntegerInput(tempSettingsIED, 1, 1000);
 
             UI.DefSpace();
-            UI.Label("Firework Spawn Rarity", 15);
+            UI.ZeroSpaceLabel("Firework Spawn Rarity", 15);
             tempSettingsFSR = UI.ClampedIntegerInput(tempSettingsFSR, 2, 50);
+
+            UI.ZeroSpaceLabel("Firework Spawn Mode", 15);
+            if (autoSpawnAllFireworks)
+            {
+                if (UI.Button("All Fireworks (includes Mods)")) autoSpawnAllFireworks = false;
+            }
+            else if (UI.Button("Cakes and Rockets")) autoSpawnAllFireworks = true;
+
+            UI.DefSpace();
+            UI.ZeroSpaceLabel("Fuse Speed", 15);
+            if (UI.Button(Enum.GetName(typeof(FuseConnectionType), tempSettingsFCS)))
+            {
+                int newValue = (int)tempSettingsFCS + 1;
+                if (newValue > 3) newValue = 0;
+                tempSettingsFCS = (FuseConnectionType)newValue;
+            }
 
             if (UI.NavigationButton("Apply"))
             {
