@@ -125,7 +125,11 @@ namespace Fireworks_Mania_Modloader
             {
                 statusLabel.Text = "Happy New Year!";
             }
-            else statusLabel.Text = "";
+            else
+            {
+                if (Program.ThanksText == null) statusLabel.Text = "";
+                else statusLabel.Text = Program.ThanksText;
+            }
         }
 
         private void LoadProcesses()

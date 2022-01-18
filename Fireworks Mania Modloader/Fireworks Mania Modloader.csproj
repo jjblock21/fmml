@@ -59,7 +59,7 @@
   <ItemGroup>
     <Reference Include="JControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Workspace [madatory]\JLib\JCodeLibrary\JControls\JControls\bin\Debug\JControls.dll</HintPath>
+      <HintPath>bin\Debug\JControls.dll</HintPath>
     </Reference>
     <Reference Include="SharpMonoInjector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
