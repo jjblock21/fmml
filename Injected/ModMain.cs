@@ -50,7 +50,7 @@ public class ModMain : MonoBehaviour
      * TODO: Just make this better, idk.
      */
     #region Variables
-    private ToggleClass visibleToggle = new ToggleClass(true);
+    private Toggle visibleToggle = new Toggle(true);
     public static bool visible = true;
 
     private int igniteEverythingDelay = 1;
@@ -59,26 +59,26 @@ public class ModMain : MonoBehaviour
 
     private bool disableKeys = false;
 
-    private ToggleClass crazyClonerToggle = new ToggleClass();
-    private ToggleClass newtonifierToggle = new ToggleClass();
+    private Toggle crazyClonerToggle = new Toggle();
+    private Toggle newtonifierToggle = new Toggle();
     private bool crazyClonerActive = false;
     private bool newtonifierActive = false;
 
     public bool superSpeedActive = false;
-    public ToggleClass superSpeedToggle = new ToggleClass();
+    public Toggle superSpeedToggle = new Toggle();
     public bool superJumpActive = false;
-    public ToggleClass superJumpToggle = new ToggleClass();
+    public Toggle superJumpToggle = new Toggle();
 
     public bool autoClickerActive = false;
     private bool autoClickerButtonLeft = true;
 
-    private ToggleClass aToggle = new ToggleClass();
-    private ToggleClass aToggle2 = new ToggleClass();
-    private ToggleClass aToggle3 = new ToggleClass();
+    private Toggle aToggle = new Toggle();
+    private Toggle aToggle2 = new Toggle();
+    private Toggle aToggle3 = new Toggle();
 
-    public ToggleClass eraserToggle = new ToggleClass();
-    public ToggleClass flameThrowerToggle = new ToggleClass();
-    public ToggleClass clonerToggle = new ToggleClass();
+    public Toggle eraserToggle = new Toggle();
+    public Toggle flameThrowerToggle = new Toggle();
+    public Toggle clonerToggle = new Toggle();
 
     public bool clonerActive = false;
     public bool eraserActive = false;
@@ -87,14 +87,14 @@ public class ModMain : MonoBehaviour
     public static Camera _cam;
     public static Player _controller;
 
-    private FireworksAutoSpawn fireworksAutoSpawnObject = new FireworksAutoSpawn();
-
-    public static ToggleClass fireworksAutoSpawnToggle = new ToggleClass();
+    public static Toggle fireworksAutoSpawnToggle = new Toggle();
     public static bool fireworksAutoSpawn = false;
 
     public bool autoSpawnAllFireworks = false;
 
     private LineManager markerLineRenderer = new LineManager();
+    private FireworksAutoSpawn fireworksAutoSpawnObject = new FireworksAutoSpawn();
+    private TimeMachine timeMachine = new TimeMachine();
 
     private FuseConnectionType connectAllFuseSpeed = FuseConnectionType.Fast;
 
@@ -115,7 +115,7 @@ public class ModMain : MonoBehaviour
         GameUIManager.InventoryEvent += GameUIManager_InventoryEvent;
 
         // Chache Components
-        ChacheComponents();
+        FindComponentReferences();
 
         // Update the version label of the game
         StartCoroutine(VersionLabelCoroutine());
@@ -181,7 +181,7 @@ public class ModMain : MonoBehaviour
 
     public void DoAutoclickerClick()
     {
-        if (aToggle2.Toggle(true))
+        if (aToggle2.Switch())
         {
             if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
             else Mouse.MouseEvent(Mouse.MouseEventFlags.RightUp);
@@ -222,6 +222,7 @@ public class ModMain : MonoBehaviour
         Pages.AddPage(HacksPage, "hacks");
         Pages.AddPage(MarkersPage, "markers");
         Pages.AddPage(SettingsPage, "settings");
+        Pages.AddPage(TimePage, "time");
     }
     #endregion
 
@@ -232,12 +233,14 @@ public class ModMain : MonoBehaviour
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
-        ChacheComponents();
+        FindComponentReferences();
+        timeMachine.Setup();
+        if (timeMachine.IsEnabled)
+            timeMachine.FreezeTime();
         StartCoroutine(VersionLabelCoroutine());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
         ResetDisableKeys();
-        //Debug.LogError(arg0.name + " " + arg0.buildIndex + " | " + arg1.name + " " + arg1.buildIndex);
     }
     #endregion
 
@@ -275,7 +278,7 @@ public class ModMain : MonoBehaviour
 
         // Hide/Show
         if (Input.GetKeyDown(KeyCode.F1))
-            visible = visibleToggle.Toggle(true);
+            visible = visibleToggle.Switch(true);
 
         //Cloner
         if (Input.GetKeyDown(KeyCode.X) && clonerActive)
@@ -300,7 +303,7 @@ public class ModMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V) && eraserActive)
         {
             RaycastHit hit = Utilities.DoScreenRaycast(_cam);
-            if (hit.collider != null) Actions.Delete(hit.collider);
+            if (hit.collider != null) Stuff.Delete(hit.collider);
         }
 
         // Auto Clicker
@@ -311,7 +314,7 @@ public class ModMain : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Toggle(true));
+            FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Switch(true));
         }
 
         // Ignite All
@@ -349,9 +352,9 @@ public class ModMain : MonoBehaviour
         if (visible)
         {
             Pages.MakeDrawCalls();
-            if (disableKeys) UI.Label("Hotkeys are disabled!", "Enable using F2", 20, 40, 16, Color.red);
-            if (Actions.TryGetPositionString(out string text, _controller))
-                UI.Label(text, "The players position", 20, 16, Color.white);
+            if (disableKeys) UI.FancyLabel("Hotkeys are disabled!", "Enable using F2", 20, 40, 16, Color.red);
+            if (Stuff.TryGetPositionString(out string text, _controller))
+                UI.FancyLabel(text, "The players position", 20, 16, Color.white);
         }
         return;
     }
@@ -386,21 +389,24 @@ public class ModMain : MonoBehaviour
     private void ToolsPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);
-        flameThrowerActive = flameThrowerToggle.Toggle(UI.Button("Flamethrower", flameThrowerActive));
+        flameThrowerActive = flameThrowerToggle.Switch(UI.Button("Flamethrower", flameThrowerActive));
         if (UI.Button("Cloning machine", clonerActive))
         {
-            clonerActive = clonerToggle.Toggle(true);
+            clonerActive = clonerToggle.Switch(true);
             crazyClonerActive = false;
             crazyClonerToggle.SetState(false);
         }
-        eraserActive = eraserToggle.Toggle(UI.Button("Delete Tool", eraserActive));
+        eraserActive = eraserToggle.Switch(UI.Button("Delete Tool", eraserActive));
         UI.DefSpace();
         if (UI.Button("Marker stuff"))
             Pages.SelectPage("markers");
         if (UI.Button("Buggy Tools"))
             Pages.SelectPage("experimental_tools");
+        UI.DefSpace();
         if (UI.Button("Fireworks Related"))
             Pages.SelectPage("fireworks");
+        if (UI.Button("Time Related"))
+            Pages.SelectPage("time");
         UI.DefSpace();
         if (UI.Button("Teleporter") && _controller != null)
         {
@@ -422,18 +428,25 @@ public class ModMain : MonoBehaviour
         if (UI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
-        if (UI.Button("Clear Fireworks")) Actions.ClearFireworks();
+        if (UI.Button("Clear Fireworks")) Stuff.ClearFireworks();
         UI.DefSpace();
-        if (UI.Button("Unlock Tim")) Actions.UnlockTim();
+        if (UI.Button("Unlock Tim")) Stuff.UnlockTim();
         UI.DefSpace();
-        fireworksAutoSpawn = fireworksAutoSpawnToggle.Toggle(
+        fireworksAutoSpawn = fireworksAutoSpawnToggle.Switch(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
         );
         UI.DefSpace();
         if (UI.Button("Fuse all Fireworks"))
         {
-            StartCoroutine(Actions.FuseAll(connectAllFuseSpeed));
+            StartCoroutine(Stuff.FuseAll(connectAllFuseSpeed));
         }
+        if (UI.NavigationButton("Back"))
+            Pages.SelectPage("tools");
+    }
+
+    public void TimePage()
+    {
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("tools");
     }
@@ -487,14 +500,14 @@ public class ModMain : MonoBehaviour
     private void HacksPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
-        autoClickerActive = aToggle.Toggle(UI.Button("Inbuilt Auto Clicker", autoClickerActive));
-        autoClickerButtonLeft = aToggle3.Toggle(UI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
+        autoClickerActive = aToggle.Switch(UI.Button("Inbuilt Auto Clicker", autoClickerActive));
+        autoClickerButtonLeft = aToggle3.Switch(UI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
         UI.DefSpace();
-        superSpeedActive = superSpeedToggle.Toggle(UI.Button("Super Speed", superSpeedActive));
-        superJumpActive = superJumpToggle.Toggle(UI.Button("Super Jump", superJumpActive));
+        superSpeedActive = superSpeedToggle.Switch(UI.Button("Super Speed", superSpeedActive));
+        superJumpActive = superJumpToggle.Switch(UI.Button("Super Jump", superJumpActive));
         UI.DefSpace();
-        SpaceMode.ToggleSpaceMode(SpaceMode.spaceModeToggle.Toggle(UI.Button("Space Mode", SpaceMode.spaceModeActive)));
-        FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Toggle(UI.Button("Fly Mode", FlyMode.flyModeActive)));
+        SpaceMode.ToggleSpaceMode(SpaceMode.spaceModeToggle.Switch(UI.Button("Space Mode", SpaceMode.spaceModeActive)));
+        FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Switch(UI.Button("Fly Mode", FlyMode.flyModeActive)));
         UI.DefSpace();
         //if (UI.Button("Delete Everything")) Actions.DeleteAll();
         if (UI.NavigationButton("Back"))
@@ -505,11 +518,11 @@ public class ModMain : MonoBehaviour
     private void ExperimentalToolsPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
-        UI.Label("Warning: These Tools are Experimental\nand can be buggy.", 30, Utilities.CreateColorGUIStyle(Color.yellow));
-        newtonifierActive = newtonifierToggle.Toggle(UI.Button("Newtonifier", newtonifierActive));
+        UI.FancyLabel("Warning: These Tools are Experimental\nand can be buggy.", 30, Utilities.CreateColorGUIStyle(Color.yellow));
+        newtonifierActive = newtonifierToggle.Switch(UI.Button("Newtonifier", newtonifierActive));
         if (UI.Button("Crazy Cloner", crazyClonerActive))
         {
-            crazyClonerActive = crazyClonerToggle.Toggle(true);
+            crazyClonerActive = crazyClonerToggle.Switch(true);
             clonerActive = false;
             clonerToggle.SetState(false);
         }
@@ -523,7 +536,7 @@ public class ModMain : MonoBehaviour
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.Button("Place Marker"))
         {
-            var m = Utilities.GetUnlitMaterial(Utilities.GetRandomColor());
+            var m = Utilities.CreateMaterial(Utilities.GetRandomColor(), MaterialType.Unlit);
             var p = _controller.transform.position;
             markerLineRenderer.CreateLine(0.4f, m, new Vector3(p.x, 0, p.z), new Vector3(p.x, 100, p.z));
         }
@@ -612,7 +625,7 @@ public class ModMain : MonoBehaviour
 
     #endregion
 
-    private void ChacheComponents()
+    private void FindComponentReferences()
     {
         _cam = FindObjectOfType<Camera>();
         _controller = FindObjectOfType<Player>();

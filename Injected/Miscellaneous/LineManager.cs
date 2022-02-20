@@ -11,7 +11,7 @@ namespace Main.Miscellaneous
         {
             GameObject line = new GameObject();
             line.transform.position = startPos;
-            var lineRenderer = line.AddComponent<UnityEngine.LineRenderer>();
+            var lineRenderer = line.AddComponent<LineRenderer>();
 
             lineRenderer.material = material;
             lineRenderer.startWidth = thickness;
@@ -39,19 +39,6 @@ namespace Main.Miscellaneous
         public void DestroyLine(int index)
         {
             Object.Destroy(lines[index]);
-        }
-
-        public int TryDrawDebugLine(Vector3 origin, Vector3 direction, Color color, int prev, Vector3 rayOrigin)
-        {
-            if (prev == -1) goto drawLine;
-            RemoveLine(prev);
-        drawLine:
-            if (Physics.Raycast(new Ray(rayOrigin, direction), out RaycastHit hitinfo))
-            {
-                Vector3 endPoint = hitinfo.point;
-                return CreateLine(0.0025f, Utilities.GetUnlitMaterial(color), origin, endPoint);
-            }
-            else return -1;
         }
     }
 }

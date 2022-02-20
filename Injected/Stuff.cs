@@ -15,40 +15,21 @@ using UnityEngine;
 
 namespace Injected
 {
-    public static class Actions
+    public static class Stuff
     {
-        public static bool DeleteAll()
+        public static void DeleteAll()
         {
             foreach (Rigidbody obj in UnityEngine.Object.FindObjectsOfType<Rigidbody>())
             {
-                try
-                {
-                    if (obj.tag != "MainCamera")
-                        UnityEngine.Object.Destroy(obj.gameObject);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.Message + " " + e.StackTrace);
-                    return false;
-                }
+                Delete(obj.GetComponent<Collider>());
             }
-            return true;
         }
 
         // TODO: Make this better.
-        public static bool Delete(Collider collider)
+        public static void Delete(Collider collider)
         {
-            try
-            {
-                if (collider.gameObject.tag != "MainCamera")
-                    UnityEngine.Object.Destroy(collider.gameObject);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message + " " + e.StackTrace);
-                return false;
-            }
-            return true;
+            if (collider.gameObject.tag != "MainCamera")
+                UnityEngine.Object.Destroy(collider.gameObject);
         }
 
         public static bool TryGetPositionString(out string text, Player controller)

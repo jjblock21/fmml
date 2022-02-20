@@ -9,9 +9,9 @@ namespace Main
 {
     public class FireworksAutoSpawn
     {
-        private int m_Rarity = 10;
-        private int m_Tick = 0;
-        private bool m_SpawnAllFireworks = false;
+        private int rarity = 10;
+        private int tick = 0;
+        private bool spawnFromDatabase = false;
 
         public void SpawnAndIngniteFirework(Vector3 position, string id)
         {
@@ -26,7 +26,7 @@ namespace Main
 
         public void UpdateSpawnAllFireworksSettings(bool spawnAll)
         {
-            m_SpawnAllFireworks = spawnAll;
+            spawnFromDatabase = spawnAll;
         }
 
         private async void IgniteCoroutine(GameObject firework)
@@ -40,8 +40,8 @@ namespace Main
             if (DoTickCheck())
             {
                 System.Random random = new System.Random();
-                int value = random.Next(1, m_Rarity);
-                if (value == m_Rarity / 2) SpawnRandom();
+                int value = random.Next(1, rarity);
+                if (value == rarity / 2) SpawnRandom();
             }
         }
 
@@ -74,7 +74,7 @@ namespace Main
         {
             System.Random rand1 = new System.Random(Utilities.GetRandomHash());
             System.Random rand2 = new System.Random((int)(Utilities.GetRandomHash() * 0.3f));
-            if (m_SpawnAllFireworks)
+            if (spawnFromDatabase)
             {
                 var items = FireworkSpawner.FindDatabase().Items.ToList();
                 int randomIndex2 = rand1.Next(0, items.Count);
@@ -91,19 +91,19 @@ namespace Main
 
         private bool DoTickCheck()
         {
-            if (m_Tick < 10)
+            if (tick < 10)
             {
-                m_Tick++;
+                tick++;
                 return false;
             }
-            m_Tick = 0;
+            tick = 0;
             return true;
         }
 
         public int Rarity
         {
-            set { m_Rarity = value; }
-            get { return m_Rarity; }
+            set { rarity = value; }
+            get { return rarity; }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using FireworksMania.Common;
 using FireworksMania.Core.Common;
 using FireworksMania.UI.ToolsMenu;
-using System;
 using System.Reflection;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace FModApi
     {
         public static void SetSelectedTool(SelectedTool tool)
         {
-            var toolManager = UnityEngine.Object.FindObjectOfType<ToolMenuManager>();
+            var toolManager = Object.FindObjectOfType<ToolMenuManager>();
             GameObject obj = null;
             if (toolManager == null)
             {
@@ -36,19 +35,14 @@ namespace FModApi
                     toolManager.SelectIgnitorTool();
                     break;
                 case SelectedTool.DeleteTool:
-                    TrySelectEraser(toolManager);
+                    toolManager.SelectEraserTool();
                     break;
                 case SelectedTool.TimeTool:
                     toolManager.SelectDayNightTimeTool();
                     break;
             }
             if (obj == null) return;
-            UnityEngine.Object.Destroy(obj);
-        }
-
-        private static void TrySelectEraser(ToolMenuManager toolManager)
-        {
-            toolManager.SelectEraserTool();
+            Object.Destroy(obj);
         }
     }
 

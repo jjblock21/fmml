@@ -9,7 +9,7 @@ namespace Main
     public static class SpaceMode
     {
         public static bool spaceModeActive = false;
-        public static ToggleClass spaceModeToggle = new ToggleClass();
+        public static Toggle spaceModeToggle = new Toggle();
 
         private static void Spacemode(bool enabled)
         {

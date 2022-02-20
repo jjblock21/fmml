@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Actions.cs" />
+    <Compile Include="EnvironmentObserver\TimeMachine.cs" />
+    <Compile Include="Stuff.cs" />
     <Compile Include="Cloner.cs" />
     <Compile Include="FlyMode.cs" />
     <Compile Include="EnvironmentObserver\EventHook.cs" />

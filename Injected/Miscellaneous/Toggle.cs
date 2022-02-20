@@ -2,14 +2,14 @@
 
 namespace Injected
 {
-    public class ToggleClass
+    public class Toggle
     {
-        public ToggleClass(bool startState)
+        public Toggle(bool startState)
         {
             toggle = startState;
         }
 
-        public ToggleClass()
+        public Toggle()
         {
             toggle = false;
         }
@@ -18,7 +18,7 @@ namespace Injected
 
         public event EventHandler<bool> StateChanged;
 
-        public bool Toggle(bool input)
+        public bool Switch(bool input)
         {
             if (input)
             {
@@ -26,6 +26,13 @@ namespace Injected
                 else toggle = true;
                 RaiseStateChangedEvent();
             }
+            return toggle;
+        }
+        public bool Switch()
+        {
+            if (toggle) toggle = false;
+            else toggle = true;
+            RaiseStateChangedEvent();
             return toggle;
         }
 

@@ -10,7 +10,7 @@ namespace Main
     {
         public static bool flyModeActive = false;
         private static FirstPersonController flyModeControler = null;
-        public static ToggleClass flyModeToggle = new ToggleClass();
+        public static Toggle flyModeToggle = new Toggle();
 
         private static void EnableFlyMode()
         {

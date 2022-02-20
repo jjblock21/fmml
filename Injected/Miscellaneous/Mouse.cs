@@ -28,15 +28,11 @@ namespace Injected
 
         [DllImport("user32.dll")]
         private static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
-
-        public static void SetCursorPosition(int x, int y) => SetCursorPos(x, y);
-        public static void SetCursorPosition(MousePoint point) => SetCursorPos(point.X, point.Y);
-
         public static MousePoint GetCursorPosition()
         {
             MousePoint currentMousePoint;
-            var gotPoint = GetCursorPos(out currentMousePoint);
-            if (!gotPoint) { currentMousePoint = new MousePoint(0, 0); }
+            bool gotPoint = GetCursorPos(out currentMousePoint);
+            if (!gotPoint) currentMousePoint = new MousePoint(0, 0);
             return currentMousePoint;
         }
 
