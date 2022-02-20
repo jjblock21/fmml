@@ -82,7 +82,7 @@ namespace Injected.UI
 
         private static void CreateButtons()
         {
-            Map map = ModSceneManager.GetLoadedMap();
+            Map map = MapManager.GetLoadedMap();
             foreach (KeyValuePair<LocationInfo, Vector3> pair in tpLocations)
             {
                 if (pair.Key.Map != map) continue;

@@ -23,32 +23,9 @@ using Doozy.Engine;
 using FireworksMania.Input;
 using Main.Miscellaneous;
 
-/*
- * FMML (Fireworks Mania ModLoader)
- * by jjblock21
- * Idk what to write here :)
- */
-
-/*
- * Scenes
- * 
-    1   Splash
-    2   UnableToConnect
-    3   Loading
-    4   MainMenu
-    5   Town                         [Map]
-    6   Ranch                        [Map]
-    7   Flat                         [Map]
-    8   City                         [Map]
-*/
-
 [AttachToGame(AttachMode.ModObject)]
 public class ModMain : MonoBehaviour
 {
-    /*
-     * Creating instances of the toggle class.
-     * TODO: Just make this better, idk.
-     */
     #region Variables
     private Toggle visibleToggle = new Toggle(true);
     public static bool visible = true;
@@ -94,11 +71,9 @@ public class ModMain : MonoBehaviour
 
     private LineManager markerLineRenderer = new LineManager();
     private FireworksAutoSpawn fireworksAutoSpawnObject = new FireworksAutoSpawn();
-    private TimeMachine timeMachine = new TimeMachine();
+    private TimeManager timeManager = new TimeManager();
 
     private FuseConnectionType connectAllFuseSpeed = FuseConnectionType.Fast;
-
-    // TODO: Put the width, the control height and the x / y is variables. Make sure to update the RuntimeTextureGeneration too.
 
     #endregion
 
@@ -208,7 +183,7 @@ public class ModMain : MonoBehaviour
     #endregion
 
     /*
-     * Adding all the Pages to the PageSystem.
+     * Adding Pages to the PageSystem.
      */
     #region AddPages
     private void AddPages()
@@ -234,19 +209,13 @@ public class ModMain : MonoBehaviour
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
         FindComponentReferences();
-        timeMachine.Setup();
-        if (timeMachine.IsEnabled)
-            timeMachine.FreezeTime();
+        timeManager.Setup();
         StartCoroutine(VersionLabelCoroutine());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
         ResetDisableKeys();
     }
     #endregion
-
-    /*
-     * The Update function, this is where most of the stuff is happening.
-     */
 
     private void ResetDisableKeys()
     {
@@ -381,6 +350,10 @@ public class ModMain : MonoBehaviour
             OpenSettingsPage();
             Pages.SelectPage("settings");
         }
+        if (UI.Button("Time and Weather"))
+        {
+            Pages.SelectPage("time");
+        }
         if (UI.NavigationButton("Hide"))
             visible = false;
     }
@@ -405,8 +378,6 @@ public class ModMain : MonoBehaviour
         UI.DefSpace();
         if (UI.Button("Fireworks Related"))
             Pages.SelectPage("fireworks");
-        if (UI.Button("Time Related"))
-            Pages.SelectPage("time");
         UI.DefSpace();
         if (UI.Button("Teleporter") && _controller != null)
         {
@@ -447,8 +418,11 @@ public class ModMain : MonoBehaviour
     public void TimePage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
-        if (UI.NavigationButton("Back"))
-            Pages.SelectPage("tools");
+
+        if (UI.NavigationButton("Apply"))
+        {
+            Pages.SelectPage("main");
+        }
     }
 
     //Page 2
@@ -630,7 +604,7 @@ public class ModMain : MonoBehaviour
         _cam = FindObjectOfType<Camera>();
         _controller = FindObjectOfType<Player>();
 
-        ModSceneManager.FindComponents();
+        MapManager.FindComponents();
         TeleportDialog.FindComponents();
         FireworkSpawner.FindComponents();
     }

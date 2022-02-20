@@ -47,11 +47,11 @@ namespace Main
 
         private void SpawnRandom()
         {
-            if (ModSceneManager.IsPlayableMapLoaded())
+            if (MapManager.IsPlayableMapLoaded())
             {
                 System.Random rand = new System.Random();
                 Vector3 pos = new Vector3();
-                switch (ModSceneManager.GetLoadedMap())
+                switch (MapManager.GetLoadedMap())
                 {
                     case Map.Town:
                         pos = Utilities.GetRandomIntVector(rand, -100, 100, 1);

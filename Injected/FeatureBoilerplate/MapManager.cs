@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Main.EnvironmentObserver
 {
-    public static class ModSceneManager
+    public static class MapManager
     {
         public static void FindComponents()
         {
