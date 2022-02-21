@@ -463,6 +463,7 @@ public class ModMain : MonoBehaviour
             {
                 TimeOfDay time = timeSelector.GetSelectedEnumEntry();
                 timeManager.SetTimeOfDayPreset(time);
+                timeManager.FreezeTime();
                 timeButtonLabel = timeSelector.GetSelectedName();
             }
         }

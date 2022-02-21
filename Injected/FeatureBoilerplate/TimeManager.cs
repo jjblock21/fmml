@@ -50,8 +50,10 @@ namespace Main.EnvironmentObserver
         {
             if (useComputerClock)
             {
-
+                skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.SystemTime;
+                return;
             }
+            skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.Simulated;
         }
 
         public void FreezeTime()
@@ -182,10 +184,10 @@ namespace Main.EnvironmentObserver
     public enum TimeOfDay
     {
         Midnight = 0,
-        Morning = 7,
+        Morning = 6,
         Noon = 12,
         Afternoon = 15,
-        Evening = 20,
+        Evening = 19,
     }
 
     public enum Weather
@@ -205,6 +207,4 @@ namespace Main.EnvironmentObserver
         Fall,
         Winter
     }
-
-    // TODO: Make something similar to Toggle wher it cyles through all the items in an emun and selects one, then jsut have an apply button.
 }
