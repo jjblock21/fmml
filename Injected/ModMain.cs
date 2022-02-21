@@ -75,6 +75,29 @@ public class ModMain : MonoBehaviour
 
     private FuseConnectionType connectAllFuseSpeed = FuseConnectionType.Fast;
 
+    // Cycle Buttons
+    private string weatherButtonLabel = "";
+    private ItemSelector<Weather> weatherSelector = new ItemSelector<Weather>();
+
+    private string timeButtonLabel = "";
+    private ItemSelector<TimeOfDay> timeSelector = new ItemSelector<TimeOfDay>();
+
+    #endregion
+
+    #region CycleButtonSetup
+
+    private void SetupCycleButtons()
+    {
+        if (timeManager.IsEnabled)
+        {
+            weatherButtonLabel = weatherSelector.GetDefaultElementName();
+            timeButtonLabel = timeSelector.GetDefaultElementName();
+            return;
+        }
+        weatherButtonLabel = "Nothing";
+        timeButtonLabel = "Nothing";
+    }
+
     #endregion
 
     #region Start
@@ -98,12 +121,17 @@ public class ModMain : MonoBehaviour
         // Init the Pagesystem.
         AddPages();
 
-        // Add the Teleport Locations
-        TeleportDialog.InitLocations();
-
         // Create GUI Textures on Runtime
         UIStyles.CreateTextures(250, 35);
         UIStyles.CreateStyles();
+
+        // Add the Teleport Locations
+        TeleportDialog.InitLocations();
+
+        SetupCycleButtons();
+
+        // Update Time Manager
+        timeManager.Setup();
 
         fireworksAutoSpawnObject.UpdateSpawnAllFireworksSettings(autoSpawnAllFireworks);
     }
@@ -210,6 +238,7 @@ public class ModMain : MonoBehaviour
     {
         FindComponentReferences();
         timeManager.Setup();
+        SetupCycleButtons();
         StartCoroutine(VersionLabelCoroutine());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
@@ -247,7 +276,7 @@ public class ModMain : MonoBehaviour
 
         // Hide/Show
         if (Input.GetKeyDown(KeyCode.F1))
-            visible = visibleToggle.Switch(true);
+            visible = visibleToggle.SwitchUI(true);
 
         //Cloner
         if (Input.GetKeyDown(KeyCode.X) && clonerActive)
@@ -283,7 +312,7 @@ public class ModMain : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Switch(true));
+            FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.SwitchUI(true));
         }
 
         // Ignite All
@@ -362,14 +391,14 @@ public class ModMain : MonoBehaviour
     private void ToolsPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);
-        flameThrowerActive = flameThrowerToggle.Switch(UI.Button("Flamethrower", flameThrowerActive));
+        flameThrowerActive = flameThrowerToggle.SwitchUI(UI.Button("Flamethrower", flameThrowerActive));
         if (UI.Button("Cloning machine", clonerActive))
         {
-            clonerActive = clonerToggle.Switch(true);
+            clonerActive = clonerToggle.SwitchUI(true);
             crazyClonerActive = false;
             crazyClonerToggle.SetState(false);
         }
-        eraserActive = eraserToggle.Switch(UI.Button("Delete Tool", eraserActive));
+        eraserActive = eraserToggle.SwitchUI(UI.Button("Delete Tool", eraserActive));
         UI.DefSpace();
         if (UI.Button("Marker stuff"))
             Pages.SelectPage("markers");
@@ -403,7 +432,7 @@ public class ModMain : MonoBehaviour
         UI.DefSpace();
         if (UI.Button("Unlock Tim")) Stuff.UnlockTim();
         UI.DefSpace();
-        fireworksAutoSpawn = fireworksAutoSpawnToggle.Switch(
+        fireworksAutoSpawn = fireworksAutoSpawnToggle.SwitchUI(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
         );
         UI.DefSpace();
@@ -419,7 +448,28 @@ public class ModMain : MonoBehaviour
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
 
-        if (UI.NavigationButton("Apply"))
+        // TODO: Set default name to currently active season/weather or Nothing on the loading screen
+        if (weatherSelector.UICycle(UI.Button("Weather: " + weatherButtonLabel)))
+        {
+            if (timeManager.IsEnabled)
+            {
+                Weather weather = weatherSelector.GetSelectedEnumEntry();
+                timeManager.ChangeWeather(weather);
+                weatherButtonLabel = weatherSelector.GetSelectedName();
+            }
+        }
+
+        if (timeSelector.UICycle(UI.Button("Time: " + timeButtonLabel)))
+        {
+            if (timeManager.IsEnabled)
+            {
+                TimeOfDay time = timeSelector.GetSelectedEnumEntry();
+                timeManager.SetTimeOfDayPreset(time);
+                timeButtonLabel = timeSelector.GetSelectedName();
+            }
+        }
+
+        if (UI.NavigationButton("Back"))
         {
             Pages.SelectPage("main");
         }
@@ -474,14 +524,14 @@ public class ModMain : MonoBehaviour
     private void HacksPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
-        autoClickerActive = aToggle.Switch(UI.Button("Inbuilt Auto Clicker", autoClickerActive));
-        autoClickerButtonLeft = aToggle3.Switch(UI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
+        autoClickerActive = aToggle.SwitchUI(UI.Button("Inbuilt Auto Clicker", autoClickerActive));
+        autoClickerButtonLeft = aToggle3.SwitchUI(UI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
         UI.DefSpace();
-        superSpeedActive = superSpeedToggle.Switch(UI.Button("Super Speed", superSpeedActive));
-        superJumpActive = superJumpToggle.Switch(UI.Button("Super Jump", superJumpActive));
+        superSpeedActive = superSpeedToggle.SwitchUI(UI.Button("Super Speed", superSpeedActive));
+        superJumpActive = superJumpToggle.SwitchUI(UI.Button("Super Jump", superJumpActive));
         UI.DefSpace();
-        SpaceMode.ToggleSpaceMode(SpaceMode.spaceModeToggle.Switch(UI.Button("Space Mode", SpaceMode.spaceModeActive)));
-        FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.Switch(UI.Button("Fly Mode", FlyMode.flyModeActive)));
+        SpaceMode.ToggleSpaceMode(SpaceMode.spaceModeToggle.SwitchUI(UI.Button("Space Mode", SpaceMode.spaceModeActive)));
+        FlyMode.ToggleFlyMode(FlyMode.flyModeToggle.SwitchUI(UI.Button("Fly Mode", FlyMode.flyModeActive)));
         UI.DefSpace();
         //if (UI.Button("Delete Everything")) Actions.DeleteAll();
         if (UI.NavigationButton("Back"))
@@ -493,10 +543,10 @@ public class ModMain : MonoBehaviour
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         UI.FancyLabel("Warning: These Tools are Experimental\nand can be buggy.", 30, Utilities.CreateColorGUIStyle(Color.yellow));
-        newtonifierActive = newtonifierToggle.Switch(UI.Button("Newtonifier", newtonifierActive));
+        newtonifierActive = newtonifierToggle.SwitchUI(UI.Button("Newtonifier", newtonifierActive));
         if (UI.Button("Crazy Cloner", crazyClonerActive))
         {
-            crazyClonerActive = crazyClonerToggle.Switch(true);
+            crazyClonerActive = crazyClonerToggle.SwitchUI(true);
             clonerActive = false;
             clonerToggle.SetState(false);
         }

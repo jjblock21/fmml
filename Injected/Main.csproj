@@ -31,30 +31,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="EnvironmentObserver\TimeMachine.cs" />
-    <Compile Include="Stuff.cs" />
-    <Compile Include="Cloner.cs" />
-    <Compile Include="FlyMode.cs" />
-    <Compile Include="EnvironmentObserver\EventHook.cs" />
-    <Compile Include="EnvironmentObserver\FireworkSpawner.cs" />
-    <Compile Include="EnvironmentObserver\FireworkUnlocker.cs" />
-    <Compile Include="EnvironmentObserver\FuseConnector.cs" />
-    <Compile Include="EnvironmentObserver\GameReflector.cs" />
-    <Compile Include="EnvironmentObserver\GameUIManager.cs" />
-    <Compile Include="EnvironmentObserver\KnownFireworks.cs" />
-    <Compile Include="EnvironmentObserver\ModSceneManager.cs" />
-    <Compile Include="Lighter.cs" />
-    <Compile Include="FireworksAutoSpawn.cs" />
+    <Compile Include="FeatureBoilerplate\TimeManager.cs" />
+    <Compile Include="Features\Stuff.cs" />
+    <Compile Include="Features\Cloner.cs" />
+    <Compile Include="Features\FlyMode.cs" />
+    <Compile Include="FeatureBoilerplate\EventHook.cs" />
+    <Compile Include="FeatureBoilerplate\FireworkSpawner.cs" />
+    <Compile Include="FeatureBoilerplate\FireworkUnlocker.cs" />
+    <Compile Include="FeatureBoilerplate\FuseConnector.cs" />
+    <Compile Include="FeatureBoilerplate\GameReflector.cs" />
+    <Compile Include="FeatureBoilerplate\GameUIManager.cs" />
+    <Compile Include="FeatureBoilerplate\KnownFireworks.cs" />
+    <Compile Include="FeatureBoilerplate\MapManager.cs" />
+    <Compile Include="Features\Lighter.cs" />
+    <Compile Include="Features\FireworksAutoSpawn.cs" />
+    <Compile Include="Miscellaneous\ItemSelector.cs" />
     <Compile Include="Miscellaneous\LineManager.cs" />
     <Compile Include="Setup\AttachToGame.cs" />
-    <Compile Include="SpaceMode.cs" />
+    <Compile Include="Features\SpaceMode.cs" />
     <Compile Include="UI\UI.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />
     <Compile Include="UI\Pages.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Miscellaneous\ToggleClass.cs" />
+    <Compile Include="Miscellaneous\Toggle.cs" />
     <Compile Include="Miscellaneous\Tool.cs" />
     <Compile Include="UI\TeleportDialog.cs" />
     <Compile Include="Miscellaneous\Utilities.cs" />
@@ -147,6 +148,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\SteamworksNetManager.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />

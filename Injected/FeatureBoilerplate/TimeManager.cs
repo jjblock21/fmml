@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
 using UnityEngine;
 
 namespace Main.EnvironmentObserver
@@ -44,6 +44,14 @@ namespace Main.EnvironmentObserver
             }
             skyManager = EnviroSkyMgr.instance;
             isEnabled = true;
+        }
+
+        public void UseComputerTime(bool useComputerClock)
+        {
+            if (useComputerClock)
+            {
+
+            }
         }
 
         public void FreezeTime()
@@ -105,15 +113,25 @@ namespace Main.EnvironmentObserver
             {
                 case Season.Spring:
                     skyManager.ChangeSeason(EnviroSeasons.Seasons.Spring);
+                    ChangeWeather(Weather.Cloudy);
                     break;
                 case Season.Summer:
                     skyManager.ChangeSeason(EnviroSeasons.Seasons.Summer);
+                    ChangeWeather(Weather.Clear);
                     break;
                 case Season.Fall:
                     skyManager.ChangeSeason(EnviroSeasons.Seasons.Autumn);
+                    System.Random random = new System.Random();
+                    if (random.Next(3) == 1)
+                    {
+                        ChangeWeather(Weather.Thunder);
+                        break;
+                    }
+                    ChangeWeather(Weather.HeavyRain);
                     break;
                 case Season.Winter:
                     skyManager.ChangeSeason(EnviroSeasons.Seasons.Winter);
+                    ChangeWeather(Weather.LightSnow);
                     break;
             }
         }

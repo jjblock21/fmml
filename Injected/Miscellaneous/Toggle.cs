@@ -18,7 +18,7 @@ namespace Injected
 
         public event EventHandler<bool> StateChanged;
 
-        public bool Switch(bool input)
+        public bool SwitchUI(bool input)
         {
             if (input)
             {

@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
 using FireworksMania.Input;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Main
@@ -88,6 +90,16 @@ namespace Main
             int x = rand.Next(min, max);
             int z = rand.Next(min, max);
             return new Vector3(x, y, z);
+        }
+
+        public static string SplitPascalCase(string originalString)
+        {
+            // Definetly not copied from stackoverflow.
+            IEnumerable<char> output = originalString.SelectMany(
+                (c, i) => i != 0 && char.IsUpper(c)
+                && !char.IsUpper(originalString[i - 1])
+                ? new char[] { ' ', c } : new char[] { c });
+            return new string(output.ToArray());
         }
     }
 }
