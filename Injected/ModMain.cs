@@ -90,8 +90,10 @@ public class ModMain : MonoBehaviour
     {
         if (timeManager.IsEnabled)
         {
-            weatherButtonLabel = weatherSelector.GetDefaultElementName();
-            timeButtonLabel = timeSelector.GetDefaultElementName();
+            /*weatherButtonLabel = weatherSelector.GetDefaultElementName();
+            timeButtonLabel = timeSelector.GetDefaultElementName();*/
+            weatherButtonLabel = "Default";
+            timeButtonLabel = "Default";
             return;
         }
         weatherButtonLabel = "Nothing";
@@ -360,7 +362,6 @@ public class ModMain : MonoBehaviour
 
     #region Pages
 
-    //Page 0
     private void MainPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
@@ -368,26 +369,23 @@ public class ModMain : MonoBehaviour
             Pages.SelectPage("tools");
         if (UI.Button("Hacks"))
             Pages.SelectPage("hacks");
-        UI.Space(25);
-        if (UI.Button("About"))
-            Pages.SelectPage("about");
-        if (UI.Button("Controls"))
-            Pages.SelectPage("controls");
+        if (UI.Button("Time and Weather"))
+            Pages.SelectPage("time");
         UI.Space(25);
         if (UI.Button("Settings"))
         {
             OpenSettingsPage();
             Pages.SelectPage("settings");
         }
-        if (UI.Button("Time and Weather"))
-        {
-            Pages.SelectPage("time");
-        }
+        UI.Space(25);
+        if (UI.Button("About"))
+            Pages.SelectPage("about");
+        if (UI.Button("Controls"))
+            Pages.SelectPage("controls");
         if (UI.NavigationButton("Hide"))
             visible = false;
     }
 
-    //Page 1
     private void ToolsPage()
     {
         UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);

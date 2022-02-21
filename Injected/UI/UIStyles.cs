@@ -61,7 +61,7 @@ namespace Main.UI
         public static Texture2D CreateTextureOnRuntime(bool faded, int width, int height)
         {
             Color color = Color.white;
-            if (faded) color = new Color(0.75f, 0.75f, 0.75f);
+            if (faded) color = new Color(0.6f, 0.6f, 0.6f);
 
             int yLevel = 0;
 
