@@ -322,17 +322,17 @@ public class ModMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) Lighter.IgniteAll(true, igniteEverythingDelay);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            Tool.SetSelectedTool(SelectedTool.PhysicsTool);
+            ToolManager.SelectTool(SelectedTool.PhysicsTool);
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            Tool.SetSelectedTool(SelectedTool.Torch);
+            ToolManager.SelectTool(SelectedTool.Torch);
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            Tool.SetSelectedTool(SelectedTool.FuseTool);
+            ToolManager.SelectTool(SelectedTool.FuseTool);
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            Tool.SetSelectedTool(SelectedTool.None);
+            ToolManager.SelectTool(SelectedTool.None);
         if (Input.GetKeyDown(KeyCode.Alpha5))
-            Tool.SetSelectedTool(SelectedTool.TimeTool);
+            ToolManager.SelectTool(SelectedTool.TimeTool);
         if (Input.GetKeyDown(KeyCode.Alpha6))
-            Tool.SetSelectedTool(SelectedTool.DeleteTool);
+            ToolManager.SelectTool(SelectedTool.DeleteTool);
 
         // Stuff in the update function that will not get skipped when disableKeys is on.
         endOfKeys:
@@ -414,7 +414,7 @@ public class ModMain : MonoBehaviour
         UI.DefSpace();
         if (UI.Button("Legacy Physics Gun"))
         {
-            Tool.SetSelectedTool(SelectedTool.Hand);
+            ToolManager.SelectTool(SelectedTool.Hand);
         }
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("main");

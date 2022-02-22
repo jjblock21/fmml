@@ -58,6 +58,7 @@ namespace Main.EnvironmentObserver
 
         public void FreezeTime()
         {
+            // TODO: set day night tool to specified time
             if (!isEnabled) return;
             skyManager.Time.cycleLengthInMinutes = GetTimePerCycleInMinutes(TimeSpeed.Frozen);
             skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.None;
@@ -187,7 +188,7 @@ namespace Main.EnvironmentObserver
         Morning = 6,
         Noon = 12,
         Afternoon = 15,
-        Evening = 19,
+        Evening = 20,
     }
 
     public enum Weather

@@ -1,4 +1,5 @@
-﻿using FireworksMania.Common;
+﻿using FireworksMania;
+using FireworksMania.Common;
 using FireworksMania.Core.Common;
 using FireworksMania.UI.ToolsMenu;
 using System.Reflection;
@@ -6,9 +7,9 @@ using UnityEngine;
 
 namespace FModApi
 {
-    public static class Tool
+    public static class ToolManager
     {
-        public static void SetSelectedTool(SelectedTool tool)
+        public static void SelectTool(SelectedTool tool)
         {
             var toolManager = Object.FindObjectOfType<ToolMenuManager>();
             GameObject obj = null;
@@ -43,6 +44,14 @@ namespace FModApi
             }
             if (obj == null) return;
             Object.Destroy(obj);
+        }
+
+        public static void FreezeTimeToolTime()
+        {
+            DayNightTimeTool timeTool = Object.FindObjectOfType<DayNightTimeTool>();
+            if (timeTool == null) return;
+            GameReflector gameReflector = new GameReflector(timeTool);
+            gameReflector.SetFieldValue("_currentDayNightTimeSpeedIndex", 0);
         }
     }
 
