@@ -11,7 +11,7 @@ namespace Main
     {
         public static string version { get => modVersion + " - " + Application.version; }
 
-        public static readonly string modVersion = "1.1.0-beta";
+        public static readonly string modVersion = "1.1.1";
 
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {

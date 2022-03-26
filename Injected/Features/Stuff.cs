@@ -51,6 +51,11 @@ namespace Injected
             return FireworkUnlocker.UnlockFirework(FireworkUnlocker.KnownFireworks.TimShell);
         }
 
+        public static bool UnlockKarlson()
+        {
+            return FireworkUnlocker.UnlockFirework(FireworkUnlocker.KnownFireworks.KarlsonRocket);
+        }
+
         public static void ClearFireworks()
         {
             FireworksManager.Instance.ClearFireworks();

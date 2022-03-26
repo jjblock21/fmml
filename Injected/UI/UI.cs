@@ -20,7 +20,7 @@ namespace Injected.UI
             nextControlY = contolStartY + y;
             bottomOffset = bottomWidgetOffset;
 
-            GUI.Box(new Rect(x, y, width, height), text, UIStyles.UpdatedBoxStyle());
+            GUI.Box(new Rect(x, y, width, height), text, UIStyles.UpdatedBoxStyle);
         }
 
         private static Rect NextControlRect()
@@ -48,19 +48,29 @@ namespace Injected.UI
         public static string StringState(string onText, string offText, bool state) => state ? onText : offText;
 
         public static bool Button(string text, bool state) => Button(StringState(text, state));
-        public static bool Button(string text) => GUI.Button(NextControlRect(), text, UIStyles.UpdatedStyle());
+        public static bool Button(string text) => GUI.Button(NextControlRect(), text, UIStyles.UpdatedStyle);
         public static bool Button(string text, string text2, bool state) => Button(StringState(text, text2, state));
 
         public static void Label(string text, float value, int decimals = 2) => Label(string.Format("{0}: {1}", text, Math.Round(value, decimals).ToString()));
-        public static void Label(string text) => GUI.Label(NextControlRect(), text, UIStyles.UpdatedTextStyle());
-        public static void Label(string text, int height) => GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle());
-        public static void ZeroSpaceLabel(string text, int height) => GUI.Label(NextControlRect(height, 5f), text, UIStyles.UpdatedTextStyle());
+        public static void Label(string text) => GUI.Label(NextControlRect(), text, UIStyles.UpdatedTextStyle);
+        public static void Label(string text, int height) => GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle);
+        public static void ZeroSpaceLabel(string text, int height) => GUI.Label(NextControlRect(height, 5f), text, UIStyles.UpdatedTextStyle);
 
-        public static float Slider(float val, float min, float max) => GUI.HorizontalSlider(NextControlRect(), val, min, max);
-        public static float Slider(float min, float max) => GUI.HorizontalSlider(NextControlRect(), 0, min, max);
+        public static float Slider(float val, float min, float max)
+        {
+            GUI.color = Color.white;
+            GUI.backgroundColor = Color.white;
+            return GUI.HorizontalSlider(NextControlRect(), val, min, max);
+        }
+        public static float ZeroHeightSlider(float height, float val, float min, float max)
+        {
+            GUI.color = Color.white;
+            GUI.backgroundColor = Color.white;
+            return GUI.HorizontalSlider(NextControlRect(height, 5), val, min, max);
+        }
 
-        public static string Input(string text, int length) => GUI.TextField(NextControlRect(), text, length, UIStyles.UpdatedStyle());
-        public static string Input(string text) => GUI.TextField(NextControlRect(), text, UIStyles.UpdatedStyle());
+        public static string Input(string text, int length) => GUI.TextField(NextControlRect(), text, length, UIStyles.UpdatedStyle);
+        public static string Input(string text) => GUI.TextField(NextControlRect(), text, UIStyles.UpdatedStyle);
         public static string Input() => Input("");
 
         public static int ClampedIntegerInput(int value, int min, int max)
@@ -75,7 +85,7 @@ namespace Injected.UI
             return new Rect(x + margin, (y + height) - (bottomOffset + controlHeight), width - margin * 2, controlHeight);
         }
 
-        public static bool NavigationButton(string text) => GUI.Button(BottomSpaceRect(), text, UIStyles.UpdatedStyle());
+        public static bool NavigationButton(string text) => GUI.Button(BottomSpaceRect(), text, UIStyles.UpdatedStyle);
 
         public static Rect GetGraphicsRect() => new Rect(x, y, width, height);
 
@@ -99,7 +109,7 @@ namespace Injected.UI
 
         public static void Label(string text, float height)
         {
-            GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle());
+            GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle);
         }
 
         public static void FancyLabel(string text, float height, GUIStyle style, string toolTip = "")
@@ -118,6 +128,12 @@ namespace Injected.UI
                 normal = { textColor = color }
             };
             GUI.Label(r, c, s);
+        }
+
+        public static float LabelSlider(string name, float value, float min, float max)
+        {
+            ZeroSpaceLabel(name + ": " + value.ToString(), 15);
+            return ZeroHeightSlider(15, value, min, max);
         }
     }
 }

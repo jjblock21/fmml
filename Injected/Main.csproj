@@ -45,7 +45,7 @@
     <Compile Include="FeatureBoilerplate\MapManager.cs" />
     <Compile Include="Features\Lighter.cs" />
     <Compile Include="Features\FireworksAutoSpawn.cs" />
-    <Compile Include="Miscellaneous\ItemSelector.cs" />
+    <Compile Include="Miscellaneous\SelectionWheel.cs" />
     <Compile Include="Miscellaneous\LineManager.cs" />
     <Compile Include="Setup\AttachToGame.cs" />
     <Compile Include="Features\SpaceMode.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="ModMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Miscellaneous\Toggle.cs" />
-    <Compile Include="Miscellaneous\Tool.cs" />
+    <Compile Include="FeatureBoilerplate\ToolManager.cs" />
     <Compile Include="UI\TeleportDialog.cs" />
     <Compile Include="Miscellaneous\Utilities.cs" />
     <Compile Include="UI\UIStyles.cs" />

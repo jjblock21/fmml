@@ -1,15 +1,10 @@
 ﻿using FireworksMania.Common;
-using FireworksMania.Fireworks.Parts;
-using FireworksMania.Interactions.Tools;
-using FireworksMania.Interactions.Tools.IgniteTool;
-using FireworksMania.Props;
 using FireworksMania.UI;
 using Injected;
 using Injected.UI;
 using System;
 using System.Collections;
 using System.Reflection;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,9 +14,8 @@ using FModApi;
 using Main.EnvironmentObserver;
 using Main;
 using Main.UI;
-using Doozy.Engine;
-using FireworksMania.Input;
 using Main.Miscellaneous;
+using FireworksMania.Core.Behaviors;
 
 [AttachToGame(AttachMode.ModObject)]
 public class ModMain : MonoBehaviour
@@ -77,10 +71,10 @@ public class ModMain : MonoBehaviour
 
     // Cycle Buttons
     private string weatherButtonLabel = "";
-    private ItemSelector<Weather> weatherSelector = new ItemSelector<Weather>();
+    private SelectionWheel<Weather> weatherSelector = new SelectionWheel<Weather>();
 
     private string timeButtonLabel = "";
-    private ItemSelector<TimeOfDay> timeSelector = new ItemSelector<TimeOfDay>();
+    private SelectionWheel<TimeOfDay> timeSelector = new SelectionWheel<TimeOfDay>();
 
     #endregion
 
@@ -125,7 +119,7 @@ public class ModMain : MonoBehaviour
 
         // Create GUI Textures on Runtime
         UIStyles.CreateTextures(250, 35);
-        UIStyles.CreateStyles();
+        UIStyles.CreateStyles(250);
 
         // Add the Teleport Locations
         TeleportDialog.InitLocations();
@@ -235,7 +229,6 @@ public class ModMain : MonoBehaviour
      * Redo all the chaching and overriding when a new Scene is Loaded.
      */
     #region UpdateScene
-
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
         FindComponentReferences();
@@ -245,7 +238,21 @@ public class ModMain : MonoBehaviour
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
         ResetDisableKeys();
+        TryFreezeTime();
     }
+    #endregion
+
+    #region TimeFreeze
+
+    private void TryFreezeTime()
+    {
+        if (MapManager.IsPlayableMapLoaded())
+        {
+            ToolManager.FreezeTimeTool(SelectedTool.Torch);
+            timeManager.FreezeTime();
+        }
+    }
+
     #endregion
 
     private void ResetDisableKeys()
@@ -422,13 +429,14 @@ public class ModMain : MonoBehaviour
 
     private void FireworksPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
         if (UI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
         if (UI.Button("Clear Fireworks")) Stuff.ClearFireworks();
         UI.DefSpace();
         if (UI.Button("Unlock Tim")) Stuff.UnlockTim();
+        if (UI.Button("Unlock Karlson")) Stuff.UnlockKarlson();
         UI.DefSpace();
         fireworksAutoSpawn = fireworksAutoSpawnToggle.SwitchUI(
             UI.Button("Fireworks Autospawn", fireworksAutoSpawn)
@@ -463,7 +471,6 @@ public class ModMain : MonoBehaviour
             {
                 TimeOfDay time = timeSelector.GetSelectedEnumEntry();
                 timeManager.SetTimeOfDayPreset(time);
-                timeManager.FreezeTime();
                 timeButtonLabel = timeSelector.GetSelectedName();
             }
         }
@@ -597,21 +604,15 @@ public class ModMain : MonoBehaviour
     {
         try
         {
-            UI.Begin("Fireworks Mania Modloader - Settings", 10, 20, 300, 600, 25, 35, 10, 50, 25);
+            UI.Begin("Fireworks Mania Modloader - Settings", 10, 20, 300, 500, 25, 35, 10, 50, 25);
 
-            UI.ZeroSpaceLabel("Super Jump Force", 15);
-            jumpHeight = UI.ClampedIntegerInput(jumpHeight, 1, 50);
-
-            UI.ZeroSpaceLabel("Speed", 15);
-            speed = UI.ClampedIntegerInput(speed, 1, 50);
+            jumpHeight = (int)UI.LabelSlider("Super Jump Force", jumpHeight, 1, 50);
+            speed = (int)UI.LabelSlider("Speed", speed, 1, 50);
 
             UI.DefSpace();
-            UI.ZeroSpaceLabel("Ingite All Delay (ms)", 15);
-            tempSettingsIED = UI.ClampedIntegerInput(tempSettingsIED, 1, 1000);
-
+            tempSettingsIED = (int)UI.LabelSlider("Ignite all Delay", tempSettingsIED, 1, 1000);
             UI.DefSpace();
-            UI.ZeroSpaceLabel("Firework Spawn Rarity", 15);
-            tempSettingsFSR = UI.ClampedIntegerInput(tempSettingsFSR, 2, 50);
+            tempSettingsFSR = (int)UI.LabelSlider("Fireworks Spawn Rarity", tempSettingsFSR, 2, 50);
 
             UI.ZeroSpaceLabel("Firework Spawn Mode", 15);
             if (autoSpawnAllFireworks)
@@ -622,6 +623,7 @@ public class ModMain : MonoBehaviour
 
             UI.DefSpace();
             UI.ZeroSpaceLabel("Fuse Speed", 15);
+            //TODO: Replace with new selectionWheel
             if (UI.Button(Enum.GetName(typeof(FuseConnectionType), tempSettingsFCS)))
             {
                 int newValue = (int)tempSettingsFCS + 1;

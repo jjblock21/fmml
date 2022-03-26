@@ -99,6 +99,7 @@ Fountains
         public KnownFireworks()
         {
             TimShell = "Special_Shell_Tim";
+            KarlsonRocket = "Special_Rocket_KarlsSon";
 
             Rockets = new[]
             {
@@ -198,6 +199,7 @@ Fountains
         //TODO: Add new Fireworks
 
         public string TimShell { get; }
+        public string KarlsonRocket { get; }
         public string[] Rockets { get; }
         public string[] Cakes { get; }
         public string[] Firecrackers { get; }

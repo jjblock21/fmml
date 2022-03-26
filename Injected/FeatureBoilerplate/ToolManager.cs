@@ -1,8 +1,5 @@
 ﻿using FireworksMania;
-using FireworksMania.Common;
-using FireworksMania.Core.Common;
 using FireworksMania.UI.ToolsMenu;
-using System.Reflection;
 using UnityEngine;
 
 namespace FModApi
@@ -46,12 +43,20 @@ namespace FModApi
             Object.Destroy(obj);
         }
 
-        public static void FreezeTimeToolTime()
+        public static void FreezeTimeTool(SelectedTool toolAfterChange)
+        {
+            SelectTool(SelectedTool.TimeTool);
+            InternalTimeFreeze();
+            SelectTool(toolAfterChange);
+        }
+
+        private static void InternalTimeFreeze()
         {
             DayNightTimeTool timeTool = Object.FindObjectOfType<DayNightTimeTool>();
-            if (timeTool == null) return;
+            if (timeTool == null) Debug.LogWarning("Attempted to modify time without active TimeTool instance.");
             GameReflector gameReflector = new GameReflector(timeTool);
             gameReflector.SetFieldValue("_currentDayNightTimeSpeedIndex", 0);
+            gameReflector.InvokeMethod("UpdateWatchArm");
         }
     }
 

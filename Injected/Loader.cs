@@ -7,17 +7,17 @@ namespace Injected
     {
         public static void Init()
         {
-            Load = new GameObject("Mod");
-            AttachToGame.AttachAll(Load);
-            Object.DontDestroyOnLoad(Loader.Load);
+            ModHost = new GameObject("Mod");
+            AttachToGame.AttachAll(ModHost);
+            Object.DontDestroyOnLoad(Loader.ModHost);
         }
 
         public static void Disable()
         {
-            Object.Destroy(Load);
-            AttachToGame.DestroyAll(Load);
+            Object.Destroy(ModHost);
+            AttachToGame.DestroyAll(ModHost);
         }
 
-        private static GameObject Load;
+        private static GameObject ModHost;
     }
 }

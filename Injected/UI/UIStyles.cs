@@ -34,11 +34,11 @@ namespace Main.UI
             return style;
         }
 
-        public static GUIStyle UpdatedStyle() => updatedStyle;
-        public static GUIStyle UpdatedBoxStyle() => updatedBoxStyle;
-        public static GUIStyle UpdatedTextStyle() => updatedTextStyle;
+        public static GUIStyle UpdatedStyle { get => updatedStyle; }
+        public static GUIStyle UpdatedBoxStyle { get => updatedBoxStyle; }
+        public static GUIStyle UpdatedTextStyle { get => updatedTextStyle; }
 
-        public static void CreateStyles()
+        public static void CreateStyles(int width)
         {
             updatedStyle = CreateUpdatedStyle();
             updatedBoxStyle = CreateUpdatedBoxStyle();
@@ -49,6 +49,7 @@ namespace Main.UI
         {
             normalTexture = CreateTextureOnRuntime(false, width, height);
             hoverTexture = CreateTextureOnRuntime(true, width, height);
+            whiteTexture = CreateWhiteTextureOnRuntime();
         }
 
         private static GUIStyle updatedStyle;
@@ -57,6 +58,7 @@ namespace Main.UI
 
         private static Texture2D normalTexture;
         private static Texture2D hoverTexture;
+        private static Texture2D whiteTexture;
 
         public static Texture2D CreateTextureOnRuntime(bool faded, int width, int height)
         {
@@ -97,6 +99,23 @@ namespace Main.UI
                 yLevel++;
             }
             texture.Apply();
+
+            return texture;
+        }
+
+        public static Texture2D CreateWhiteTextureOnRuntime()
+        {
+            Color color = Color.white;
+            Texture2D texture = new Texture2D(8, 8, TextureFormat.ARGB32, false);
+            texture.filterMode = FilterMode.Point;
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; i < 8; i++)
+                {
+                    texture.SetPixel(i, j, color);
+                }
+            }
 
             return texture;
         }

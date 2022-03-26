@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Main.Miscellaneous
 {
-    public class ItemSelector<T>
+    public class SelectionWheel<T>
     {
         private int selectedItem;
         private int maxEntries;
         private string[] itemNames;
         private bool hasFired = false;
 
-        public ItemSelector()
+        public SelectionWheel()
         {
             selectedItem = 0;
             itemNames = Enum.GetNames(typeof(T));

@@ -107,7 +107,7 @@ namespace Fireworks_Mania_Modloader
         #region Midend
         private void UpdateLabel()
         {
-            if (DateTime.UtcNow.Month == 12 && DateTime.UtcNow.Day == 24 || DateTime.UtcNow.Day == 25)
+            if (DateTime.UtcNow.Month == 12 && (DateTime.UtcNow.Day == 24 || DateTime.UtcNow.Day == 25))
             {
                 statusLabel.Text = "Merry Christmas!";
             }
