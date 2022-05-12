@@ -13,7 +13,7 @@ namespace Helpers
 
             GameReflector reflector = new GameReflector(im);
 
-            var t = reflector.Assembly.GetType("FireworksMania.Common.UnlockEntityEvent");
+            var t = reflector.Assembly.GetType("FireworksMania.Common.MessengerEventUnlockEntity");
             var c = t.GetConstructor(new Type[] { typeof(string), typeof(UnlockTypes) });
             var rtrn = c.Invoke(new object[] { id, unlockType });
 
