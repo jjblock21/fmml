@@ -10,7 +10,7 @@ namespace Fireworks_Mania_Modloader
     public static class Program
     {
         public const string Version = "1.1.3";
-        public const bool ShowVersionWarning = false;
+        public const bool ShowVersionWarning = true;
         public const string TargetProcessName = "Fireworks Mania";
         public const string GameLaunchCommand = @"steam://rungameid/1079260";
         public const string ThanksText = "Thanks for 1,000 Members!";
@@ -25,11 +25,11 @@ namespace Fireworks_Mania_Modloader
             if (ShowVersionWarning)
             {
                 MessageBox.Show(
-                    "Warning!\nThis version of FMML only supports" + " the version v2021.10.1 or newer.",
-                    "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Information
+                    "Warning!\nThis version of FMML only supports versions v2022.4.2 and later.",
+                    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information
                 );
             }
-            Run();
+            Application.Run(new Window());
         }
 
         private static void Init()
@@ -44,12 +44,6 @@ namespace Fireworks_Mania_Modloader
         {
             FailHandler.HandleException("Error: " + e.Exception.Message, stacktrace: "\n" + e.Exception.StackTrace);
             Application.Exit();
-        }
-
-        private static void Run()
-        {
-            window = new Window();
-            Application.Run(window);
         }
     }
 }
