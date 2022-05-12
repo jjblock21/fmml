@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fireworks Mania Modloader", "Fireworks Mania Modloader.csproj", "{4BF26852-B3DE-499D-89E5-8A8CF51E8E16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMML", "FMML.csproj", "{4BF26852-B3DE-499D-89E5-8A8CF51E8E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

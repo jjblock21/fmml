@@ -9,7 +9,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
-using Main.Setup;
 using Helpers;
 using Main.EnvironmentObserver;
 using Main;
@@ -17,7 +16,6 @@ using Main.UI;
 using Main.Miscellaneous;
 using FireworksMania.Core.Behaviors;
 
-[AttachToGame(AttachMode.ModObject)]
 public class ModMain : MonoBehaviour
 {
     #region Variables

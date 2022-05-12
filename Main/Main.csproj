@@ -47,7 +47,6 @@
     <Compile Include="Features\FireworksAutoSpawn.cs" />
     <Compile Include="Miscellaneous\SelectionWheel.cs" />
     <Compile Include="Miscellaneous\LineManager.cs" />
-    <Compile Include="Setup\AttachToGame.cs" />
     <Compile Include="Features\SpaceMode.cs" />
     <Compile Include="UI\UI.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />
