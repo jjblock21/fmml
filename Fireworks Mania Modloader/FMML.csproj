@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4BF26852-B3DE-499D-89E5-8A8CF51E8E16}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Fireworks_Mania_Modloader</RootNamespace>
-    <AssemblyName>Fireworks Mania Modloader</AssemblyName>
+    <RootNamespace>FMML</RootNamespace>
+    <AssemblyName>FMML</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -39,10 +39,10 @@ namespace Fireworks_Mania_Modloader
             this.moreLink = new System.Windows.Forms.LinkLabel();
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
-            this.picture = new System.Windows.Forms.PictureBox();
             this.ejectButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.injectButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.launchGameButton = new JJsGuiLibrary.UI.OutlinedButton();
+            this.picture = new System.Windows.Forms.PictureBox();
             this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
@@ -140,18 +140,6 @@ namespace Fireworks_Mania_Modloader
             this.simpleTransparentGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             this.simpleTransparentGradientPanel1.TabIndex = 1;
             // 
-            // picture
-            // 
-            this.picture.Dock = System.Windows.Forms.DockStyle.Top;
-            this.picture.Image = global::Fireworks_Mania_Modloader.Properties.Resources.img1;
-            this.picture.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.picture.Location = new System.Drawing.Point(0, 0);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(314, 155);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 12;
-            this.picture.TabStop = false;
-            // 
             // ejectButton
             // 
             this.ejectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -169,7 +157,7 @@ namespace Fireworks_Mania_Modloader
             this.ejectButton.HoverForeColor = System.Drawing.Color.Gainsboro;
             this.ejectButton.Location = new System.Drawing.Point(158, 209);
             this.ejectButton.Name = "ejectButton";
-            this.ejectButton.Size = new System.Drawing.Size(96, 23);
+            this.ejectButton.Size = new System.Drawing.Size(96, 24);
             this.ejectButton.TabIndex = 20;
             this.ejectButton.Text = "Unload Mod";
             this.ejectButton.Click += new System.EventHandler(this.ejectButton_Click);
@@ -191,7 +179,7 @@ namespace Fireworks_Mania_Modloader
             this.injectButton.HoverForeColor = System.Drawing.Color.Gainsboro;
             this.injectButton.Location = new System.Drawing.Point(56, 209);
             this.injectButton.Name = "injectButton";
-            this.injectButton.Size = new System.Drawing.Size(96, 23);
+            this.injectButton.Size = new System.Drawing.Size(96, 24);
             this.injectButton.TabIndex = 19;
             this.injectButton.Text = "Load Mod";
             this.injectButton.Click += new System.EventHandler(this.injectButton_Click);
@@ -213,10 +201,22 @@ namespace Fireworks_Mania_Modloader
             this.launchGameButton.HoverForeColor = System.Drawing.Color.Gainsboro;
             this.launchGameButton.Location = new System.Drawing.Point(207, 165);
             this.launchGameButton.Name = "launchGameButton";
-            this.launchGameButton.Size = new System.Drawing.Size(96, 23);
+            this.launchGameButton.Size = new System.Drawing.Size(96, 24);
             this.launchGameButton.TabIndex = 18;
             this.launchGameButton.Text = "Start Game";
             this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
+            // 
+            // picture
+            // 
+            this.picture.Dock = System.Windows.Forms.DockStyle.Top;
+            this.picture.Image = global::FMML.Properties.Resources.img1;
+            this.picture.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.picture.Location = new System.Drawing.Point(0, 0);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(314, 155);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 12;
+            this.picture.TabStop = false;
             // 
             // Window
             // 

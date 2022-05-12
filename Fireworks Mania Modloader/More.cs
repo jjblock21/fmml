@@ -105,7 +105,7 @@ namespace Fireworks_Mania_Modloader
         {
             try
             {
-                string path = AppDomain.CurrentDomain.BaseDirectory + @"\CHANGELOG";
+                string path = AppDomain.CurrentDomain.BaseDirectory + @"\changelog.txt";
                 if (File.Exists(path))
                 {
                     string text = File.ReadAllText(path);
