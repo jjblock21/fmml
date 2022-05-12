@@ -419,10 +419,6 @@ public class ModMain : MonoBehaviour
             TeleportDialog.ShowDialog();
         }
         UI.DefSpace();
-        if (UI.Button("Legacy Physics Gun"))
-        {
-            ToolManager.SelectTool(SelectedTool.Hand);
-        }
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("main");
     }

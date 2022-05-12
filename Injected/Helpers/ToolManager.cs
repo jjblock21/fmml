@@ -1,4 +1,5 @@
 ﻿using FireworksMania;
+using FireworksMania.Interactions.Tools;
 using FireworksMania.UI.ToolsMenu;
 using UnityEngine;
 
@@ -19,9 +20,6 @@ namespace Helpers
             {
                 case SelectedTool.FuseTool:
                     toolManager.SelectFuseConnectionTool();
-                    break;
-                case SelectedTool.Hand:
-                    toolManager.SelectHandTool();
                     break;
                 case SelectedTool.None:
                     toolManager.SelectNoneTool();
@@ -63,7 +61,6 @@ namespace Helpers
     public enum SelectedTool : uint
     {
         None = 0,
-        Hand = 1,
         Torch = 3,
         PhysicsTool = 2,
         FuseTool = 4,
