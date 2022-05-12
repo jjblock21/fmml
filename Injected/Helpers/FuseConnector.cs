@@ -3,7 +3,6 @@ using FireworksMania.Core.Behaviors.Fireworks.Parts;
 using FireworksMania.Fireworks.Parts;
 using FireworksMania.Input;
 using FireworksMania.Interactions.Tools;
-using FireworksMania.Interactions.Tools.FuseConnectorTool;
 using FireworksMania.ScriptableObjects;
 using Helpers;
 using System.Collections;
@@ -52,9 +51,16 @@ namespace Main.EnvironmentObserver
                 .GetField("_toolItems", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(manager);
 
-            FuseConnectionTool fuseTool = (FuseConnectionTool)tools[3];
-
-            if (fuseTool == null)
+            FuseConnectionTool fuseTool = null;
+            foreach (BaseTool obj in tools)
+            {
+                if (obj.name == "FuseConnectionTool")
+                {
+                    fuseTool = (FuseConnectionTool)obj;
+                    break;
+                }
+            }
+            if (fuseTool is null)
             {
                 Debug.LogError("Failed to find FuseTool");
                 return;

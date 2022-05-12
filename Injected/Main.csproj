@@ -31,18 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="FeatureBoilerplate\TimeManager.cs" />
+    <Compile Include="Helpers\TimeManager.cs" />
     <Compile Include="Features\Stuff.cs" />
     <Compile Include="Features\Cloner.cs" />
     <Compile Include="Features\FlyMode.cs" />
-    <Compile Include="FeatureBoilerplate\EventHook.cs" />
-    <Compile Include="FeatureBoilerplate\FireworkSpawner.cs" />
-    <Compile Include="FeatureBoilerplate\FireworkUnlocker.cs" />
-    <Compile Include="FeatureBoilerplate\FuseConnector.cs" />
-    <Compile Include="FeatureBoilerplate\GameReflector.cs" />
-    <Compile Include="FeatureBoilerplate\GameUIManager.cs" />
-    <Compile Include="FeatureBoilerplate\KnownFireworks.cs" />
-    <Compile Include="FeatureBoilerplate\MapManager.cs" />
+    <Compile Include="Helpers\EventHook.cs" />
+    <Compile Include="Helpers\FireworkSpawner.cs" />
+    <Compile Include="Helpers\FireworkUnlocker.cs" />
+    <Compile Include="Helpers\FuseConnector.cs" />
+    <Compile Include="Helpers\GameReflector.cs" />
+    <Compile Include="Helpers\GameUIManager.cs" />
+    <Compile Include="Helpers\KnownFireworks.cs" />
+    <Compile Include="Helpers\MapManager.cs" />
     <Compile Include="Features\Lighter.cs" />
     <Compile Include="Features\FireworksAutoSpawn.cs" />
     <Compile Include="Miscellaneous\SelectionWheel.cs" />
@@ -56,12 +56,21 @@
     <Compile Include="ModMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Miscellaneous\Toggle.cs" />
-    <Compile Include="FeatureBoilerplate\ToolManager.cs" />
+    <Compile Include="Helpers\ToolManager.cs" />
     <Compile Include="UI\TeleportDialog.cs" />
     <Compile Include="Miscellaneous\Utilities.cs" />
     <Compile Include="UI\UIStyles.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ACTk.Examples.Genuine.Runtime">
+      <HintPath>..\bin\ACTk.Examples.Genuine.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ACTk.Examples.Runtime">
+      <HintPath>..\bin\ACTk.Examples.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ACTk.Runtime">
+      <HintPath>..\bin\ACTk.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Assembly-CSharp.dll</HintPath>
@@ -90,7 +99,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\DOTween.Modules.dll</HintPath>
     </Reference>
-    <Reference Include="EnviroSky">
+    <Reference Include="EnviroSky, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\EnviroSky.dll</HintPath>
     </Reference>
     <Reference Include="FbxBuildTestAssets, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -121,16 +131,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="NewAssembly">
+    <Reference Include="NewAssembly, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\NewAssembly.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OEBIF, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\OEBIF.dll</HintPath>
+    </Reference>
+    <Reference Include="RayFireAssembly">
+      <HintPath>..\bin\RayFireAssembly.dll</HintPath>
     </Reference>
     <Reference Include="RFLib_DotNet_2018, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -148,7 +162,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\SteamworksNetManager.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -319,6 +332,9 @@
     <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CloudBuild">
+      <HintPath>..\bin\UnityEngine.CloudBuild.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
