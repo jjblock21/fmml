@@ -40,7 +40,6 @@ namespace Fireworks_Mania_Modloader
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
             this.picture = new System.Windows.Forms.PictureBox();
-            this.fmFreeLink = new System.Windows.Forms.LinkLabel();
             this.ejectButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.injectButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.launchGameButton = new JJsGuiLibrary.UI.OutlinedButton();
@@ -62,7 +61,6 @@ namespace Fireworks_Mania_Modloader
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.menuPanel.Controls.Add(this.fmFreeLink);
             this.menuPanel.Controls.Add(this.statusLabel);
             this.menuPanel.Controls.Add(this.versionLabel);
             this.menuPanel.Controls.Add(this.moreLink);
@@ -153,22 +151,6 @@ namespace Fireworks_Mania_Modloader
             this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picture.TabIndex = 12;
             this.picture.TabStop = false;
-            // 
-            // fmFreeLink
-            // 
-            this.fmFreeLink.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
-            this.fmFreeLink.AutoSize = true;
-            this.fmFreeLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.fmFreeLink.LinkColor = System.Drawing.Color.CornflowerBlue;
-            this.fmFreeLink.Location = new System.Drawing.Point(101, 7);
-            this.fmFreeLink.Name = "fmFreeLink";
-            this.fmFreeLink.Size = new System.Drawing.Size(123, 13);
-            this.fmFreeLink.TabIndex = 22;
-            this.fmFreeLink.TabStop = true;
-            this.fmFreeLink.Text = "FireworksMania for Free!";
-            this.fmFreeLink.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.fmFreeLink.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
-            this.fmFreeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.fmFreeLink_LinkClicked);
             // 
             // ejectButton
             // 
@@ -279,7 +261,6 @@ namespace Fireworks_Mania_Modloader
         private JJsGuiLibrary.UI.OutlinedButton launchGameButton;
         private JJsGuiLibrary.UI.OutlinedButton injectButton;
         private JJsGuiLibrary.UI.OutlinedButton ejectButton;
-        private LinkLabel fmFreeLink;
     }
 }
 

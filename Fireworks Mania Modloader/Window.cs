@@ -94,11 +94,6 @@ namespace Fireworks_Mania_Modloader
             Process.Start(Program.GameLaunchCommand);
         }
 
-        private void fmFreeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(@"https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-        }
-
         #region Midend
         private void UpdateLabel()
         {

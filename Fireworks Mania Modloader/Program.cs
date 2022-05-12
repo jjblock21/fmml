@@ -9,7 +9,7 @@ namespace Fireworks_Mania_Modloader
 {
     public static class Program
     {
-        public const string Version = "1.1.2";
+        public const string Version = "1.1.3";
         public const bool ShowVersionWarning = false;
         public const string TargetProcessName = "Fireworks Mania";
         public const string GameLaunchCommand = @"steam://rungameid/1079260";
