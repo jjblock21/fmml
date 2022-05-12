@@ -1,5 +1,4 @@
-﻿using Main.Setup;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Injected
 {
@@ -7,17 +6,16 @@ namespace Injected
     {
         public static void Init()
         {
-            ModHost = new GameObject("Mod");
-            AttachToGame.AttachAll(ModHost);
-            Object.DontDestroyOnLoad(Loader.ModHost);
+            hostObject = new GameObject("Mod");
+            hostObject.AddComponent<ModMain>();
+            Object.DontDestroyOnLoad(Loader.hostObject);
         }
 
         public static void Disable()
         {
-            Object.Destroy(ModHost);
-            AttachToGame.DestroyAll(ModHost);
+            Object.Destroy(hostObject);
         }
 
-        private static GameObject ModHost;
+        private static GameObject hostObject;
     }
 }
