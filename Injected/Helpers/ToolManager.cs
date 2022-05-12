@@ -2,7 +2,7 @@
 using FireworksMania.UI.ToolsMenu;
 using UnityEngine;
 
-namespace FModApi
+namespace Helpers
 {
     public static class ToolManager
     {

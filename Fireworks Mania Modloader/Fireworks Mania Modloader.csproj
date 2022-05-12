@@ -87,6 +87,9 @@
     <Compile Include="More.Designer.cs">
       <DependentUpon>More.cs</DependentUpon>
     </Compile>
+    <Compile Include="OutlinedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ProcessFinder.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>

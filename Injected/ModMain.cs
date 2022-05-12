@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using Main.Setup;
-using FModApi;
+using Helpers;
 using Main.EnvironmentObserver;
 using Main;
 using Main.UI;

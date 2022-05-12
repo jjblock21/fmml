@@ -20,7 +20,7 @@ namespace Fireworks_Mania_Modloader
 
         private void Start(object sender, EventArgs e)
         {
-            versionLabel.Text = Program.Version;
+            versionLabel.Text = "v" + Program.Version;
             UpdateLabel();
             LoadProcesses();
             EnterRefreshLoop();
@@ -79,19 +79,9 @@ namespace Fireworks_Mania_Modloader
             moreWindow.ShowDialog();
         }
 
-        private void refreshButton_MouseEnter(object sender, EventArgs e)
-        {
-            launchGameButton.FlatAppearance.BorderColor = Color.Silver;
-        }
-
-        private void refreshButton_MouseLeave(object sender, EventArgs e)
-        {
-            launchGameButton.FlatAppearance.BorderColor = Color.White;
-        }
-
         private void discordLink_MouseEnter(object sender, EventArgs e)
         {
-            moreLink.LinkColor = Color.Gainsboro;
+            moreLink.LinkColor = Color.LightGray;
         }
 
         private void discordLink_MouseLeave(object sender, EventArgs e)
@@ -102,6 +92,11 @@ namespace Fireworks_Mania_Modloader
         private void launchGameButton_Click(object sender, EventArgs e)
         {
             Process.Start(Program.GameLaunchCommand);
+        }
+
+        private void fmFreeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(@"https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
 
         #region Midend

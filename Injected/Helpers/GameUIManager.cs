@@ -1,7 +1,7 @@
 ﻿using Doozy.Engine;
 using System;
 
-namespace FModApi
+namespace Helpers
 {
     public static class GameUIManager
     {

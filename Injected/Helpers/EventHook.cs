@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FModApi
+namespace Helpers
 {
     public static class EventHook
     {

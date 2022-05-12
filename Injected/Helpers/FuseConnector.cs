@@ -5,7 +5,7 @@ using FireworksMania.Input;
 using FireworksMania.Interactions.Tools;
 using FireworksMania.Interactions.Tools.FuseConnectorTool;
 using FireworksMania.ScriptableObjects;
-using FModApi;
+using Helpers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;

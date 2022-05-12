@@ -37,20 +37,26 @@ namespace Fireworks_Mania_Modloader
             this.discordLink = new System.Windows.Forms.LinkLabel();
             this.backLink = new System.Windows.Forms.LinkLabel();
             this.gradient1 = new JControls.SimpleGradientPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.moddingGuideButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.fmmlLink = new System.Windows.Forms.LinkLabel();
+            this.smiLink = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(296, 59);
+            this.label1.Size = new System.Drawing.Size(280, 59);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Are you experiencing errors or having a problem with the mod?\nSend your Player lo" +
-    "g to our discord together with a description of the error.";
+            this.label1.Text = "Experiencing errors or having problems with mods?\r\nWhen you report the issue it m" +
+    "ight help to send the \r\nPlayerlog along with your question.\r\nJust click the butt" +
+    "on and paste the file into discord!";
             // 
             // copyButton
             // 
@@ -59,9 +65,9 @@ namespace Fireworks_Mania_Modloader
             this.copyButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.copyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.copyButton.ForeColor = System.Drawing.Color.Black;
-            this.copyButton.Location = new System.Drawing.Point(318, 29);
+            this.copyButton.Location = new System.Drawing.Point(299, 29);
             this.copyButton.Name = "copyButton";
-            this.copyButton.Size = new System.Drawing.Size(104, 23);
+            this.copyButton.Size = new System.Drawing.Size(120, 23);
             this.copyButton.TabIndex = 1;
             this.copyButton.Text = "Copy PlayerLog";
             this.copyButton.UseVisualStyleBackColor = false;
@@ -141,7 +147,7 @@ namespace Fireworks_Mania_Modloader
             // 
             // gradient1
             // 
-            this.gradient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.gradient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gradient1.Angle = 90F;
             this.gradient1.DoubleTitled = false;
@@ -152,12 +158,85 @@ namespace Fireworks_Mania_Modloader
             this.gradient1.StartColor = System.Drawing.Color.Transparent;
             this.gradient1.TabIndex = 15;
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(13, 74);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(280, 41);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Do you want to make mods yourself?\r\nOn Laumania\'s github you can find instruction" +
+    "s\r\non how make your own mod.\r\n";
+            // 
+            // moddingGuideButton
+            // 
+            this.moddingGuideButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moddingGuideButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.moddingGuideButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.moddingGuideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.moddingGuideButton.ForeColor = System.Drawing.Color.Black;
+            this.moddingGuideButton.Location = new System.Drawing.Point(299, 83);
+            this.moddingGuideButton.Name = "moddingGuideButton";
+            this.moddingGuideButton.Size = new System.Drawing.Size(120, 23);
+            this.moddingGuideButton.TabIndex = 17;
+            this.moddingGuideButton.Text = "Modding Guide";
+            this.moddingGuideButton.UseVisualStyleBackColor = false;
+            this.moddingGuideButton.Click += new System.EventHandler(this.moddingGuideButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(13, 129);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(406, 23);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Don\'t trust this mod? Check the code on github.\r\n\r\n";
+            // 
+            // fmmlLink
+            // 
+            this.fmmlLink.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
+            this.fmmlLink.AutoSize = true;
+            this.fmmlLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.fmmlLink.LinkColor = System.Drawing.Color.CornflowerBlue;
+            this.fmmlLink.Location = new System.Drawing.Point(13, 152);
+            this.fmmlLink.Name = "fmmlLink";
+            this.fmmlLink.Size = new System.Drawing.Size(86, 13);
+            this.fmmlLink.TabIndex = 19;
+            this.fmmlLink.TabStop = true;
+            this.fmmlLink.Text = "FMML on Github";
+            this.fmmlLink.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.fmmlLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.fmmlLink_LinkClicked);
+            // 
+            // smiLink
+            // 
+            this.smiLink.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
+            this.smiLink.AutoSize = true;
+            this.smiLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.smiLink.LinkColor = System.Drawing.Color.CornflowerBlue;
+            this.smiLink.Location = new System.Drawing.Point(105, 152);
+            this.smiLink.Name = "smiLink";
+            this.smiLink.Size = new System.Drawing.Size(97, 13);
+            this.smiLink.TabIndex = 20;
+            this.smiLink.TabStop = true;
+            this.smiLink.Text = "SharpMonoInjector";
+            this.smiLink.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.smiLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.smiLink_LinkClicked);
+            // 
             // More
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.ClientSize = new System.Drawing.Size(434, 236);
+            this.Controls.Add(this.smiLink);
+            this.Controls.Add(this.fmmlLink);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.moddingGuideButton);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.gradient1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.copyButton);
@@ -174,6 +253,7 @@ namespace Fireworks_Mania_Modloader
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -186,5 +266,10 @@ namespace Fireworks_Mania_Modloader
         private System.Windows.Forms.LinkLabel discordLink;
         private System.Windows.Forms.LinkLabel changeLogsLink;
         private JControls.SimpleGradientPanel gradient1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button moddingGuideButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel fmmlLink;
+        private System.Windows.Forms.LinkLabel smiLink;
     }
 }

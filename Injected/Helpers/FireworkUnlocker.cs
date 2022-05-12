@@ -2,7 +2,7 @@
 using FireworksMania.Inventory;
 using System;
 
-namespace FModApi
+namespace Helpers
 {
     public static class FireworkUnlocker
     {

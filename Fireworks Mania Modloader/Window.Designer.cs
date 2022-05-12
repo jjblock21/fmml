@@ -38,11 +38,12 @@ namespace Fireworks_Mania_Modloader
             this.versionLabel = new System.Windows.Forms.Label();
             this.moreLink = new System.Windows.Forms.LinkLabel();
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
-            this.injectButton = new System.Windows.Forms.Button();
-            this.ejectButton = new System.Windows.Forms.Button();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
-            this.launchGameButton = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
+            this.fmFreeLink = new System.Windows.Forms.LinkLabel();
+            this.ejectButton = new JJsGuiLibrary.UI.OutlinedButton();
+            this.injectButton = new JJsGuiLibrary.UI.OutlinedButton();
+            this.launchGameButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +61,8 @@ namespace Fireworks_Mania_Modloader
             // 
             // menuPanel
             // 
-            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.menuPanel.Controls.Add(this.fmFreeLink);
             this.menuPanel.Controls.Add(this.statusLabel);
             this.menuPanel.Controls.Add(this.versionLabel);
             this.menuPanel.Controls.Add(this.moreLink);
@@ -75,14 +77,15 @@ namespace Fireworks_Mania_Modloader
             this.statusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.statusLabel.BackColor = System.Drawing.Color.Transparent;
             this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.statusLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.statusLabel.ForeColor = System.Drawing.Color.LightGray;
             this.statusLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.statusLabel.Location = new System.Drawing.Point(77, 7);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(173, 13);
+            this.statusLabel.Size = new System.Drawing.Size(172, 13);
             this.statusLabel.TabIndex = 2;
             this.statusLabel.Text = "Uh, something went wrong\r\n\r\n\r\n";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.statusLabel.Visible = false;
             // 
             // versionLabel
             // 
@@ -105,7 +108,7 @@ namespace Fireworks_Mania_Modloader
             this.moreLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.moreLink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.moreLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.moreLink.LinkColor = System.Drawing.Color.White;
+            this.moreLink.LinkColor = System.Drawing.Color.WhiteSmoke;
             this.moreLink.Location = new System.Drawing.Point(278, 7);
             this.moreLink.Name = "moreLink";
             this.moreLink.Size = new System.Drawing.Size(31, 13);
@@ -121,75 +124,23 @@ namespace Fireworks_Mania_Modloader
             // 
             this.simpleGradientPanel1.Angle = 90F;
             this.simpleGradientPanel1.DoubleTitled = false;
-            this.simpleGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.simpleGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.simpleGradientPanel1.Location = new System.Drawing.Point(0, 251);
             this.simpleGradientPanel1.Name = "simpleGradientPanel1";
             this.simpleGradientPanel1.Size = new System.Drawing.Size(314, 17);
             this.simpleGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             this.simpleGradientPanel1.TabIndex = 17;
             // 
-            // injectButton
-            // 
-            this.injectButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.injectButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.injectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.injectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.injectButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.injectButton.Location = new System.Drawing.Point(53, 205);
-            this.injectButton.Name = "injectButton";
-            this.injectButton.Size = new System.Drawing.Size(96, 23);
-            this.injectButton.TabIndex = 15;
-            this.injectButton.Text = "Load Mod";
-            this.injectButton.UseVisualStyleBackColor = false;
-            this.injectButton.Click += new System.EventHandler(this.injectButton_Click);
-            // 
-            // ejectButton
-            // 
-            this.ejectButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.ejectButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.ejectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.ejectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ejectButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ejectButton.Location = new System.Drawing.Point(155, 205);
-            this.ejectButton.Name = "ejectButton";
-            this.ejectButton.Size = new System.Drawing.Size(94, 23);
-            this.ejectButton.TabIndex = 16;
-            this.ejectButton.Text = "Unload Mod";
-            this.ejectButton.UseVisualStyleBackColor = false;
-            this.ejectButton.Click += new System.EventHandler(this.ejectButton_Click);
-            // 
             // simpleTransparentGradientPanel1
             // 
             this.simpleTransparentGradientPanel1.Angle = 90F;
             this.simpleTransparentGradientPanel1.DoubleTitled = false;
-            this.simpleTransparentGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.simpleTransparentGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.simpleTransparentGradientPanel1.Location = new System.Drawing.Point(0, 64);
             this.simpleTransparentGradientPanel1.Name = "simpleTransparentGradientPanel1";
             this.simpleTransparentGradientPanel1.Size = new System.Drawing.Size(314, 91);
             this.simpleTransparentGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             this.simpleTransparentGradientPanel1.TabIndex = 1;
-            // 
-            // launchGameButton
-            // 
-            this.launchGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.launchGameButton.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.launchGameButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.launchGameButton.FlatAppearance.BorderSize = 2;
-            this.launchGameButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.launchGameButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.launchGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.launchGameButton.ForeColor = System.Drawing.Color.White;
-            this.launchGameButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.launchGameButton.Location = new System.Drawing.Point(207, 164);
-            this.launchGameButton.Name = "launchGameButton";
-            this.launchGameButton.Size = new System.Drawing.Size(95, 23);
-            this.launchGameButton.TabIndex = 14;
-            this.launchGameButton.Text = "Start Game";
-            this.launchGameButton.UseCompatibleTextRendering = true;
-            this.launchGameButton.UseVisualStyleBackColor = true;
-            this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
-            this.launchGameButton.MouseEnter += new System.EventHandler(this.refreshButton_MouseEnter);
-            this.launchGameButton.MouseLeave += new System.EventHandler(this.refreshButton_MouseLeave);
             // 
             // picture
             // 
@@ -203,16 +154,98 @@ namespace Fireworks_Mania_Modloader
             this.picture.TabIndex = 12;
             this.picture.TabStop = false;
             // 
+            // fmFreeLink
+            // 
+            this.fmFreeLink.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
+            this.fmFreeLink.AutoSize = true;
+            this.fmFreeLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.fmFreeLink.LinkColor = System.Drawing.Color.CornflowerBlue;
+            this.fmFreeLink.Location = new System.Drawing.Point(101, 7);
+            this.fmFreeLink.Name = "fmFreeLink";
+            this.fmFreeLink.Size = new System.Drawing.Size(123, 13);
+            this.fmFreeLink.TabIndex = 22;
+            this.fmFreeLink.TabStop = true;
+            this.fmFreeLink.Text = "FireworksMania for Free!";
+            this.fmFreeLink.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.fmFreeLink.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.fmFreeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.fmFreeLink_LinkClicked);
+            // 
+            // ejectButton
+            // 
+            this.ejectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ejectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.ejectButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.ejectButton.BorderThickness = 3;
+            this.ejectButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.ejectButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.ejectButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.ejectButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.ejectButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.ejectButton.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.ejectButton.HoverBorderColor = System.Drawing.Color.CornflowerBlue;
+            this.ejectButton.HoverBorderThickness = 3;
+            this.ejectButton.HoverForeColor = System.Drawing.Color.Gainsboro;
+            this.ejectButton.Location = new System.Drawing.Point(158, 209);
+            this.ejectButton.Name = "ejectButton";
+            this.ejectButton.Size = new System.Drawing.Size(96, 23);
+            this.ejectButton.TabIndex = 20;
+            this.ejectButton.Text = "Unload Mod";
+            this.ejectButton.Click += new System.EventHandler(this.ejectButton_Click);
+            // 
+            // injectButton
+            // 
+            this.injectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.injectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.injectButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.injectButton.BorderThickness = 3;
+            this.injectButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.injectButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.injectButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.injectButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.injectButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.injectButton.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.injectButton.HoverBorderColor = System.Drawing.Color.CornflowerBlue;
+            this.injectButton.HoverBorderThickness = 3;
+            this.injectButton.HoverForeColor = System.Drawing.Color.Gainsboro;
+            this.injectButton.Location = new System.Drawing.Point(56, 209);
+            this.injectButton.Name = "injectButton";
+            this.injectButton.Size = new System.Drawing.Size(96, 23);
+            this.injectButton.TabIndex = 19;
+            this.injectButton.Text = "Load Mod";
+            this.injectButton.Click += new System.EventHandler(this.injectButton_Click);
+            // 
+            // launchGameButton
+            // 
+            this.launchGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.launchGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.launchGameButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.launchGameButton.BorderThickness = 3;
+            this.launchGameButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.launchGameButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.launchGameButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.launchGameButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.launchGameButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.launchGameButton.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.launchGameButton.HoverBorderColor = System.Drawing.Color.CornflowerBlue;
+            this.launchGameButton.HoverBorderThickness = 3;
+            this.launchGameButton.HoverForeColor = System.Drawing.Color.Gainsboro;
+            this.launchGameButton.Location = new System.Drawing.Point(207, 165);
+            this.launchGameButton.Name = "launchGameButton";
+            this.launchGameButton.Size = new System.Drawing.Size(96, 23);
+            this.launchGameButton.TabIndex = 18;
+            this.launchGameButton.Text = "Start Game";
+            this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(314, 291);
-            this.Controls.Add(this.simpleTransparentGradientPanel1);
             this.Controls.Add(this.ejectButton);
             this.Controls.Add(this.injectButton);
             this.Controls.Add(this.launchGameButton);
+            this.Controls.Add(this.simpleTransparentGradientPanel1);
             this.Controls.Add(this.status);
             this.Controls.Add(this.simpleGradientPanel1);
             this.Controls.Add(this.picture);
@@ -240,12 +273,13 @@ namespace Fireworks_Mania_Modloader
         private System.Windows.Forms.LinkLabel moreLink;
         private PictureBox picture;
         private JControls.SimpleGradientPanel simpleGradientPanel1;
-        private Button injectButton;
-        private Button ejectButton;
         private JControls.SimpleTransparentGradientPanel simpleTransparentGradientPanel1;
         private Label versionLabel;
         private Label statusLabel;
-        private Button launchGameButton;
+        private JJsGuiLibrary.UI.OutlinedButton launchGameButton;
+        private JJsGuiLibrary.UI.OutlinedButton injectButton;
+        private JJsGuiLibrary.UI.OutlinedButton ejectButton;
+        private LinkLabel fmFreeLink;
     }
 }
 

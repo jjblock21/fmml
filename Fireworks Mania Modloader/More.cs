@@ -91,7 +91,7 @@ namespace Fireworks_Mania_Modloader
                 if (File.Exists(path))
                     contents = File.ReadAllText(path);
                 else return Feedback.GenerateErrorFeedback(69,
-                    "The PlayerLog file doesn't exist, please run the game before you use this feature.");
+                    "The Playerlog file doesn't exist, please start the game once and try again.");
                 return Feedback.GenerateSuccessFeedback(0);
             }
             catch (Exception e)
@@ -125,5 +125,20 @@ namespace Fireworks_Mania_Modloader
         }
 
         #endregion
+
+        private void moddingGuideButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"https://github.com/Laumania/FireworksMania.ModTools#getting-started");
+        }
+
+        private void fmmlLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(@"https://github.com/jjblock21/fmml");
+        }
+
+        private void smiLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(@"https://github.com/warbler/SharpMonoInjector");
+        }
     }
 }

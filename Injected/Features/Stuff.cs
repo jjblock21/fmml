@@ -5,7 +5,7 @@ using FireworksMania.Interactions;
 using FireworksMania.Inventory;
 using FireworksMania.Props;
 using FireworksMania.ScriptableObjects.EntityDefinitions;
-using FModApi;
+using Helpers;
 using Main;
 using Main.EnvironmentObserver;
 using System;

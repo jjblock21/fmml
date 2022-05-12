@@ -3,11 +3,14 @@ using FireworksMania.Core.Definitions.EntityDefinitions;
 using FireworksMania.ScriptableObjects.EntityDefinitions;
 using UnityEngine;
 
-namespace FModApi
+namespace Helpers
 {
 
     public class FireworkSpawner
     {
+
+        private static EntityDefinitionDatabase _database;
+
         public static GameObject SpawnFirework(FireworkEntityDefinition firework, Vector3 position)
         {
             return SpawnFirework(firework, position, Quaternion.identity, true);
@@ -35,12 +38,8 @@ namespace FModApi
             return _database;
         }
 
-        private static EntityDefinitionDatabase _database;
-
         public static void FindComponents()
         {
-            FireworksManager manager = FireworksManager.Instance;
-            if (manager == null) return;
             EntityDefinitionDatabase[] databases = Resources.FindObjectsOfTypeAll<EntityDefinitionDatabase>();
             EntityDefinitionDatabase database = null;
             if (databases.Length > 0) database = databases[0];
