@@ -39,10 +39,10 @@ namespace Fireworks_Mania_Modloader
             this.moreLink = new System.Windows.Forms.LinkLabel();
             this.simpleGradientPanel1 = new JControls.SimpleGradientPanel();
             this.simpleTransparentGradientPanel1 = new JControls.SimpleTransparentGradientPanel();
+            this.picture = new System.Windows.Forms.PictureBox();
             this.ejectButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.injectButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.launchGameButton = new JJsGuiLibrary.UI.OutlinedButton();
-            this.picture = new System.Windows.Forms.PictureBox();
             this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +60,7 @@ namespace Fireworks_Mania_Modloader
             // 
             // menuPanel
             // 
-            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.menuPanel.Controls.Add(this.statusLabel);
             this.menuPanel.Controls.Add(this.versionLabel);
             this.menuPanel.Controls.Add(this.moreLink);
@@ -122,10 +122,10 @@ namespace Fireworks_Mania_Modloader
             // 
             this.simpleGradientPanel1.Angle = 90F;
             this.simpleGradientPanel1.DoubleTitled = false;
-            this.simpleGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.simpleGradientPanel1.Location = new System.Drawing.Point(0, 251);
+            this.simpleGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.simpleGradientPanel1.Location = new System.Drawing.Point(0, 256);
             this.simpleGradientPanel1.Name = "simpleGradientPanel1";
-            this.simpleGradientPanel1.Size = new System.Drawing.Size(314, 17);
+            this.simpleGradientPanel1.Size = new System.Drawing.Size(314, 12);
             this.simpleGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             this.simpleGradientPanel1.TabIndex = 17;
             // 
@@ -133,12 +133,24 @@ namespace Fireworks_Mania_Modloader
             // 
             this.simpleTransparentGradientPanel1.Angle = 90F;
             this.simpleTransparentGradientPanel1.DoubleTitled = false;
-            this.simpleTransparentGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.simpleTransparentGradientPanel1.Location = new System.Drawing.Point(0, 64);
+            this.simpleTransparentGradientPanel1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.simpleTransparentGradientPanel1.Location = new System.Drawing.Point(0, 83);
             this.simpleTransparentGradientPanel1.Name = "simpleTransparentGradientPanel1";
-            this.simpleTransparentGradientPanel1.Size = new System.Drawing.Size(314, 91);
+            this.simpleTransparentGradientPanel1.Size = new System.Drawing.Size(314, 72);
             this.simpleTransparentGradientPanel1.StartColor = System.Drawing.Color.Transparent;
             this.simpleTransparentGradientPanel1.TabIndex = 1;
+            // 
+            // picture
+            // 
+            this.picture.Dock = System.Windows.Forms.DockStyle.Top;
+            this.picture.Image = global::FMML.Properties.Resources.img1;
+            this.picture.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.picture.Location = new System.Drawing.Point(0, 0);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(314, 155);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 12;
+            this.picture.TabStop = false;
             // 
             // ejectButton
             // 
@@ -206,23 +218,11 @@ namespace Fireworks_Mania_Modloader
             this.launchGameButton.Text = "Start Game";
             this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
             // 
-            // picture
-            // 
-            this.picture.Dock = System.Windows.Forms.DockStyle.Top;
-            this.picture.Image = global::FMML.Properties.Resources.img1;
-            this.picture.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.picture.Location = new System.Drawing.Point(0, 0);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(314, 155);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 12;
-            this.picture.TabStop = false;
-            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(314, 291);
             this.Controls.Add(this.ejectButton);
             this.Controls.Add(this.injectButton);

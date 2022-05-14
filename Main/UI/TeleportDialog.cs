@@ -70,6 +70,7 @@ namespace Injected.UI
                     Pages.CloseCurrentDialog();
                 }
                 if (UI.NavigationButton("Cancel")) Pages.CloseCurrentDialog();
+                return;
             }
             else
             {

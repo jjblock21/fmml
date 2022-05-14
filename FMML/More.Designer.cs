@@ -1,4 +1,6 @@
 ﻿
+using JJsGuiLibrary.UI;
+
 namespace Fireworks_Mania_Modloader
 {
     partial class More
@@ -31,23 +33,23 @@ namespace Fireworks_Mania_Modloader
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(More));
             this.label1 = new System.Windows.Forms.Label();
-            this.copyButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.changeLogsLink = new System.Windows.Forms.LinkLabel();
             this.discordLink = new System.Windows.Forms.LinkLabel();
             this.backLink = new System.Windows.Forms.LinkLabel();
             this.gradient1 = new JControls.SimpleGradientPanel();
             this.label2 = new System.Windows.Forms.Label();
-            this.moddingGuideButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.fmmlLink = new System.Windows.Forms.LinkLabel();
             this.smiLink = new System.Windows.Forms.LinkLabel();
+            this.moddingGuideButton = new JJsGuiLibrary.UI.OutlinedButton();
+            this.copyButton = new JJsGuiLibrary.UI.OutlinedButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(13, 13);
@@ -58,24 +60,9 @@ namespace Fireworks_Mania_Modloader
     "ight help to send the \r\nPlayerlog along with your question.\r\nJust click the butt" +
     "on and paste the file into discord!";
             // 
-            // copyButton
-            // 
-            this.copyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.copyButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.copyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.copyButton.ForeColor = System.Drawing.Color.Black;
-            this.copyButton.Location = new System.Drawing.Point(299, 29);
-            this.copyButton.Name = "copyButton";
-            this.copyButton.Size = new System.Drawing.Size(120, 23);
-            this.copyButton.TabIndex = 1;
-            this.copyButton.Text = "Copy PlayerLog";
-            this.copyButton.UseVisualStyleBackColor = false;
-            this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
-            // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.panel1.Controls.Add(this.changeLogsLink);
             this.panel1.Controls.Add(this.discordLink);
             this.panel1.Controls.Add(this.backLink);
@@ -147,20 +134,20 @@ namespace Fireworks_Mania_Modloader
             // 
             // gradient1
             // 
-            this.gradient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.gradient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gradient1.Angle = 90F;
             this.gradient1.DoubleTitled = false;
-            this.gradient1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.gradient1.Location = new System.Drawing.Point(0, 192);
+            this.gradient1.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.gradient1.Location = new System.Drawing.Point(0, 204);
             this.gradient1.Name = "gradient1";
-            this.gradient1.Size = new System.Drawing.Size(434, 22);
+            this.gradient1.Size = new System.Drawing.Size(434, 10);
             this.gradient1.StartColor = System.Drawing.Color.Transparent;
             this.gradient1.TabIndex = 15;
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(13, 74);
@@ -170,24 +157,9 @@ namespace Fireworks_Mania_Modloader
             this.label2.Text = "Do you want to make mods yourself?\r\nOn Laumania\'s github you can find instruction" +
     "s\r\non how make your own mod.\r\n";
             // 
-            // moddingGuideButton
-            // 
-            this.moddingGuideButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moddingGuideButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.moddingGuideButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.moddingGuideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.moddingGuideButton.ForeColor = System.Drawing.Color.Black;
-            this.moddingGuideButton.Location = new System.Drawing.Point(299, 83);
-            this.moddingGuideButton.Name = "moddingGuideButton";
-            this.moddingGuideButton.Size = new System.Drawing.Size(120, 23);
-            this.moddingGuideButton.TabIndex = 17;
-            this.moddingGuideButton.Text = "Modding Guide";
-            this.moddingGuideButton.UseVisualStyleBackColor = false;
-            this.moddingGuideButton.Click += new System.EventHandler(this.moddingGuideButton_Click);
-            // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(13, 129);
@@ -219,18 +191,62 @@ namespace Fireworks_Mania_Modloader
             this.smiLink.LinkColor = System.Drawing.Color.CornflowerBlue;
             this.smiLink.Location = new System.Drawing.Point(105, 152);
             this.smiLink.Name = "smiLink";
-            this.smiLink.Size = new System.Drawing.Size(97, 13);
+            this.smiLink.Size = new System.Drawing.Size(146, 13);
             this.smiLink.TabIndex = 20;
             this.smiLink.TabStop = true;
-            this.smiLink.Text = "SharpMonoInjector";
+            this.smiLink.Text = "SharpMonoInjector on Github";
             this.smiLink.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
             this.smiLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.smiLink_LinkClicked);
+            // 
+            // moddingGuideButton
+            // 
+            this.moddingGuideButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moddingGuideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.moddingGuideButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.moddingGuideButton.BorderThickness = 3;
+            this.moddingGuideButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.moddingGuideButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.moddingGuideButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.moddingGuideButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.moddingGuideButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.moddingGuideButton.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.moddingGuideButton.HoverBorderColor = System.Drawing.Color.CornflowerBlue;
+            this.moddingGuideButton.HoverBorderThickness = 3;
+            this.moddingGuideButton.HoverForeColor = System.Drawing.Color.Gainsboro;
+            this.moddingGuideButton.Location = new System.Drawing.Point(292, 81);
+            this.moddingGuideButton.Name = "moddingGuideButton";
+            this.moddingGuideButton.Size = new System.Drawing.Size(120, 24);
+            this.moddingGuideButton.TabIndex = 17;
+            this.moddingGuideButton.Text = "Modding Guide";
+            this.moddingGuideButton.Click += new System.EventHandler(this.moddingGuideButton_Click);
+            // 
+            // copyButton
+            // 
+            this.copyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.copyButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.copyButton.BorderThickness = 3;
+            this.copyButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.copyButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.copyButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.copyButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.copyButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.copyButton.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.copyButton.HoverBorderColor = System.Drawing.Color.CornflowerBlue;
+            this.copyButton.HoverBorderThickness = 3;
+            this.copyButton.HoverForeColor = System.Drawing.Color.Gainsboro;
+            this.copyButton.Location = new System.Drawing.Point(292, 27);
+            this.copyButton.Name = "copyButton";
+            this.copyButton.Size = new System.Drawing.Size(120, 24);
+            this.copyButton.TabIndex = 1;
+            this.copyButton.Text = "Copy PlayerLog";
+            this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
             // 
             // More
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(434, 236);
             this.Controls.Add(this.smiLink);
             this.Controls.Add(this.fmmlLink);
@@ -260,14 +276,14 @@ namespace Fireworks_Mania_Modloader
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button copyButton;
+        private OutlinedButton copyButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel backLink;
         private System.Windows.Forms.LinkLabel discordLink;
         private System.Windows.Forms.LinkLabel changeLogsLink;
         private JControls.SimpleGradientPanel gradient1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button moddingGuideButton;
+        private OutlinedButton moddingGuideButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel fmmlLink;
         private System.Windows.Forms.LinkLabel smiLink;
