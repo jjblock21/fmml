@@ -59,16 +59,5 @@ namespace Main.Miscellaneous
         {
             return (T)Enum.Parse(typeof(T), GetSelectedName(splitPascalCase: false), true);
         }
-
-        //TODO: Dead code
-        public string GetDefaultElementName(bool splitPascalCase = true)
-        {
-            string output = Enum.GetNames(typeof(T))[0];
-            if (splitPascalCase)
-            {
-                return Utilities.SplitPascalCase(output);
-            }
-            return output;
-        }
     }
 }

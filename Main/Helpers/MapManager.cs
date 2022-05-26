@@ -13,37 +13,8 @@ namespace Main.EnvironmentObserver
 
         private static SceneLoadingActions sceneLoadingActions = null;
 
-        //TODO: Dead code
-        public static void LoadMap(Map map)
-        {
-            if (sceneLoadingActions == null) return;
-            switch (map)
-            {
-                case Map.Town:
-                    sceneLoadingActions.LoadTownMap();
-                    break;
-                case Map.Ranch:
-                    sceneLoadingActions.LoadRanchMap();
-                    break;
-                case Map.Flat:
-                    sceneLoadingActions.LoadFlatMap();
-                    break;
-                case Map.City:
-                    sceneLoadingActions.LoadCityMap();
-                    break;
-                case Map.Laboratory:
-                    sceneLoadingActions.LoadLabMap();
-                    break;
-            }
-        }
-
         public static int GetActiveSceneIndex()
         {
-            /*for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                string n = SceneManager.GetSceneByBuildIndex(i).name;
-                Debug.LogError(n + " " + i);
-            }*/
             return SceneManager.GetActiveScene().buildIndex;
         }
 

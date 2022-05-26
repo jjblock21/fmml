@@ -35,14 +35,6 @@ namespace Main.EnvironmentObserver
             _fuseConnectionMetadata = FindFuseConnectionMetadata((uint)fuseType);
         }
 
-        //TODO: Dead code
-        public FuseConnector(FuseConnection fuseConnectionPrefab, FuseConnectionMetadata fuseConnectionMetadata)
-        {
-            AssignGameReflector();
-            _fuseConnectionPrefab = fuseConnectionPrefab;
-            _fuseConnectionMetadata = fuseConnectionMetadata;
-        }
-
         private void AssignGameReflector()
         {
             ToolsManager manager = Object.FindObjectOfType<ToolsManager>();
@@ -69,25 +61,6 @@ namespace Main.EnvironmentObserver
             gameReflector = new GameReflector(fuseTool);
         }
 
-
-        //TODO: Dead code
-        public void AddFuseConnectionPoint(IHaveFuseConnectionPoint haveFuseConnection)
-        {
-            _fuseConnectionPontList.Add(haveFuseConnection);
-        }
-
-        //TODO: Dead code
-        public void RemoveFuseConnectionPoint(IHaveFuseConnectionPoint haveFuseConnection)
-        {
-            _fuseConnectionPontList.Remove(haveFuseConnection);
-        }
-
-        //TODO: Dead code
-        public void ClearFuseConnectionPoints()
-        {
-            _fuseConnectionPontList.Clear();
-        }
-
         public void ConnectWithFuse(IFuseConnectionPoint connectionPoint1, IFuseConnectionPoint connectionPoint2)
         {
             if (connectionPoint1 != null && !connectionPoint1.Equals(null) &&
@@ -97,43 +70,6 @@ namespace Main.EnvironmentObserver
             {
                 Object.Instantiate(_fuseConnectionPrefab, FireworksManager.Instance.transform)
                 .SetupConnection(connectionPoint1.Fuse, connectionPoint2.Fuse, _fuseConnectionMetadata);
-            }
-        }
-
-        //TODO: Dead code
-        // Why did I write this here and then again?
-        public void FuseAll()
-        {
-            IFuseConnectionPoint previousFuseConnectionPoint = null;
-            foreach (IHaveFuseConnectionPoint connection in _fuseConnectionPontList)
-            {
-                IFuseConnectionPoint connectionPoint = connection.ConnectionPoint;
-                if (previousFuseConnectionPoint == null)
-                {
-                    previousFuseConnectionPoint = connectionPoint;
-                    continue;
-                }
-                ConnectWithFuse(connectionPoint, previousFuseConnectionPoint);
-                previousFuseConnectionPoint = connectionPoint;
-            }
-        }
-
-        //TODO: Dead code
-        public IEnumerator FuseAllCoroutine(int delayPerFuse)
-        {
-            IFuseConnectionPoint previousFuseConnectionPoint = null;
-            foreach (IHaveFuseConnectionPoint connection in _fuseConnectionPontList)
-            {
-                IFuseConnectionPoint connectionPoint = connection.ConnectionPoint;
-                if (previousFuseConnectionPoint == null)
-                {
-                    previousFuseConnectionPoint = connectionPoint;
-                    continue;
-                }
-                ConnectWithFuse(connectionPoint, previousFuseConnectionPoint);
-                previousFuseConnectionPoint = connectionPoint;
-                if (delayPerFuse < 1) continue;
-                yield return new WaitForSeconds(delayPerFuse);
             }
         }
 

@@ -32,16 +32,5 @@ namespace Helpers
             Action<bool> a = InventoryEvent;
             a?.Invoke(open);
         }
-
-        //TODO: Dead code
-        public static void SetInventoryActive(bool active)
-        {
-            if (active)
-            {
-                GameEventMessage.SendEvent(EventHook.OpenInvEventId);
-                return;
-            }
-            GameEventMessage.SendEvent(EventHook.CloseInvEventId);
-        }
     }
 }

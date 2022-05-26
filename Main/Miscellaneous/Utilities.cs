@@ -13,14 +13,6 @@ namespace Main
 
         public static readonly string modVersion = "1.1.3";
 
-        //TODO: Dead code
-        public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
-        {
-            Ray ray = new Ray(origin, dir);
-            Physics.Raycast(ray, out RaycastHit hit);
-            return hit;
-        }
-
         public static RaycastHit DoRaycastThroughScreen(Camera cam, Vector2 point)
         {
             Ray ray = cam.ScreenPointToRay(point);
@@ -33,32 +25,6 @@ namespace Main
             return DoRaycastThroughScreen(cam, new Vector2(Screen.width / 2, Screen.height / 2));
         }
 
-        //TODO: Dead code
-        public static void SetGameState(uint gameState)
-        {
-            InputManager.Instance.SetContext((InputContext)gameState);
-        }
-
-        //TODO: Dead code
-        public static Material CreateMaterial(Color color, MaterialType materialType)
-        {
-            string materialString = null;
-            switch (materialType)
-            {
-                case MaterialType.Unlit:
-                    materialString = "Particles/Standard Unlit";
-                    break;
-                case MaterialType.StandardLit:
-                    materialString = "Standard";
-                    break;
-            }
-            if (materialString == null) return null;
-            Shader shader = Shader.Find(materialString);
-            Material material = new Material(shader);
-            material.color = color;
-            return material;
-        }
-
         public static GUIStyle CreateColorGUIStyle(Color color, int fontSize = -1)
         {
             var style = new GUIStyle();
@@ -67,9 +33,6 @@ namespace Main
             style.fontSize = fontSize;
             return style;
         }
-
-        //TODO: Dead code
-        public static Color GetRandomColor() => Random.ColorHSV(0, 1, 0.5f, 1, 1, 1);
 
         public static int GetRandomHash()
         {
@@ -82,12 +45,6 @@ namespace Main
             int y = rand.Next(minY, maxY);
             int z = rand.Next(minZ, maxZ);
             return new Vector3(x, y, z);
-        }
-
-        //TODO: Dead code
-        public static Vector3 GetRandomIntVector(System.Random rand, int min, int max)
-        {
-            return GetRandomIntVector(rand, min, min, min, max, max, max);
         }
 
         public static Vector3 GetRandomIntVector(System.Random rand, int min, int max, int y)

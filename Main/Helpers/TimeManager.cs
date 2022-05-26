@@ -46,17 +46,6 @@ namespace Main.EnvironmentObserver
             isEnabled = true;
         }
 
-        //TODO: Dead code
-        public void UseComputerTime(bool useComputerClock)
-        {
-            if (useComputerClock)
-            {
-                skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.SystemTime;
-                return;
-            }
-            skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.Simulated;
-        }
-
         public void FreezeTime()
         {
             // TODO: set day night tool to specified time
@@ -65,39 +54,11 @@ namespace Main.EnvironmentObserver
             skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.None;
         }
 
-        //TODO: Dead code
-        /// <summary>
-        /// Changes the speed time advances at.
-        /// </summary>
-        public void SetTimeSpeed(TimeSpeed timeSpeed)
-        {
-            if (!isEnabled) return;
-            skyManager.Time.cycleLengthInMinutes = GetTimePerCycleInMinutes(timeSpeed);
-            skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.Simulated;
-        }
-
-        public void SetTimeOfDay(int hours, int minutes)
-        {
-            if (!isEnabled) return;
-            float hourTime = hours + minutes / 60f;
-            skyManager.SetTimeOfDay(hourTime);
-            FreezeTime();
-        }
-
         public void SetTimeOfDay(int hours)
         {
             if (!isEnabled) return;
             skyManager.SetTimeOfDay(hours);
             FreezeTime();
-        }
-
-        /// <summary>
-        /// Toggles the natural weather cycle on an of.
-        /// </summary>
-        public void NaturalWeatherCycle(bool enabled)
-        {
-            if (!isEnabled) return;
-            skyManager.SetAutoWeatherUpdates(enabled);
         }
 
         public void ChangeWeather(Weather weather)
@@ -111,6 +72,7 @@ namespace Main.EnvironmentObserver
             SetTimeOfDay((int)timeOfDay);
         }
 
+        //TODO: Dead code
         public void ChangeSeason(Season season)
         {
             if (!isEnabled) return;

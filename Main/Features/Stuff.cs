@@ -17,15 +17,6 @@ namespace Main
 {
     public static class Stuff
     {
-        //TODO: Dead code
-        public static void DeleteAll()
-        {
-            foreach (Rigidbody obj in UnityEngine.Object.FindObjectsOfType<Rigidbody>())
-            {
-                Delete(obj.GetComponent<Collider>());
-            }
-        }
-
         // TODO: Make this better.
         public static void Delete(Collider collider)
         {
