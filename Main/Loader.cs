@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Injected
+namespace Main
 {
     public static class Loader
     {

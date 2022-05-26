@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Injected
+namespace Main
 {
     public class Toggle
     {

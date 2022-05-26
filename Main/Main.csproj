@@ -48,6 +48,8 @@
     <Compile Include="Miscellaneous\SelectionWheel.cs" />
     <Compile Include="Miscellaneous\LineManager.cs" />
     <Compile Include="Features\SpaceMode.cs" />
+    <Compile Include="ModMain.Settings.cs" />
+    <Compile Include="ModMain.UI.cs" />
     <Compile Include="UI\UI.cs" />
     <Compile Include="Miscellaneous\Mouse.cs" />
     <Compile Include="UI\Pages.cs" />

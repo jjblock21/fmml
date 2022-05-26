@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
-namespace Injected.UI
+namespace Main.UI
 {
     public class TeleportDialog
     {

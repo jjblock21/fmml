@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Injected
+namespace Main
 {
     public static class Mouse
     {

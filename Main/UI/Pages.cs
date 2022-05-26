@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Injected.UI
+namespace Main.UI
 {
     public static class Pages
     {

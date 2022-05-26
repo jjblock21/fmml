@@ -1,9 +1,8 @@
-﻿using Main.UI;
-using System;
+﻿using System;
 using System.Linq;
 using UnityEngine;
 
-namespace Injected.UI
+namespace Main.UI
 {
     public static class UI
     {
