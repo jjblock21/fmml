@@ -146,8 +146,12 @@ public partial class ModMain : MonoBehaviour
         if (firstPerson == null) return;
         GameReflector gr = new GameReflector(firstPerson);
         FieldInfo field = gr.GetField("m_JumpSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (e) field.SetValue(firstPerson, jumpHeight);
-        else field.SetValue(firstPerson, 10);
+        if (e)
+        {
+            field.SetValue(firstPerson, jumpHeight);
+            return;
+        }
+        field.SetValue(firstPerson, 10);
     }
 
     private void UpdateSuperSpeed(bool e)
@@ -156,8 +160,12 @@ public partial class ModMain : MonoBehaviour
         if (firstPerson == null) return;
         GameReflector gr = new GameReflector(firstPerson);
         FieldInfo field = gr.GetField("m_RunSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (e) field.SetValue(firstPerson, speed);
-        else field.SetValue(firstPerson, 10);
+        if (e)
+        {
+            field.SetValue(firstPerson, speed);
+            return;
+        }
+        field.SetValue(firstPerson, 10);
     }
 
     private void SjToggle_StateChanged(object sender, bool e)
@@ -178,14 +186,20 @@ public partial class ModMain : MonoBehaviour
     {
         if (aToggle2.Switch())
         {
-            if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
-            else Mouse.MouseEvent(Mouse.MouseEventFlags.RightUp);
+            if (autoClickerButtonLeft)
+            {
+                Mouse.MouseEvent(Mouse.MouseEventFlags.RightUp);
+                return;
+            }
+            Mouse.MouseEvent(Mouse.MouseEventFlags.LeftUp);
+            return;
         }
-        else
+        if (autoClickerButtonLeft)
         {
-            if (!autoClickerButtonLeft) Mouse.MouseEvent(Mouse.MouseEventFlags.LeftDown);
-            else Mouse.MouseEvent(Mouse.MouseEventFlags.RightDown);
+            Mouse.MouseEvent(Mouse.MouseEventFlags.RightDown);
+            return;
         }
+        Mouse.MouseEvent(Mouse.MouseEventFlags.LeftDown);
     }
 
     #endregion
@@ -262,16 +276,19 @@ public partial class ModMain : MonoBehaviour
             visible = visibleToggle.SwitchUI(true);
 
         //Cloner
-        if (Input.GetKeyDown(KeyCode.X) && clonerActive)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
-            if (hit.collider != null)
-                Cloner.Clone(hit.collider, hit.point);
-        }
-        else if (Input.GetKeyDown(KeyCode.X) && crazyClonerActive)
-        {
-            RaycastHit hit = Utilities.DoScreenRaycast(_cam);
-            Cloner.CrazyClone(hit.collider, hit.point);
+            if (clonerActive)
+            {
+                RaycastHit hit = Utilities.DoScreenRaycast(_cam);
+                if (hit.collider != null)
+                    Cloner.Clone(hit.collider, hit.point);
+            }
+            else if (crazyClonerActive)
+            {
+                RaycastHit hit = Utilities.DoScreenRaycast(_cam);
+                Cloner.CrazyClone(hit.collider, hit.point);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.T) && newtonifierActive)

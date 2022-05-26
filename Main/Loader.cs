@@ -4,11 +4,11 @@ namespace Main
 {
     public static class Loader
     {
-        public static void Init()
+        public static void /*This is a very bri'ish comment */Init()
         {
-            hostObject = new GameObject("Mod");
+            hostObject = new GameObject("FMML");
             hostObject.AddComponent<ModMain>();
-            Object.DontDestroyOnLoad(Loader.hostObject);
+            Object.DontDestroyOnLoad(hostObject);
         }
 
         public static void Disable()
