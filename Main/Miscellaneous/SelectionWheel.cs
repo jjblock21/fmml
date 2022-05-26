@@ -43,7 +43,7 @@ namespace Main.Miscellaneous
             return false;
         }
 
-        public int GetSelected() => selectedItem;
+        public int Selected { get => selectedItem; }
 
         public string GetSelectedName(bool splitPascalCase = true)
         {
@@ -60,6 +60,7 @@ namespace Main.Miscellaneous
             return (T)Enum.Parse(typeof(T), GetSelectedName(splitPascalCase: false), true);
         }
 
+        //TODO: Dead code
         public string GetDefaultElementName(bool splitPascalCase = true)
         {
             string output = Enum.GetNames(typeof(T))[0];

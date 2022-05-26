@@ -35,6 +35,7 @@ namespace Main.EnvironmentObserver
             _fuseConnectionMetadata = FindFuseConnectionMetadata((uint)fuseType);
         }
 
+        //TODO: Dead code
         public FuseConnector(FuseConnection fuseConnectionPrefab, FuseConnectionMetadata fuseConnectionMetadata)
         {
             AssignGameReflector();
@@ -69,16 +70,19 @@ namespace Main.EnvironmentObserver
         }
 
 
+        //TODO: Dead code
         public void AddFuseConnectionPoint(IHaveFuseConnectionPoint haveFuseConnection)
         {
             _fuseConnectionPontList.Add(haveFuseConnection);
         }
 
+        //TODO: Dead code
         public void RemoveFuseConnectionPoint(IHaveFuseConnectionPoint haveFuseConnection)
         {
             _fuseConnectionPontList.Remove(haveFuseConnection);
         }
 
+        //TODO: Dead code
         public void ClearFuseConnectionPoints()
         {
             _fuseConnectionPontList.Clear();
@@ -96,6 +100,8 @@ namespace Main.EnvironmentObserver
             }
         }
 
+        //TODO: Dead code
+        // Why did I write this here and then again?
         public void FuseAll()
         {
             IFuseConnectionPoint previousFuseConnectionPoint = null;
@@ -112,6 +118,7 @@ namespace Main.EnvironmentObserver
             }
         }
 
+        //TODO: Dead code
         public IEnumerator FuseAllCoroutine(int delayPerFuse)
         {
             IFuseConnectionPoint previousFuseConnectionPoint = null;

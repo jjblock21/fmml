@@ -70,6 +70,7 @@ namespace Helpers
         public Type Type { get => type; }
         public Assembly Assembly { get => type.Assembly; }
 
+        //TODO: Dead code
         public static IEnumerable<Type> GetTypesWithAttribute<T>(Assembly assembly)
         {
             foreach (Type type in assembly.GetTypes())
@@ -81,6 +82,7 @@ namespace Helpers
             }
         }
 
+        //TODO: Dead code
         public static IEnumerable<Type> GetTypesWithAttribute(Type attribute, Assembly assembly)
         {
             foreach (Type type in assembly.GetTypes())

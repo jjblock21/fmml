@@ -28,6 +28,7 @@ namespace Main
             }
             return toggle;
         }
+
         public bool Switch()
         {
             if (toggle) toggle = false;

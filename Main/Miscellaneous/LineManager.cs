@@ -7,6 +7,7 @@ namespace Main.Miscellaneous
     {
         private List<GameObject> lines = new List<GameObject>();
 
+        // TODO: Dead code
         public int CreateLine(float thickness, Material material, Vector3 startPos, Vector3 endPos)
         {
             GameObject line = new GameObject();
@@ -23,19 +24,20 @@ namespace Main.Miscellaneous
             return lines.Count - 1;
         }
 
+        // TODO: Dead code
         public void RemoveLine(int index)
         {
             Object.Destroy(lines[index]);
         }
 
+        // TODO: Dead code
         public void ClearLines()
         {
             foreach (GameObject obj in lines)
-            {
                 Object.Destroy(obj);
-            }
         }
 
+        // TODO: Dead code
         public void DestroyLine(int index)
         {
             Object.Destroy(lines[index]);

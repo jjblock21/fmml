@@ -46,6 +46,7 @@ namespace Main.EnvironmentObserver
             isEnabled = true;
         }
 
+        //TODO: Dead code
         public void UseComputerTime(bool useComputerClock)
         {
             if (useComputerClock)
@@ -64,6 +65,7 @@ namespace Main.EnvironmentObserver
             skyManager.Time.ProgressTime = EnviroTime.TimeProgressMode.None;
         }
 
+        //TODO: Dead code
         /// <summary>
         /// Changes the speed time advances at.
         /// </summary>

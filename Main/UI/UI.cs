@@ -55,12 +55,14 @@ namespace Main.UI
         public static void Label(string text, int height) => GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle);
         public static void ZeroSpaceLabel(string text, int height) => GUI.Label(NextControlRect(height, 5f), text, UIStyles.UpdatedTextStyle);
 
+        //TODO: Dead code
         public static float Slider(float val, float min, float max)
         {
             GUI.color = Color.white;
             GUI.backgroundColor = Color.white;
             return GUI.HorizontalSlider(NextControlRect(), val, min, max);
         }
+
         public static float ZeroHeightSlider(float height, float val, float min, float max)
         {
             GUI.color = Color.white;
@@ -72,6 +74,7 @@ namespace Main.UI
         public static string Input(string text) => GUI.TextField(NextControlRect(), text, UIStyles.UpdatedStyle);
         public static string Input() => Input("");
 
+        //TODO: Dead code
         public static int ClampedIntegerInput(int value, int min, int max)
         {
             string newText = Input(value.ToString());
@@ -104,8 +107,9 @@ namespace Main.UI
             GUI.Label(r, c, s);
         }
 
-        public static Vector2 GetWidgetSize() => new Vector2(width - margin * 2, controlHeight);
+        public static Vector2 WidgetSize { get => new Vector2(width - margin * 2, controlHeight); }
 
+        //TODO: Dead code
         public static void Label(string text, float height)
         {
             GUI.Label(NextControlRect(height), text, UIStyles.UpdatedTextStyle);

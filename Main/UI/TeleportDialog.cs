@@ -99,10 +99,6 @@ namespace Main.UI
         {
             Pages.OpenDialog(UpdateDialog);
         }
-        public static void HideDialog()
-        {
-            Pages.CloseCurrentDialog();
-        }
 
         public static void ResetText()
         {

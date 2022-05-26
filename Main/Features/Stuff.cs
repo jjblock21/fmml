@@ -17,6 +17,7 @@ namespace Main
 {
     public static class Stuff
     {
+        //TODO: Dead code
         public static void DeleteAll()
         {
             foreach (Rigidbody obj in UnityEngine.Object.FindObjectsOfType<Rigidbody>())
@@ -61,6 +62,7 @@ namespace Main
             FireworksManager.Instance.ClearFireworks();
         }
 
+        // Why do I have the same thing in FuseConnector?
         public static IEnumerator FuseAll(FuseConnectionType fuseType)
         {
             FuseConnector fuseConnector = new FuseConnector(fuseType);

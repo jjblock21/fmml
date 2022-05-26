@@ -13,6 +13,7 @@ namespace Main
 
         public static readonly string modVersion = "1.1.3";
 
+        //TODO: Dead code
         public static RaycastHit DoRaycast(Vector3 dir, Vector3 origin)
         {
             Ray ray = new Ray(origin, dir);
@@ -32,11 +33,13 @@ namespace Main
             return DoRaycastThroughScreen(cam, new Vector2(Screen.width / 2, Screen.height / 2));
         }
 
+        //TODO: Dead code
         public static void SetGameState(uint gameState)
         {
             InputManager.Instance.SetContext((InputContext)gameState);
         }
 
+        //TODO: Dead code
         public static Material CreateMaterial(Color color, MaterialType materialType)
         {
             string materialString = null;
@@ -65,6 +68,7 @@ namespace Main
             return style;
         }
 
+        //TODO: Dead code
         public static Color GetRandomColor() => Random.ColorHSV(0, 1, 0.5f, 1, 1, 1);
 
         public static int GetRandomHash()
@@ -80,6 +84,7 @@ namespace Main
             return new Vector3(x, y, z);
         }
 
+        //TODO: Dead code
         public static Vector3 GetRandomIntVector(System.Random rand, int min, int max)
         {
             return GetRandomIntVector(rand, min, min, min, max, max, max);

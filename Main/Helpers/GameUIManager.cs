@@ -11,8 +11,8 @@ namespace Helpers
 
         public static void AddEvents()
         {
-            EventHook.AddEvent_Message<GameEventMessage>(EventHook.OpenInventoryEvent, OnOpenInventory);
-            EventHook.AddEvent_Message<GameEventMessage>(EventHook.CloseInventoryEvent, OnCloseInventory);
+            EventHook.AddEvent_Message_NoArgs<GameEventMessage>(EventHook.OpenInvEventId, OnOpenInventory);
+            EventHook.AddEvent_Message_NoArgs<GameEventMessage>(EventHook.CloseInvEventId, OnCloseInventory);
         }
 
         private static void OnCloseInventory()
@@ -33,17 +33,15 @@ namespace Helpers
             a?.Invoke(open);
         }
 
-        public static void OpenInventory() => SetInventoryActive(true);
-        public static void CloseInventory() => SetInventoryActive(false);
-
+        //TODO: Dead code
         public static void SetInventoryActive(bool active)
         {
             if (active)
             {
-                EventHook.Broadcast_GameEvent(EventHook.OpenInventoryEvent);
+                GameEventMessage.SendEvent(EventHook.OpenInvEventId);
                 return;
             }
-            EventHook.Broadcast_GameEvent(EventHook.CloseInventoryEvent);
+            GameEventMessage.SendEvent(EventHook.CloseInvEventId);
         }
     }
 }

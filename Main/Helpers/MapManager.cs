@@ -13,6 +13,7 @@ namespace Main.EnvironmentObserver
 
         private static SceneLoadingActions sceneLoadingActions = null;
 
+        //TODO: Dead code
         public static void LoadMap(Map map)
         {
             if (sceneLoadingActions == null) return;
