@@ -46,7 +46,6 @@
     <Compile Include="Features\Lighter.cs" />
     <Compile Include="Features\FireworksAutoSpawn.cs" />
     <Compile Include="Miscellaneous\SelectionWheel.cs" />
-    <Compile Include="Miscellaneous\LineManager.cs" />
     <Compile Include="Features\SpaceMode.cs" />
     <Compile Include="ModMain.Settings.cs" />
     <Compile Include="ModMain.UI.cs" />
@@ -63,13 +62,16 @@
     <Compile Include="UI\UIStyles.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ACTk.Examples.Genuine.Runtime">
+    <Reference Include="ACTk.Examples.Genuine.Runtime, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\ACTk.Examples.Genuine.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="ACTk.Examples.Runtime">
+    <Reference Include="ACTk.Examples.Runtime, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\ACTk.Examples.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="ACTk.Runtime">
+    <Reference Include="ACTk.Runtime, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\ACTk.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -132,10 +134,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="NewAssembly, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\NewAssembly.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
@@ -144,7 +142,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\OEBIF.dll</HintPath>
     </Reference>
-    <Reference Include="RayFireAssembly">
+    <Reference Include="RayFireAssembly, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\RayFireAssembly.dll</HintPath>
     </Reference>
     <Reference Include="RFLib_DotNet_2018, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
@@ -334,7 +333,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UnityEngine.ClothModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.CloudBuild">
+    <Reference Include="UnityEngine.CloudBuild, Version=1.0.7884.34938, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\UnityEngine.CloudBuild.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">

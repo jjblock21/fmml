@@ -69,30 +69,5 @@ namespace Helpers
         public object Object { get => obj; }
         public Type Type { get => type; }
         public Assembly Assembly { get => type.Assembly; }
-
-        //TODO: Dead code
-        public static IEnumerable<Type> GetTypesWithAttribute<T>(Assembly assembly)
-        {
-            foreach (Type type in assembly.GetTypes())
-            {
-                if (type.GetCustomAttributes(typeof(T), true).Length > 0)
-                {
-                    yield return type;
-                }
-            }
-        }
-
-        //TODO: Dead code
-        public static IEnumerable<Type> GetTypesWithAttribute(Type attribute, Assembly assembly)
-        {
-            foreach (Type type in assembly.GetTypes())
-            {
-                if (type.GetCustomAttributes(attribute, true).Length > 0)
-                {
-                    yield return type;
-                }
-            }
-        }
-
     }
 }

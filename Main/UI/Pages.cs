@@ -28,6 +28,7 @@ namespace Main.UI
         {
             _dialog = dialog;
         }
+
         public static void CloseCurrentDialog()
         {
             _dialog = null;

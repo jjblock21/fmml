@@ -72,37 +72,6 @@ namespace Main.EnvironmentObserver
             SetTimeOfDay((int)timeOfDay);
         }
 
-        //TODO: Dead code
-        public void ChangeSeason(Season season)
-        {
-            if (!isEnabled) return;
-            switch (season)
-            {
-                case Season.Spring:
-                    skyManager.ChangeSeason(EnviroSeasons.Seasons.Spring);
-                    ChangeWeather(Weather.Cloudy);
-                    break;
-                case Season.Summer:
-                    skyManager.ChangeSeason(EnviroSeasons.Seasons.Summer);
-                    ChangeWeather(Weather.Clear);
-                    break;
-                case Season.Fall:
-                    skyManager.ChangeSeason(EnviroSeasons.Seasons.Autumn);
-                    System.Random random = new System.Random();
-                    if (random.Next(3) == 1)
-                    {
-                        ChangeWeather(Weather.Thunder);
-                        break;
-                    }
-                    ChangeWeather(Weather.HeavyRain);
-                    break;
-                case Season.Winter:
-                    skyManager.ChangeSeason(EnviroSeasons.Seasons.Winter);
-                    ChangeWeather(Weather.LightSnow);
-                    break;
-            }
-        }
-
         /// <summary>
         /// Converts a TimeSpeed enum to the time it takes for one cycle to finish.
         /// </summary>

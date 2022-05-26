@@ -56,15 +56,6 @@ namespace Helpers
             gameReflector.SetFieldValue("_currentDayNightTimeSpeedIndex", 0);
             gameReflector.InvokeMethod("UpdateWatchArm");
         }
-
-        #region Events
-
-        private static void AddEvents()
-        {
-            EventHook.AddEvent<>
-        }
-
-        #endregion
     }
 
     public enum SelectedTool : uint

@@ -59,7 +59,6 @@ public partial class ModMain : MonoBehaviour
 
     public bool autoSpawnAllFireworks = false;
 
-    private LineManager markerLineRenderer = new LineManager();
     private FireworksAutoSpawn fireworksAutoSpawnObject = new FireworksAutoSpawn();
     private TimeManager timeManager = new TimeManager();
 
