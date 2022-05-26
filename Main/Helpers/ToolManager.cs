@@ -1,4 +1,5 @@
 ﻿using FireworksMania;
+using FireworksMania.Core.Messaging;
 using FireworksMania.Interactions.Tools;
 using FireworksMania.UI.ToolsMenu;
 using UnityEngine;
@@ -48,6 +49,13 @@ namespace Helpers
             SelectTool(toolAfterChange);
         }
 
+        public static void ChangeSnapAngle(float angle, SelectedTool toolAfterChange)
+        {
+            SelectTool(SelectedTool.PhysicsTool);
+            InternalSnapAngleChange(angle);
+            SelectTool(toolAfterChange);
+        }
+
         private static void InternalTimeFreeze()
         {
             DayNightTimeTool timeTool = Object.FindObjectOfType<DayNightTimeTool>();
@@ -55,6 +63,14 @@ namespace Helpers
             GameReflector gameReflector = new GameReflector(timeTool);
             gameReflector.SetFieldValue("_currentDayNightTimeSpeedIndex", 0);
             gameReflector.InvokeMethod("UpdateWatchArm");
+        }
+
+        private static void InternalSnapAngleChange(float angle)
+        {
+            PhysicsTool timeTool = Object.FindObjectOfType<PhysicsTool>();
+            if (timeTool == null) Debug.LogWarning("I am too lazy to think of an error message.");
+            GameReflector gameReflector = new GameReflector(timeTool);
+            gameReflector.SetFieldValue("SnapRotationDegrees", angle);
         }
     }
 

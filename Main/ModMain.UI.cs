@@ -2,6 +2,7 @@
 using Main;
 using UnityEngine;
 using Main.EnvironmentObserver;
+using Helpers;
 
 public partial class ModMain : MonoBehaviour
 {
@@ -92,6 +93,11 @@ public partial class ModMain : MonoBehaviour
         if (UI.Button("Fuse all Fireworks"))
         {
             StartCoroutine(Stuff.FuseAll(connectAllFuseSpeed));
+        }
+        UI.DefSpace();
+        if (UI.Button("Snap Angle Test"))
+        {
+            ToolManager.ChangeSnapAngle(10f, SelectedTool.Torch);
         }
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("tools");

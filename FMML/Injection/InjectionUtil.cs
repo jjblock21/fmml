@@ -7,7 +7,7 @@ namespace Fireworks_Mania_Modloader
 {
     public static class InjectionUtil
     {
-        public const string CLASS = "Injected.Loader";
+        public const string CLASS = "Main.Loader";
         public const string INJECT_METHOD = "Init";
         public const string EJECT_METHOD = "Disable";
 
