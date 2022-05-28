@@ -196,8 +196,6 @@ Fountains
             };
         }
 
-        //TODO: Add new Fireworks
-
         public string TimShell { get; }
         public string KarlsonRocket { get; }
         public string[] Rockets { get; }

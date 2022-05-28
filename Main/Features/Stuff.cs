@@ -17,11 +17,10 @@ namespace Main
 {
     public static class Stuff
     {
-        // TODO: Make this better.
         public static void Delete(Collider collider)
         {
-            if (collider.gameObject.tag != "MainCamera")
-                UnityEngine.Object.Destroy(collider.gameObject);
+            if (collider.gameObject.tag == "MainCamera") return;
+            UnityEngine.Object.Destroy(collider.gameObject);
         }
 
         public static bool TryGetPositionString(out string text, Player controller)

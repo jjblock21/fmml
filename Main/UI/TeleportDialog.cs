@@ -38,47 +38,35 @@ namespace Main.UI
             fpsController = Object.FindObjectOfType<FirstPersonController>();
         }
 
-        //TODO: Write clean code here.
         public static void UpdateDialog()
         {
             if (blockDialog) return;
             Rect controlRect = UI.GetGraphicsRect();
             if (!isSelectionState)
             {
-                Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
-                UI.Begin("Teleport", position.x, position.y, 300, 400, 25, 35, 10, 50, 20);
-                Vector3 tpPos = new Vector3(
-                    fpsController.gameObject.transform.position.x,
-                    fpsController.gameObject.transform.position.y,
-                    fpsController.gameObject.transform.position.z
-                );
+                Vector2 pos = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
+                UI.Begin("Teleport", pos.x, pos.y, 300, 400, 25, 35, 10, 50, 20);
                 UI.Label("Input a location (X, Y, Z)");
+
                 teleportLocationX = UI.Input(teleportLocationX);
                 teleportLocationY = UI.Input(teleportLocationY);
                 teleportLocationZ = UI.Input(teleportLocationZ);
+
                 if (UI.Button("Presets")) isSelectionState = true;
                 UI.Space(20);
                 if (UI.Button("Teleport"))
                 {
-                    if (float.TryParse(teleportLocationX, out float x)
-                        && float.TryParse(teleportLocationY, out float y)
-                        && float.TryParse(teleportLocationZ, out float z))
-                    {
-                        tpPos = new Vector3(x, y, z);
-                    }
-                    TeleportToLocation(tpPos);
+                    Teleport();
                     Pages.CloseCurrentDialog();
                 }
-                if (UI.NavigationButton("Cancel")) Pages.CloseCurrentDialog();
+                if (UI.NavigationButton("Cancel"))
+                    Pages.CloseCurrentDialog();
                 return;
             }
-            else
-            {
-                Vector2 position = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y);
-                UI.Begin("Teleport", position.x, position.y, 300, 450, 25, 35, 10, 50, 20);
-                CreateButtons();
-                if (UI.NavigationButton("Back")) isSelectionState = false;
-            }
+            Vector2 pos1 = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y);
+            UI.Begin("Teleport", pos1.x, pos1.y, 300, 450, 25, 35, 10, 50, 20);
+            CreateButtons();
+            if (UI.NavigationButton("Back")) isSelectionState = false;
         }
 
         private static void CreateButtons()
@@ -93,6 +81,20 @@ namespace Main.UI
                     Pages.CloseCurrentDialog();
                 }
             }
+        }
+
+        private static void Teleport()
+        {
+            Vector3 tpPos = new Vector3(
+                fpsController.gameObject.transform.position.x,
+                fpsController.gameObject.transform.position.y,
+                fpsController.gameObject.transform.position.z
+            );
+            if (float.TryParse(teleportLocationX, out float x)
+            && float.TryParse(teleportLocationY, out float y)
+            && float.TryParse(teleportLocationZ, out float z))
+                tpPos = new Vector3(x, y, z);
+            TeleportToLocation(tpPos);
         }
 
         public static void ShowDialog()

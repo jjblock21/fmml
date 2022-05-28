@@ -6,6 +6,7 @@ namespace Main.UI
 {
     public static class UI
     {
+        // TODO: Rewrite Begin and NavigationButton to allow for dynamic hieght based on number of elements.
         private static float x, y, width, height, margin, controlHeight, controlDist, nextControlY, bottomOffset;
         public static void Begin(string text, float _x, float _y, float _width, float _height, float _margin, float _controlHeight, float _controlDist, float contolStartY, float bottomWidgetOffset)
         {
