@@ -22,7 +22,7 @@ public partial class ModMain : MonoBehaviour
 
     private void MainPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
         if (UI.Button("Tools"))
             Pages.SelectPage("tools");
         if (UI.Button("Hacks"))
@@ -47,7 +47,7 @@ public partial class ModMain : MonoBehaviour
     #region Tools
     private void ToolsPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 600, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 600, 25, 35, 10, 50, 25);
         flameThrowerActive = flameThrowerToggle.SwitchUI(UI.Button("Flamethrower", flameThrowerActive));
         if (UI.Button("Cloning machine", clonerActive))
         {
@@ -69,6 +69,19 @@ public partial class ModMain : MonoBehaviour
             TeleportDialog.ShowDialog();
         }
         UI.DefSpace();
+        //TODO: Add Map check
+        UI.ZeroSpaceLabel("Snap Angle test", 10);
+        string snapAngle = UI.Input(snapAngleText);
+        if (snapAngle != snapAngleText)
+        {
+            if (float.TryParse(snapAngle, out float result))
+            {
+                snapAngleText = snapAngle;
+                physicsToolSnapAngle = result;
+                ToolManager.ChangeSnapAngle(result, SelectedTool.Torch);
+            }
+        }
+        UI.DefSpace();
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("main");
     }
@@ -77,7 +90,7 @@ public partial class ModMain : MonoBehaviour
     #region Fireworks
     private void FireworksPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         if (UI.Button("Ignite Everything")) Lighter.IgniteAll(true, igniteEverythingDelay);
         if (UI.Button("Instantly Ignite Everything")) Lighter.IgniteAll(false, 1);
         UI.Space(10);
@@ -94,11 +107,6 @@ public partial class ModMain : MonoBehaviour
         {
             StartCoroutine(Stuff.FuseAll(connectAllFuseSpeed));
         }
-        UI.DefSpace();
-        if (UI.Button("Snap Angle Test"))
-        {
-            ToolManager.ChangeSnapAngle(10f, SelectedTool.Torch);
-        }
         if (UI.NavigationButton("Back"))
             Pages.SelectPage("tools");
     }
@@ -107,9 +115,8 @@ public partial class ModMain : MonoBehaviour
     #region Time
     public void TimePage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
 
-        // TODO: Set default name to currently active season/weather or Nothing on the loading screen
         if (weatherSelector.UICycle(UI.Button("Weather: " + weatherButtonLabel)))
         {
             if (timeManager.IsEnabled)
@@ -140,7 +147,7 @@ public partial class ModMain : MonoBehaviour
     #region About
     private void AboutPage()
     {
-        UI.Begin("Fireworks Mania Modloader - About", 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin($"{Utilities.AppName} - About", 10, 20, 300, 450, 25, 35, 10, 50, 25);
         UI.Label("Made by jjblock21\nInspired by FMenu.");
         UI.Label("Special thanks also go to Keltusar.");
         UI.Space(10);
@@ -153,7 +160,7 @@ public partial class ModMain : MonoBehaviour
     #region Controls
     private void ControlsPage()
     {
-        UI.Begin("Fireworks Mania Modloader - Controls", 10, 20, 300, 750, 25, 35, 10, 50, 25);
+        UI.Begin($"{Utilities.AppName} - Controls", 10, 20, 300, 750, 25, 35, 10, 50, 25);
         UI.Label("F1: Show/Hide the Menu.");
         UI.Label("F2: Toggle keys, so you're be able to type.");
         UI.Space(10);
@@ -187,7 +194,7 @@ public partial class ModMain : MonoBehaviour
     #region Hacks
     private void HacksPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 500, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         autoClickerActive = aToggle.SwitchUI(UI.Button("Inbuilt Auto Clicker", autoClickerActive));
         autoClickerButtonLeft = aToggle3.SwitchUI(UI.Button("AC Mouse Button: LMB", "AC Mouse Button: RMB", !autoClickerButtonLeft));
         UI.DefSpace();
@@ -206,7 +213,7 @@ public partial class ModMain : MonoBehaviour
     #region ExperimentalTools
     private void ExperimentalToolsPage()
     {
-        UI.Begin("Fireworks Mania Modloader", 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
         UI.FancyLabel("Warning: These Tools are Experimental\nand can be buggy.", 30, Utilities.CreateColorGUIStyle(Color.yellow));
         newtonifierActive = newtonifierToggle.SwitchUI(UI.Button("Newtonifier", newtonifierActive));
         if (UI.Button("Crazy Cloner", crazyClonerActive))

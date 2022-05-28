@@ -71,6 +71,11 @@ public partial class ModMain : MonoBehaviour
     private string timeButtonLabel = "";
     private SelectionWheel<TimeOfDay> timeSelector = new SelectionWheel<TimeOfDay>();
 
+    private float physicsToolSnapAngle = 45f;
+    private string snapAngleText = "45f";
+
+    //TODO: Disable all the UI that requires ama to be loaded.
+
     #endregion
 
     #region CycleButtonSetup
@@ -224,16 +229,29 @@ public partial class ModMain : MonoBehaviour
         StartCoroutine(VersionLabelCoroutine());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
+        UpdateSnapAngle();
         ResetDisableKeys();
         TryFreezeTime();
     }
+    #endregion
+
+    #region SnapAngle
+
+    private void UpdateSnapAngle()
+    {
+        if (MapManager.PlayableMapLoaded)
+        {
+            ToolManager.ChangeSnapAngle(physicsToolSnapAngle, SelectedTool.Torch);
+        }
+    }
+
     #endregion
 
     #region TimeFreeze
 
     private void TryFreezeTime()
     {
-        if (MapManager.IsPlayableMapLoaded())
+        if (MapManager.PlayableMapLoaded)
         {
             ToolManager.FreezeTimeTool(SelectedTool.Torch);
             timeManager.FreezeTime();
@@ -372,9 +390,7 @@ public partial class ModMain : MonoBehaviour
         var text = label.gameObject.GetComponentInParent<TextMeshProUGUI>();
         if (text == null) yield break;
         text.transform.position = new Vector3(
-            text.transform.position.x,
-            text.transform.position.y - 10,
-            text.transform.position.z);
-        text.text = "v" + Application.version + "\nFMML " + Utilities.modVersion;
+            text.transform.position.x, text.transform.position.y - 10, text.transform.position.z);
+        text.text = $"v{Application.version}\n{Utilities.AppName} {Utilities.ModVersion}";
     }
 }

@@ -47,7 +47,7 @@ namespace Main
 
         private void SpawnRandom()
         {
-            if (MapManager.IsPlayableMapLoaded())
+            if (MapManager.PlayableMapLoaded)
             {
                 System.Random rand = new System.Random();
                 Vector3 pos = new Vector3();

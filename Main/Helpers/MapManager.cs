@@ -18,16 +18,14 @@ namespace Main.EnvironmentObserver
             return SceneManager.GetActiveScene().buildIndex;
         }
 
-        public static bool IsPlayableMapLoaded()
+        public static bool PlayableMapLoaded
         {
-            if (GetActiveSceneIndex() >= 4)
-                return true;
-            return false;
+            get => GetActiveSceneIndex() >= 4;
         }
 
         public static Map GetLoadedMap()
         {
-            if (!IsPlayableMapLoaded()) return Map.None;
+            if (!PlayableMapLoaded) return Map.None;
             switch (GetActiveSceneIndex())
             {
                 case 4:

@@ -9,9 +9,10 @@ namespace Main
 {
     public static class Utilities
     {
-        public static string version { get => modVersion + " - " + Application.version; }
+        public static string version { get => ModVersion + " - " + Application.version; }
 
-        public static readonly string modVersion = "1.1.3";
+        public const string ModVersion = "1.1.3";
+        public const string AppName = "FMML";
 
         public static RaycastHit DoRaycastThroughScreen(Camera cam, Vector2 point)
         {
@@ -64,9 +65,4 @@ namespace Main
             return new string(output.ToArray());
         }
     }
-}
-
-public enum MaterialType
-{
-    Unlit, StandardLit
 }

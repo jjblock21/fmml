@@ -68,9 +68,7 @@ public partial class ModMain
         catch (Exception e)
         {
             UI.Begin("Fireworks Mania Modloader - Settings", 10, 20, 300, 200, 25, 35, 10, 50, 25);
-            UI.Label(e.Message + "\n" +
-                "An unspecified error has occurred\n" +
-                "while drawing the page.");
+            UI.Label(e.Message);
             if (UI.NavigationButton("Back"))
                 Pages.SelectPage("main");
         }

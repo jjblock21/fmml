@@ -31,7 +31,7 @@ namespace Main.EnvironmentObserver
         /// </summary>
         public void Setup()
         {
-            if (!MapManager.IsPlayableMapLoaded())
+            if (!MapManager.PlayableMapLoaded)
             {
                 isEnabled = false;
                 return;
