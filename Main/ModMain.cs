@@ -13,6 +13,7 @@ using Helpers;
 using Main.EnvironmentObserver;
 using Main.Miscellaneous;
 using FireworksMania.Core.Behaviors;
+using System.Globalization;
 
 public partial class ModMain : MonoBehaviour
 {
@@ -71,8 +72,9 @@ public partial class ModMain : MonoBehaviour
     private string timeButtonLabel = "";
     private SelectionWheel<TimeOfDay> timeSelector = new SelectionWheel<TimeOfDay>();
 
+    private CultureInfo globalCulture;
+
     private float physicsToolSnapAngle = 45f;
-    private string snapAngleText = "45f";
 
     //TODO: Disable all the UI that requires ama to be loaded.
 
@@ -99,6 +101,8 @@ public partial class ModMain : MonoBehaviour
     #region Start
     public void Start()
     {
+        globalCulture = CultureInfo.InvariantCulture;
+
         // Add Events
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 

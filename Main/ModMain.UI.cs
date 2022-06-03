@@ -8,27 +8,33 @@ public partial class ModMain : MonoBehaviour
 {
     private void AddPages()
     {
-        Pages.AddPage(MainPage, "main");
-        Pages.AddPage(ToolsPage, "tools");
-        Pages.AddPage(FireworksPage, "fireworks");
-        Pages.AddPage(ExperimentalToolsPage, "experimental_tools");
-        Pages.AddPage(AboutPage, "about");
-        Pages.AddPage(ControlsPage, "controls");
-        Pages.AddPage(HacksPage, "hacks");
-        Pages.AddPage(SettingsPage, "settings");
-        Pages.AddPage(TimePage, "time");
+        Pages.Add(MainPage, "main");
+        Pages.Add(ToolsPage, "tools");
+        Pages.Add(FireworksPage, "fireworks");
+        Pages.Add(ExperimentalToolsPage, "experimental_tools");
+        Pages.Add(AboutPage, "about");
+        Pages.Add(ControlsPage, "controls");
+        Pages.Add(HacksPage, "hacks");
+        Pages.Add(SettingsPage, "settings");
+        Pages.Add(TimePage, "time");
+        Pages.Add(OverridesPage, "overrides");
     }
 
 
     private void MainPage()
     {
-        UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         if (UI.Button("Tools"))
             Pages.SelectPage("tools");
         if (UI.Button("Hacks"))
             Pages.SelectPage("hacks");
         if (UI.Button("Time and Weather"))
             Pages.SelectPage("time");
+        if (UI.Button("Overrides"))
+        {
+            OpenOverridesPage();
+            Pages.SelectPage("overrides");
+        }
         UI.Space(25);
         if (UI.Button("Settings"))
         {
@@ -67,19 +73,6 @@ public partial class ModMain : MonoBehaviour
         {
             TeleportDialog.ResetText();
             TeleportDialog.ShowDialog();
-        }
-        UI.DefSpace();
-        //TODO: Add Map check
-        UI.ZeroSpaceLabel("Snap Angle test", 10);
-        string snapAngle = UI.Input(snapAngleText);
-        if (snapAngle != snapAngleText)
-        {
-            if (float.TryParse(snapAngle, out float result))
-            {
-                snapAngleText = snapAngle;
-                physicsToolSnapAngle = result;
-                ToolManager.ChangeSnapAngle(result, SelectedTool.Torch);
-            }
         }
         UI.DefSpace();
         if (UI.NavigationButton("Back"))

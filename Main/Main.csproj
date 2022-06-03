@@ -47,6 +47,7 @@
     <Compile Include="Features\FireworksAutoSpawn.cs" />
     <Compile Include="Miscellaneous\SelectionWheel.cs" />
     <Compile Include="Features\SpaceMode.cs" />
+    <Compile Include="ModMain.Overrides.cs" />
     <Compile Include="ModMain.Settings.cs" />
     <Compile Include="ModMain.UI.cs" />
     <Compile Include="UI\UI.cs" />

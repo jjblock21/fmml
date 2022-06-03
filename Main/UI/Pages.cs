@@ -12,7 +12,7 @@ namespace Main.UI
         private static DialogDrawCallTarget _dialog = null;
         private static int selectedPage = 0;
 
-        public static void AddPage(PageDrawCallTarget page, string name)
+        public static void Add(PageDrawCallTarget page, string name)
         {
             pageList.Add(page);
             indexDictionary.Add(name, pageList.Count - 1);

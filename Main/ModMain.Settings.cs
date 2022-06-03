@@ -1,6 +1,7 @@
 ﻿using Main.UI;
 using System;
 using Main.EnvironmentObserver;
+using Main;
 
 public partial class ModMain
 {
@@ -32,7 +33,7 @@ public partial class ModMain
     {
         try
         {
-            UI.Begin("Fireworks Mania Modloader - Settings", 10, 20, 300, 500, 25, 35, 10, 50, 25);
+            UI.Begin(Utilities.AppName + " - Settings", 10, 20, 300, 500, 25, 35, 10, 50, 25);
 
             jumpHeight = (int)UI.LabelSlider("Super Jump Force", jumpHeight, 1, 50);
             speed = (int)UI.LabelSlider("Speed", speed, 1, 50);
