@@ -12,12 +12,16 @@ using Main.UI;
 
 public partial class ModMain
 {
-    //private bool tempCameraShake = false;
+    private Toggle cameraShakeToggle = new Toggle();
+    private bool tempCameraShake = true;
+
     private string tempSnapAngleText = "";
 
     private void OpenOverridesPage()
     {
         tempSnapAngleText = physicsToolSnapAngle.ToString(globalCulture);
+        cameraShakeToggle.SetState(cameraShakeEnabled);
+        tempCameraShake = cameraShakeEnabled;
     }
 
     private void UpdateOverridesFromTemp()
@@ -28,6 +32,8 @@ public partial class ModMain
             if (MapManager.PlayableMapLoaded)
                 ToolManager.ChangeSnapAngle(result, SelectedTool.Torch);
         }
+        cameraShakeEnabled = cameraShakeToggle.State;
+        Stuff.CameraShake(cameraShakeToggle.State);
     }
 
     private void OverridesPage()
@@ -36,9 +42,13 @@ public partial class ModMain
         //TODO: Add Map check
         UI.ZeroSpaceLabel("Physics tool snaping angle", 20);
         tempSnapAngleText = UI.Input(tempSnapAngleText);
-
+        UI.DefSpace();
+        tempCameraShake = cameraShakeToggle.SwitchUI(
+            UI.Button("Camera Shake: ", tempCameraShake)
+        );
         if (UI.NavigationButton("Apply"))
         {
+            // TODO: Debug feature (remove pls)
             UpdateOverridesFromTemp();
             Pages.SelectPage("main");
         }

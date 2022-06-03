@@ -27,6 +27,7 @@ public partial class ModMain : MonoBehaviour
 
     private bool disableKeys = false;
 
+    // TODO: Use toggle.state instead of extra variable.
     private Toggle crazyClonerToggle = new Toggle();
     private Toggle newtonifierToggle = new Toggle();
     private bool crazyClonerActive = false;
@@ -75,6 +76,7 @@ public partial class ModMain : MonoBehaviour
     private CultureInfo globalCulture;
 
     private float physicsToolSnapAngle = 45f;
+    private bool cameraShakeEnabled = true;
 
     //TODO: Disable all the UI that requires ama to be loaded.
 
@@ -233,19 +235,20 @@ public partial class ModMain : MonoBehaviour
         StartCoroutine(VersionLabelCoroutine());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
-        UpdateSnapAngle();
+        UpdateOverrides();
         ResetDisableKeys();
         TryFreezeTime();
     }
     #endregion
 
-    #region SnapAngle
+    #region Overrides
 
-    private void UpdateSnapAngle()
+    private void UpdateOverrides()
     {
         if (MapManager.PlayableMapLoaded)
         {
             ToolManager.ChangeSnapAngle(physicsToolSnapAngle, SelectedTool.Torch);
+
         }
     }
 

@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Features\CameraShake.cs" />
     <Compile Include="Helpers\TimeManager.cs" />
     <Compile Include="Features\Stuff.cs" />
     <Compile Include="Features\Cloner.cs" />

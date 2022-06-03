@@ -48,5 +48,7 @@ namespace Main
             toggle = state;
             RaiseStateChangedEvent();
         }
+
+        public bool State { get => toggle; }
     }
 }

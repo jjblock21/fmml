@@ -109,7 +109,6 @@ public partial class ModMain : MonoBehaviour
     public void TimePage()
     {
         UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
-
         if (weatherSelector.UICycle(UI.Button("Weather: " + weatherButtonLabel)))
         {
             if (timeManager.IsEnabled)
@@ -119,7 +118,6 @@ public partial class ModMain : MonoBehaviour
                 weatherButtonLabel = weatherSelector.GetSelectedName();
             }
         }
-
         if (timeSelector.UICycle(UI.Button("Time: " + timeButtonLabel)))
         {
             if (timeManager.IsEnabled)
@@ -129,11 +127,8 @@ public partial class ModMain : MonoBehaviour
                 timeButtonLabel = timeSelector.GetSelectedName();
             }
         }
-
         if (UI.NavigationButton("Back"))
-        {
             Pages.SelectPage("main");
-        }
     }
     #endregion
 
