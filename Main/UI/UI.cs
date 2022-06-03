@@ -44,7 +44,7 @@ namespace Main.UI
         public static void Space(int space) => nextControlY += space;
         public static void DefSpace() => nextControlY += 20;
 
-        public static string StringState(string text, bool state) => string.Format("{0} {1}", text, state ? "ON" : "OFF");
+        public static string StringState(string text, bool state) => string.Format("{0}: {1}", text, state ? "ON" : "OFF");
         public static string StringState(string onText, string offText, bool state) => state ? onText : offText;
 
         public static bool Button(string text, bool state) => Button(StringState(text, state));

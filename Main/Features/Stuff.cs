@@ -72,22 +72,5 @@ namespace Main
                 yield return new WaitForSeconds(0.001f);
             }
         }
-
-        public static void CameraShake(bool enableCameraShake)
-        {
-            ShakeableTransform[] shakeables = UnityEngine.Object.FindObjectsOfType<ShakeableTransform>();
-            foreach (ShakeableTransform shakeable in shakeables)
-            {
-                GameReflector gameReflector = new GameReflector(shakeable);
-                if (enableCameraShake)
-                {
-                    gameReflector.SetFieldValue("maximumTranslationShake", Vector3.one);
-                    gameReflector.SetFieldValue("maximumAngularShake", Vector3.one * 15);
-                    return;
-                }
-                gameReflector.SetFieldValue("maximumTranslationShake", Vector3.zero);
-                gameReflector.SetFieldValue("maximumAngularShake", Vector3.zero);
-            }
-        }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Helpers;
 using Main;
 using Main.EnvironmentObserver;
+using Main.Features;
 using Main.UI;
 
 
@@ -33,18 +34,18 @@ public partial class ModMain
                 ToolManager.ChangeSnapAngle(result, SelectedTool.Torch);
         }
         cameraShakeEnabled = cameraShakeToggle.State;
-        Stuff.CameraShake(cameraShakeToggle.State);
+        CameraShake.UpdateCameraShake(cameraShakeToggle.State);
     }
 
     private void OverridesPage()
     {
         UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         //TODO: Add Map check
-        UI.ZeroSpaceLabel("Physics tool snaping angle", 20);
+        UI.ZeroSpaceLabel("Physics Tool Snaping Angle", 20);
         tempSnapAngleText = UI.Input(tempSnapAngleText);
         UI.DefSpace();
         tempCameraShake = cameraShakeToggle.SwitchUI(
-            UI.Button("Camera Shake: ", tempCameraShake)
+            UI.Button("Camera Shake", tempCameraShake)
         );
         if (UI.NavigationButton("Apply"))
         {

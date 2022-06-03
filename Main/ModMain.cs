@@ -2,7 +2,6 @@
 using FireworksMania.UI;
 using Main;
 using Main.UI;
-using System;
 using System.Collections;
 using System.Reflection;
 using TMPro;
@@ -12,8 +11,8 @@ using UnityStandardAssets.Characters.FirstPerson;
 using Helpers;
 using Main.EnvironmentObserver;
 using Main.Miscellaneous;
-using FireworksMania.Core.Behaviors;
 using System.Globalization;
+using Main.Features;
 
 public partial class ModMain : MonoBehaviour
 {
@@ -79,6 +78,7 @@ public partial class ModMain : MonoBehaviour
     private bool cameraShakeEnabled = true;
 
     //TODO: Disable all the UI that requires ama to be loaded.
+    // Wtf is ama?
 
     #endregion
 
@@ -235,6 +235,7 @@ public partial class ModMain : MonoBehaviour
         StartCoroutine(VersionLabelCoroutine());
         UpdateSuperJump(superJumpActive);
         UpdateSuperSpeed(superSpeedActive);
+        CameraShake.SaveOriginalValues();
         UpdateOverrides();
         ResetDisableKeys();
         TryFreezeTime();
@@ -248,7 +249,7 @@ public partial class ModMain : MonoBehaviour
         if (MapManager.PlayableMapLoaded)
         {
             ToolManager.ChangeSnapAngle(physicsToolSnapAngle, SelectedTool.Torch);
-
+            CameraShake.UpdateCameraShake(cameraShakeEnabled);
         }
     }
 
