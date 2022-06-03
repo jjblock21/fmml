@@ -54,8 +54,8 @@ public partial class ModMain : MonoBehaviour
     private void ToolsPage()
     {
         UI.Begin(Utilities.AppName, 10, 20, 300, 600, 25, 35, 10, 50, 25);
-        flameThrowerActive = flameThrowerToggle.SwitchUI(UI.Button("Flamethrower", flameThrowerActive));
-        if (UI.Button("Cloning machine", clonerActive))
+        //flameThrowerActive = flameThrowerToggle.SwitchUI(UI.Button("Flamethrower", flameThrowerActive));
+        if (UI.Button("Clone Tool", clonerActive))
         {
             clonerActive = clonerToggle.SwitchUI(true);
             crazyClonerActive = false;

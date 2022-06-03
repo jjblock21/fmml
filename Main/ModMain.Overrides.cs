@@ -13,7 +13,7 @@ using Main.UI;
 public partial class ModMain
 {
     //private bool tempCameraShake = false;
-    private string tempSnapAngleText = "45";
+    private string tempSnapAngleText = "";
 
     private void OpenOverridesPage()
     {
