@@ -53,7 +53,7 @@ public partial class ModMain : MonoBehaviour
     #region Tools
     private void ToolsPage()
     {
-        UI.Begin(Utilities.AppName, 10, 20, 300, 600, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         //flameThrowerActive = flameThrowerToggle.SwitchUI(UI.Button("Flamethrower", flameThrowerActive));
         if (UI.Button("Clone Tool", clonerActive))
         {
@@ -108,7 +108,7 @@ public partial class ModMain : MonoBehaviour
     #region Time
     public void TimePage()
     {
-        UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         if (weatherSelector.UICycle(UI.Button("Weather: " + weatherButtonLabel)))
         {
             if (timeManager.IsEnabled)
@@ -135,7 +135,7 @@ public partial class ModMain : MonoBehaviour
     #region About
     private void AboutPage()
     {
-        UI.Begin($"{Utilities.AppName} - About", 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin($"{Utilities.AppName} - About", 10, 20, 300, 500, 25, 35, 10, 50, 25);
         UI.Label("Made by jjblock21\nInspired by FMenu.");
         UI.Label("Special thanks also go to Keltusar.");
         UI.Space(10);
@@ -201,7 +201,7 @@ public partial class ModMain : MonoBehaviour
     #region ExperimentalTools
     private void ExperimentalToolsPage()
     {
-        UI.Begin(Utilities.AppName, 10, 20, 300, 450, 25, 35, 10, 50, 25);
+        UI.Begin(Utilities.AppName, 10, 20, 300, 500, 25, 35, 10, 50, 25);
         UI.FancyLabel("Warning: These Tools are Experimental\nand can be buggy.", 30, Utilities.CreateColorGUIStyle(Color.yellow));
         newtonifierActive = newtonifierToggle.SwitchUI(UI.Button("Newtonifier", newtonifierActive));
         if (UI.Button("Crazy Cloner", crazyClonerActive))
