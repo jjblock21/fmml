@@ -205,7 +205,7 @@ namespace Fireworks_Mania_Modloader
             this.moddingGuideButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.moddingGuideButton.BorderThickness = 3;
             this.moddingGuideButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.moddingGuideButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.moddingGuideButton.ClickedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(172)))), ((int)(((byte)(234)))));
             this.moddingGuideButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.moddingGuideButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.moddingGuideButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -227,7 +227,7 @@ namespace Fireworks_Mania_Modloader
             this.copyButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.copyButton.BorderThickness = 3;
             this.copyButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.copyButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.copyButton.ClickedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(172)))), ((int)(((byte)(234)))));
             this.copyButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.copyButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.copyButton.ForeColor = System.Drawing.Color.WhiteSmoke;

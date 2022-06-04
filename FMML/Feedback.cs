@@ -25,10 +25,10 @@ namespace Fireworks_Mania_Modloader
         public int Returned { get => returned; }
         public string ErrorDescription { get => errorDescription; }
 
-        public static Feedback GenerateErrorFeedback(ushort errorId, string errorDescription, Exception exception = null)
+        public static Feedback Error(ushort errorId, string errorDescription, Exception exception = null)
             => new Feedback(errorId, exception, false, -1, errorDescription);
 
-        public static Feedback GenerateSuccessFeedback(int returned)
+        public static Feedback Success(int returned)
             => new Feedback(0, null, true, returned, null);
 
     }

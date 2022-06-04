@@ -7,7 +7,8 @@ namespace Fireworks_Mania_Modloader
 {
     public static class InjectionUtil
     {
-        public const string CLASS = "Main.Loader";
+        public const string CLASS = "Loader";
+        public const string NAMESPACE = "Main";
         public const string INJECT_METHOD = "Init";
         public const string EJECT_METHOD = "Disable";
 
@@ -19,22 +20,18 @@ namespace Fireworks_Mania_Modloader
                 if (CheckForFile(path))
                 {
                     Injector injector = new Injector(process.Id);
-                    value = injector.Inject(
-                        File.ReadAllBytes(path),
-                        GetNamespace(), GetClassName(),
-                        INJECT_METHOD
-                    );
+                    value = injector.Inject(File.ReadAllBytes(path), NAMESPACE, CLASS, INJECT_METHOD);
                 }
                 if (value != IntPtr.Zero || value != new IntPtr())
                 {
-                    return Feedback.GenerateSuccessFeedback(0);
+                    return Feedback.Success(0);
                 }
-                else return Feedback.GenerateErrorFeedback(1, "File " + path + " doesn't exist.");
+                return Feedback.Error(1, "File " + path + " doesn't exist.");
             }
             catch (Exception e)
             {
                 value = IntPtr.Zero;
-                return Feedback.GenerateErrorFeedback(2, e.Message, e);
+                return Feedback.Error(2, e.Message, e);
             }
         }
 
@@ -45,34 +42,20 @@ namespace Fireworks_Mania_Modloader
                 if (assembly != IntPtr.Zero)
                 {
                     Injector injector = new Injector(process.Id);
-                    injector.Eject(
-                        assembly,
-                        GetNamespace(), GetClassName(),
-                        EJECT_METHOD
-                    );
-                    return Feedback.GenerateSuccessFeedback(0);
+                    injector.Eject(assembly, NAMESPACE, CLASS, EJECT_METHOD);
+                    return Feedback.Success(0);
                 }
-                else return Feedback.GenerateErrorFeedback(1, "The assembly Handle was 0.");
+                return Feedback.Error(1, "The assembly Handle was 0.");
             }
             catch (Exception e)
             {
-                return Feedback.GenerateErrorFeedback(2, e.Message, e);
+                return Feedback.Error(2, e.Message, e);
             }
         }
 
         private static bool CheckForFile(string path)
         {
             return File.Exists(path);
-        }
-
-        private static string GetNamespace()
-        {
-            return CLASS.Split('.')[0];
-        }
-
-        private static string GetClassName()
-        {
-            return CLASS.Split('.')[1];
         }
     }
 }

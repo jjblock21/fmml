@@ -35,8 +35,8 @@ namespace Fireworks_Mania_Modloader
             FailHandler.HandleException(feedback);
             if (log == null) return;
             Clipboard.SetText(log);
-            MessageBox.Show("The Player log was successfully saved to your clipboard, insert it using Ctrl + V.",
-                "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("The Player log was successfully copied, paste it using Ctrl + V.",
+                "Player.log copied!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void backLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -90,9 +90,9 @@ namespace Fireworks_Mania_Modloader
                 contents = null;
                 if (File.Exists(path))
                     contents = File.ReadAllText(path);
-                else return Feedback.GenerateErrorFeedback(69,
-                    "The Playerlog file doesn't exist, please start the game once and try again.");
-                return Feedback.GenerateSuccessFeedback(0);
+                else return Feedback.Error(69,
+                    "The Player.log file doesn't exist, please start the game once and try again.");
+                return Feedback.Success(0);
             }
             catch (Exception e)
             {

@@ -104,6 +104,8 @@ namespace JJsGuiLibrary.UI
             stringFormat = new StringFormat();
             stringFormat.LineAlignment = StringAlignment.Center;
             stringFormat.Alignment = StringAlignment.Center;
+
+            DoubleBuffered = true;
         }
 
         #region PublicMethods

@@ -81,7 +81,7 @@ namespace Fireworks_Mania_Modloader
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(172, 13);
             this.statusLabel.TabIndex = 2;
-            this.statusLabel.Text = "Uh, something went wrong\r\n\r\n\r\n";
+            this.statusLabel.Text = "Looks like something went wrong";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.statusLabel.Visible = false;
             // 
@@ -143,7 +143,7 @@ namespace Fireworks_Mania_Modloader
             // picture
             // 
             this.picture.Dock = System.Windows.Forms.DockStyle.Top;
-            this.picture.Image = global::FMML.Properties.Resources.img1;
+            this.picture.Image = ((System.Drawing.Image)(resources.GetObject("picture.Image")));
             this.picture.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.picture.Location = new System.Drawing.Point(0, 0);
             this.picture.Name = "picture";
@@ -159,7 +159,7 @@ namespace Fireworks_Mania_Modloader
             this.ejectButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.ejectButton.BorderThickness = 3;
             this.ejectButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ejectButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.ejectButton.ClickedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(172)))), ((int)(((byte)(234)))));
             this.ejectButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.ejectButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.ejectButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -181,7 +181,7 @@ namespace Fireworks_Mania_Modloader
             this.injectButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.injectButton.BorderThickness = 3;
             this.injectButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.injectButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.injectButton.ClickedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(172)))), ((int)(((byte)(234)))));
             this.injectButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.injectButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.injectButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -203,7 +203,7 @@ namespace Fireworks_Mania_Modloader
             this.launchGameButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.launchGameButton.BorderThickness = 3;
             this.launchGameButton.ClickedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.launchGameButton.ClickedBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.launchGameButton.ClickedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(172)))), ((int)(((byte)(234)))));
             this.launchGameButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.launchGameButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.launchGameButton.ForeColor = System.Drawing.Color.WhiteSmoke;
