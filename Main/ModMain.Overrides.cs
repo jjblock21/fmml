@@ -17,6 +17,7 @@ public partial class ModMain
     private bool tempCameraShake = true;
 
     private string tempSnapAngleText = "";
+    private bool errorLastApply = false;
 
     private void OpenOverridesPage()
     {
@@ -33,6 +34,11 @@ public partial class ModMain
             if (MapManager.PlayableMapLoaded)
                 ToolManager.ChangeSnapAngle(result, SelectedTool.Torch);
         }
+        else
+        {
+            errorLastApply = true;
+            return;
+        }
         cameraShakeEnabled = cameraShakeToggle.State;
         CameraShake.UpdateCameraShake(cameraShakeToggle.State);
     }
@@ -47,10 +53,18 @@ public partial class ModMain
         tempCameraShake = cameraShakeToggle.SwitchUI(
             UI.Button("Camera Shake", tempCameraShake)
         );
+        if (errorLastApply)
+        {
+            UI.Space(10);
+            UI.FancyLabel("Failed to apply overrides!", 20,
+                Utilities.CreateColorGUIStyle(UnityEngine.Color.red));
+        }
         if (UI.NavigationButton("Apply"))
         {
+            errorLastApply = false;
             // TODO: Debug feature (remove pls)
             UpdateOverridesFromTemp();
+            if (errorLastApply) return;
             Pages.SelectPage("main");
         }
     }

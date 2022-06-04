@@ -42,9 +42,9 @@ namespace Main.UI
         {
             if (blockDialog) return;
             Rect controlRect = UI.GetGraphicsRect();
+            Vector2 pos = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y);
             if (!isSelectionState)
             {
-                Vector2 pos = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y + 15);
                 UI.Begin("Teleport", pos.x, pos.y, 300, 400, 25, 35, 10, 50, 20);
                 UI.Label("Input a location (X, Y, Z)");
 
@@ -63,8 +63,7 @@ namespace Main.UI
                     Pages.CloseCurrentDialog();
                 return;
             }
-            Vector2 pos1 = new Vector2(controlRect.x + controlRect.width + 10, controlRect.y);
-            UI.Begin("Teleport", pos1.x, pos1.y, 300, 450, 25, 35, 10, 50, 20);
+            UI.Begin("Teleport", pos.x, pos.y, 300, 450, 25, 35, 10, 50, 20);
             CreateButtons();
             if (UI.NavigationButton("Back")) isSelectionState = false;
         }
